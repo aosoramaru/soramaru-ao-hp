@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fan - 宙丸アオ / Soramaru Ao</title>
+    <link rel="icon" href="Touka_s.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .fan-hero{
+            position:relative;width:100%;height:50vh;min-height:350px;
+            display:flex;align-items:center;justify-content:center;overflow:hidden;
+        }
+        .fan-hero-bg{
+            position:absolute;top:0;left:0;width:100%;height:100%;
+            background:url('宇宙背景.png') center center/cover no-repeat;
+        }
+        .fan-hero-overlay{
+            position:absolute;top:0;left:0;width:100%;height:100%;
+            background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9));
+        }
+        .fan-hero-text{position:relative;z-index:1;text-align:center}
+        .fan-name-display{
+            font-size:clamp(36px,6vw,56px);font-weight:900;letter-spacing:8px;
+            margin-top:16px;
+        }
+        .fan-name-display .star-blue{
+            color:var(--accent-cyan);
+            text-shadow:0 0 20px rgba(0,212,255,.5),0 0 40px rgba(0,212,255,.25);
+        }
+
+        .fan-main{max-width:1000px;margin:0 auto;padding:60px 40px}
+
+        .fan-intro{text-align:center;margin-bottom:50px}
+        .fan-badge{
+            display:inline-block;font-family:'Orbitron',sans-serif;font-size:12px;
+            letter-spacing:3px;padding:8px 24px;border-radius:30px;
+            background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(74,158,255,.1));
+            border:1px solid rgba(0,212,255,.3);color:var(--accent-cyan);
+            margin-bottom:20px;
+        }
+        .fan-intro p{font-size:15px;color:rgba(240,240,245,.55);line-height:2}
+
+        .fans-grid{
+            display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+            gap:20px;margin-bottom:60px;
+        }
+        .fan-card{
+            display:flex;align-items:center;gap:16px;
+            padding:20px 24px;position:relative;overflow:hidden;
+        }
+        .fan-card::before{
+            content:'';position:absolute;top:0;left:0;
+            width:3px;height:100%;
+            background:linear-gradient(to bottom,var(--accent-cyan),transparent);
+            border-radius:3px;
+        }
+        .fan-level{
+            flex-shrink:0;width:54px;height:54px;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            border-radius:50%;
+            background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(74,158,255,.08));
+            border:1px solid rgba(0,212,255,.3);
+        }
+        .fan-level .lv-num{
+            font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;
+            color:var(--accent-cyan);line-height:1;
+        }
+        .fan-level .lv-label{
+            font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:1px;
+            color:rgba(0,212,255,.6);text-transform:uppercase;
+        }
+        .fan-details{flex:1;min-width:0}
+        .fan-username{
+            font-size:16px;font-weight:700;color:var(--white);margin-bottom:3px;
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+        }
+        .fan-tiktok-id{
+            font-size:12px;color:rgba(240,240,245,.4);margin-bottom:5px;
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+        }
+        .fan-achieved{
+            font-family:'Orbitron',sans-serif;font-size:10px;
+            letter-spacing:1px;color:var(--gold);
+        }
+
+        .fans-cta{
+            text-align:center;padding:50px 30px;
+            border:1px solid var(--glass-border);border-radius:20px;
+            background:var(--glass-bg);backdrop-filter:blur(20px);
+        }
+        .fans-cta p{font-size:15px;color:rgba(240,240,245,.5);margin-bottom:12px;line-height:1.8}
+        .fans-cta .cta-hl{
+            font-family:'Orbitron',sans-serif;font-size:clamp(18px,3vw,24px);
+            letter-spacing:4px;color:var(--accent-cyan);
+            text-shadow:0 0 20px rgba(0,212,255,.3);
+        }
+
+        @media(max-width:768px){
+            .fan-main{padding:40px 20px}
+            .fans-grid{grid-template-columns:1fr}
+            .fan-card{padding:16px 18px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="Touka_s.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="closeNav()">Home</a></li>
+        <li><a href="about.html" onclick="closeNav()">About</a></li>
+        <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
+        <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
+        <li><a href="fan.html" class="active" onclick="closeNav()">Fan</a></li>
+        <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <!-- Hero Banner -->
+    <div class="fan-hero">
+        <div class="fan-hero-bg"></div>
+        <div class="fan-hero-overlay"></div>
+        <div class="fan-hero-text">
+            <p class="section-label">Fan Community</p>
+            <div class="fan-name-display">流<span class="star-blue">星</span>群</div>
+        </div>
+    </div>
+
+    <div class="fan-main">
+        <!-- Intro -->
+        <div class="fan-intro reveal">
+            <div class="fan-badge">MEMBER LV.50 ACHIEVERS</div>
+            <p>宙丸アオを応援してくれる流星群の皆さん。<br>TikTokメンバーレベルMAXに到達した仲間たちを紹介します。</p>
+        </div>
+
+        <!-- Fan Cards -->
+        <div class="fans-grid">
+            <div class="glass-card fan-card reveal">
+                <div class="fan-level"><span class="lv-num">50</span><span class="lv-label">LV</span></div>
+                <div class="fan-details">
+                    <div class="fan-username">ユーザー名A</div>
+                    <div class="fan-tiktok-id">@tiktok_id_a</div>
+                    <div class="fan-achieved">ACHIEVED: 2025.XX.XX</div>
+                </div>
+            </div>
+            <div class="glass-card fan-card reveal">
+                <div class="fan-level"><span class="lv-num">50</span><span class="lv-label">LV</span></div>
+                <div class="fan-details">
+                    <div class="fan-username">ユーザー名B</div>
+                    <div class="fan-tiktok-id">@tiktok_id_b</div>
+                    <div class="fan-achieved">ACHIEVED: 2025.XX.XX</div>
+                </div>
+            </div>
+            <div class="glass-card fan-card reveal">
+                <div class="fan-level"><span class="lv-num">50</span><span class="lv-label">LV</span></div>
+                <div class="fan-details">
+                    <div class="fan-username">ユーザー名C</div>
+                    <div class="fan-tiktok-id">@tiktok_id_c</div>
+                    <div class="fan-achieved">ACHIEVED: 2025.XX.XX</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="fans-cta reveal">
+            <p>次にここに載るのはあなたかも？</p>
+            <span class="cta-hl">TARGET: LV.50</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<img src="SD3.png" alt="マスコット" class="sd-mascot" id="sdMascot">
+<script src="common.js"></script>
+</body>
+</html>

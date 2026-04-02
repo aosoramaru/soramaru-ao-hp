@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - 宙丸アオ / Soramaru Ao</title>
+    <link rel="icon" href="Touka_s.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-hero{position:relative;width:100%;height:50vh;min-height:350px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .contact-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .contact-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9))}
+        .contact-hero-text{position:relative;z-index:1;text-align:center}
+
+        .contact-main{max-width:800px;margin:0 auto;padding:60px 40px}
+
+        .contact-intro{text-align:center;margin-bottom:50px}
+        .contact-intro p{font-size:16px;color:rgba(240,240,245,.7);line-height:2.2}
+
+        .contact-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:50px}
+        .contact-card{text-align:center;padding:40px 25px}
+        .contact-card .cc-icon{margin-bottom:20px}
+        .contact-card h3{font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:2px;color:var(--gold-light);margin-bottom:8px}
+        .contact-card .cc-desc{font-size:13px;color:rgba(240,240,245,.5);margin-bottom:20px;line-height:1.8}
+        .contact-btn{
+            display:inline-flex;align-items:center;gap:8px;
+            padding:12px 30px;border:1px solid var(--gold);border-radius:50px;
+            color:var(--gold);text-decoration:none;font-size:13px;
+            letter-spacing:2px;transition:.3s;
+        }
+        .contact-btn:hover{background:var(--gold);color:var(--deep-blue);transform:translateY(-2px)}
+
+        .collab-section{text-align:center;padding:50px 30px;margin-bottom:30px}
+        .collab-section h3{font-family:'Orbitron',sans-serif;font-size:18px;color:var(--gold-light);letter-spacing:3px;margin-bottom:20px}
+        .collab-section p{font-size:14px;color:rgba(240,240,245,.6);line-height:2;margin-bottom:10px}
+        .collab-types{display:flex;justify-content:center;gap:16px;margin-top:25px;flex-wrap:wrap}
+        .collab-type{
+            padding:10px 24px;border:1px solid var(--glass-border);border-radius:50px;
+            font-size:13px;color:rgba(240,240,245,.6);letter-spacing:1px;
+            transition:.3s;
+        }
+        .collab-type:hover{border-color:var(--gold);color:var(--gold)}
+
+        @media(max-width:768px){
+            .contact-main{padding:40px 20px}
+            .contact-cards{grid-template-columns:1fr;gap:16px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="Touka_s.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="closeNav()">Home</a></li>
+        <li><a href="about.html" onclick="closeNav()">About</a></li>
+        <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
+        <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
+        <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
+        <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="contact.html" class="active" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="contact-hero">
+        <div class="contact-hero-bg"></div>
+        <div class="contact-hero-overlay"></div>
+        <div class="contact-hero-text">
+            <p class="section-label">Contact</p>
+            <h2 class="section-title">COLLABORATION</h2>
+        </div>
+    </div>
+
+    <div class="contact-main">
+        <div class="contact-intro reveal">
+            <p>コラボ配信・企業案件のご依頼は<br>下記SNSのDMよりお気軽にお問い合わせください。</p>
+        </div>
+
+        <div class="contact-cards">
+            <div class="glass-card contact-card reveal">
+                <div class="cc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="var(--gold)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+                <h3>X (Twitter)</h3>
+                <p class="cc-desc">DMでのお問い合わせを<br>受け付けています。</p>
+                <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener" class="contact-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    Send DM
+                </a>
+            </div>
+            <div class="glass-card contact-card reveal">
+                <div class="cc-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+                <h3>Instagram</h3>
+                <p class="cc-desc">DMでのお問い合わせを<br>受け付けています。</p>
+                <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener" class="contact-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    Send DM
+                </a>
+            </div>
+        </div>
+
+        <div class="glass-card collab-section reveal">
+            <h3>LOOKING FOR</h3>
+            <p>以下のようなお仕事・コラボをお待ちしています。<br>お気軽にご連絡ください！</p>
+            <div class="collab-types">
+                <span class="collab-type">コラボ配信</span>
+                <span class="collab-type">企業案件</span>
+                <span class="collab-type">イベント出演</span>
+                <span class="collab-type">楽曲制作</span>
+                <span class="collab-type">グッズコラボ</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<img src="SD3.png" alt="マスコット" class="sd-mascot" id="sdMascot">
+<script src="common.js"></script>
+</body>
+</html>

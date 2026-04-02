@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - 宙丸アオ / Soramaru Ao</title>
+    <link rel="icon" href="Touka_s.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-hero{position:relative;width:100%;height:50vh;min-height:350px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .gallery-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .gallery-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9))}
+        .gallery-hero-text{position:relative;z-index:1;text-align:center}
+
+        .gallery-main{max-width:1200px;margin:0 auto;padding:60px 40px}
+
+        .gallery-category{margin-bottom:60px}
+        .gallery-category h3{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--gold-light);letter-spacing:3px;margin-bottom:24px;padding-bottom:10px;border-bottom:1px solid var(--glass-border)}
+
+        .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+        .gallery-item{
+            position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
+            border:1px solid var(--glass-border);background:var(--glass-bg);
+            backdrop-filter:blur(10px);aspect-ratio:3/4;
+        }
+        .gallery-item img{width:100%;height:100%;object-fit:contain;padding:12px;transition:transform .5s}
+        .gallery-item:hover img{transform:scale(1.05)}
+        .gallery-label{
+            position:absolute;bottom:0;left:0;right:0;padding:16px;
+            background:linear-gradient(to top,rgba(10,14,39,.95),transparent);
+            font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;
+            transform:translateY(100%);transition:transform .4s;
+        }
+        .gallery-item:hover .gallery-label{transform:translateY(0)}
+
+        .gallery-item.expression-switch img.alt-img{position:absolute;top:0;left:0;opacity:0;transition:opacity .4s}
+        .gallery-item.expression-switch:hover img.alt-img{opacity:1}
+
+        .gallery-item.wide{grid-column:span 2;aspect-ratio:16/10}
+        .gallery-item.wide img{object-fit:cover;padding:0}
+
+        /* Lightbox */
+        #lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);z-index:9999;display:none;align-items:center;justify-content:center;cursor:pointer}
+        #lightbox.active{display:flex}
+        #lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 0 60px rgba(200,168,78,.2)}
+        .close-btn{position:absolute;top:30px;right:30px;font-family:'Orbitron',sans-serif;font-size:14px;color:var(--gold);letter-spacing:3px;cursor:pointer;border:1px solid var(--glass-border);padding:10px 20px;border-radius:30px;background:var(--glass-bg);transition:.3s}
+        .close-btn:hover{background:var(--gold);color:var(--deep-blue)}
+
+        @media(max-width:768px){
+            .gallery-main{padding:40px 15px}
+            .gallery-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+            .gallery-item.wide{grid-column:span 2}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="Touka_s.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="closeNav()">Home</a></li>
+        <li><a href="about.html" onclick="closeNav()">About</a></li>
+        <li><a href="gallery.html" class="active" onclick="closeNav()">Gallery</a></li>
+        <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
+        <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
+        <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="gallery-hero">
+        <div class="gallery-hero-bg"></div>
+        <div class="gallery-hero-overlay"></div>
+        <div class="gallery-hero-text">
+            <p class="section-label">Gallery</p>
+            <h2 class="section-title">COSTUMES & ART</h2>
+        </div>
+    </div>
+
+    <div class="gallery-main">
+        <!-- Standing Illustrations -->
+        <div class="gallery-category reveal">
+            <h3>STANDING ILLUSTRATIONS</h3>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('Stream_A3.png')">
+                    <img src="Stream_A3.png" alt="配信衣装">
+                    <div class="gallery-label">Stream Style</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('宙丸アオ_3.png')">
+                    <img src="宙丸アオ_3.png" alt="画家衣装">
+                    <div class="gallery-label">Artist Style</div>
+                </div>
+                <div class="gallery-item expression-switch" onclick="openLightbox('Smileアオ.png')">
+                    <img src="Seriousアオ.png" alt="軍服 Serious">
+                    <img src="Smileアオ.png" alt="軍服 Smile" class="alt-img">
+                    <div class="gallery-label">Military - Hover Me!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Battle Illustrations -->
+        <div class="gallery-category reveal">
+            <h3>BATTLE MODE</h3>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('戦闘前.png')">
+                    <img src="戦闘前.png" alt="戦闘前">
+                    <div class="gallery-label">Before Battle</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('戦闘後.png')">
+                    <img src="戦闘後.png" alt="戦闘後">
+                    <div class="gallery-label">After Battle</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Illustrations -->
+        <div class="gallery-category reveal">
+            <h3>SPECIAL ILLUSTRATIONS</h3>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('王冠Illustdata_touka.png')">
+                    <img src="王冠Illustdata_touka.png" alt="王座">
+                    <div class="gallery-label">Throne</div>
+                </div>
+                <div class="gallery-item wide" onclick="openLightbox('BDillust.png')">
+                    <img src="BDillust.png" alt="バースデー">
+                    <div class="gallery-label">Birthday Illustration</div>
+                </div>
+                <div class="gallery-item wide" onclick="openLightbox('1周年イラスト.png')">
+                    <img src="1周年イラスト.png" alt="1周年">
+                    <div class="gallery-label">1st Anniversary</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SD Characters -->
+        <div class="gallery-category reveal">
+            <h3>SD CHARACTERS</h3>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('Touka_s.png')">
+                    <img src="Touka_s.png" alt="SD アクション">
+                    <div class="gallery-label">Action</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('SD1.png')">
+                    <img src="SD1.png" alt="SD サマー">
+                    <div class="gallery-label">Summer</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('SD3.png')">
+                    <img src="SD3.png" alt="SD サーフ">
+                    <div class="gallery-label">Surf</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<div id="lightbox" onclick="closeLightbox()"><div class="close-btn">CLOSE</div><img id="lightboxImg" src="" alt="拡大表示"></div>
+<img src="SD3.png" alt="マスコット" class="sd-mascot" id="sdMascot">
+<script src="common.js"></script>
+<script>
+function openLightbox(src){document.getElementById('lightboxImg').src=src;document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden'}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox()});
+</script>
+</body>
+</html>
