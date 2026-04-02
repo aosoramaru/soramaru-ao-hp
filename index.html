@@ -9,14 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        body{overflow:hidden}
         .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('1周年イラスト.png') center center/cover no-repeat}
         .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.1) 0%,rgba(10,14,39,.02) 30%,rgba(10,14,39,.35) 65%,rgba(10,14,39,.85) 100%)}
-        .hero-wrap{position:relative;z-index:1;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-        .hero-center{position:relative;z-index:2;text-align:center;margin-bottom:40px}
-        .hero-center .sub{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:8px;color:var(--gold);text-transform:uppercase;opacity:0;animation:slideUp 1s ease .3s forwards}
-        .hero-center h1{font-family:'Orbitron',sans-serif;font-size:clamp(40px,7vw,80px);font-weight:900;letter-spacing:8px;margin:12px 0;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--accent-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:slideUp 1s ease .6s forwards}
-        .hero-center .tagline{font-size:15px;letter-spacing:5px;color:rgba(240,240,245,.6);opacity:0;animation:slideUp 1s ease .9s forwards}
+        .hero-wrap{position:relative;z-index:1;width:100%;height:100vh;display:flex;align-items:flex-start;justify-content:flex-start;overflow:hidden}
+        /* News Carousel */
+        .news-carousel{position:relative;z-index:2;margin-top:120px;margin-left:clamp(30px,5vw,80px);width:clamp(320px,40vw,480px);opacity:0;animation:slideUp 1s ease .5s forwards}
+        .news-carousel-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+        .news-carousel-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--deep-blue);background:var(--gold);padding:5px 16px;border-radius:3px;font-weight:700}
+        .news-carousel-dots{display:flex;gap:6px;margin-left:auto}
+        .news-dot{width:8px;height:8px;border-radius:50%;background:rgba(240,240,245,.25);cursor:pointer;transition:.3s}
+        .news-dot.active{background:var(--gold);box-shadow:0 0 8px rgba(200,168,78,.5)}
+        .news-carousel-viewport{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--glass-border);background:rgba(10,14,39,.6);backdrop-filter:blur(12px)}
+        .news-slide{display:none;animation:newsFadeIn .5s ease forwards;text-decoration:none;color:inherit;cursor:pointer}
+        .news-slide.active{display:block}
+        .news-slide:hover .news-slide-title{color:var(--gold)}
+        .news-slide-img{width:100%;height:200px;object-fit:cover;display:block}
+        .news-slide-body{padding:20px 24px}
+        .news-slide-date{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
+        .news-slide-title{font-size:15px;font-weight:700;color:var(--white);line-height:1.6;letter-spacing:1px}
+        .news-slide-desc{font-size:13px;color:rgba(240,240,245,.55);margin-top:6px;line-height:1.7}
+        @keyframes newsFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
         .hero-social{position:absolute;left:40px;bottom:40px;display:flex;flex-direction:column;gap:20px;z-index:3;opacity:0;animation:slideUp 1s ease 1.2s forwards}
         .hero-social a{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);border-radius:50%;color:var(--white);text-decoration:none;transition:.3s;background:var(--glass-bg);backdrop-filter:blur(10px)}
         .hero-social a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);box-shadow:0 5px 20px rgba(200,168,78,.3)}
@@ -27,21 +40,123 @@
         .hero-nav{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:18px;opacity:0;animation:slideUp 1s ease 1.1s forwards}
         .hero-nav a{display:flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--glass-border);border-radius:50px;text-decoration:none;color:var(--white);font-size:12px;letter-spacing:2px;text-transform:uppercase;transition:.3s;background:var(--glass-bg);backdrop-filter:blur(10px);font-family:'Orbitron',sans-serif}
         .hero-nav a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 25px rgba(200,168,78,.2)}
+
+        /* Schedule Section */
+        .home-schedule{position:relative;z-index:1;padding:100px 40px 60px;max-width:1100px;margin:0 auto}
+        .schedule-banner{
+            position:relative;overflow:hidden;border-radius:20px;
+            border:1px solid rgba(200,168,78,.35);
+            background:linear-gradient(135deg,rgba(10,14,39,.9),rgba(200,168,78,.08));
+            backdrop-filter:blur(20px);padding:60px 50px;
+        }
+        .schedule-banner::before{
+            content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+            background:radial-gradient(ellipse at 20% 50%,rgba(200,168,78,.1),transparent 60%),
+                        radial-gradient(ellipse at 80% 50%,rgba(0,212,255,.06),transparent 60%);
+            pointer-events:none;
+        }
+        .schedule-banner-header{display:flex;align-items:center;gap:14px;margin-bottom:40px}
+        .schedule-badge{
+            font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;
+            padding:6px 18px;border-radius:4px;font-weight:700;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--deep-blue);
+        }
+        .schedule-banner-header h3{
+            font-family:'Orbitron',sans-serif;font-size:clamp(18px,3vw,26px);
+            letter-spacing:4px;
+            background:linear-gradient(135deg,var(--white),var(--gold-light));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        }
+        .schedule-events{display:flex;flex-direction:column;gap:28px}
+        .schedule-event{
+            display:flex;align-items:flex-start;gap:30px;
+            padding:30px;border-radius:16px;
+            border:1px solid var(--glass-border);
+            background:rgba(10,14,39,.5);
+            transition:.4s;position:relative;overflow:hidden;
+        }
+        .schedule-event::before{
+            content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+            background:linear-gradient(to bottom,var(--gold),var(--accent-cyan));border-radius:4px;
+        }
+        .schedule-event:hover{
+            border-color:rgba(200,168,78,.5);
+            box-shadow:0 8px 30px rgba(200,168,78,.15);
+            transform:translateY(-3px);
+        }
+        .schedule-date-box{
+            flex-shrink:0;text-align:center;min-width:90px;
+            padding:16px 12px;border-radius:12px;
+            background:linear-gradient(135deg,rgba(200,168,78,.15),rgba(200,168,78,.05));
+            border:1px solid rgba(200,168,78,.25);
+        }
+        .schedule-date-box .s-month{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+        .schedule-date-box .s-day{font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:var(--white);line-height:1.1;margin:4px 0}
+        .schedule-date-box .s-year{font-family:'Orbitron',sans-serif;font-size:11px;color:rgba(240,240,245,.4);letter-spacing:1px}
+        .schedule-info h4{font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px;letter-spacing:1px}
+        .schedule-info .s-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+        .schedule-info .s-tag{
+            font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:1px;
+            padding:4px 12px;border-radius:20px;
+            border:1px solid rgba(0,212,255,.3);color:var(--accent-cyan);
+            background:rgba(0,212,255,.08);
+        }
+        .schedule-info .s-tag.gold{border-color:rgba(200,168,78,.3);color:var(--gold);background:rgba(200,168,78,.08)}
+        .schedule-info p{font-size:14px;color:rgba(240,240,245,.55);line-height:1.8}
+        .schedule-more{
+            display:inline-flex;align-items:center;gap:8px;margin-top:30px;
+            padding:14px 36px;border:1px solid var(--gold);border-radius:50px;
+            color:var(--gold);text-decoration:none;font-family:'Orbitron',sans-serif;
+            font-size:12px;letter-spacing:3px;transition:.3s;
+        }
+        .schedule-more:hover{background:var(--gold);color:var(--deep-blue);transform:translateY(-2px);box-shadow:0 8px 25px rgba(200,168,78,.3)}
+
+        /* About Section */
+        .home-about{position:relative;z-index:1;padding:100px 40px 80px;max-width:1100px;margin:0 auto}
+        .home-about-inner{display:flex;align-items:center;gap:60px}
+        .home-about-img{flex-shrink:0;width:300px;position:relative}
+        .home-about-img img{width:100%;border-radius:16px;filter:drop-shadow(0 0 30px rgba(200,168,78,.15))}
+        .home-about-img::before{content:'';position:absolute;top:-8px;left:-8px;right:-8px;bottom:-8px;border:1px solid var(--glass-border);border-radius:20px}
+        .home-about-text h3{font-family:'Orbitron',sans-serif;font-size:clamp(20px,3vw,28px);letter-spacing:3px;margin-bottom:8px;background:linear-gradient(135deg,var(--white),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .home-about-text .about-sub{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
+        .home-about-text p{font-size:15px;line-height:2.2;color:rgba(240,240,245,.65);margin-bottom:16px}
+        .home-about-text .about-tags{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+        .home-about-text .about-tag{padding:8px 20px;border:1px solid var(--glass-border);border-radius:50px;font-size:12px;color:rgba(240,240,245,.5);letter-spacing:1px;transition:.3s}
+        .home-about-text .about-tag:hover{border-color:var(--gold);color:var(--gold)}
+        .about-more{display:inline-flex;align-items:center;gap:8px;margin-top:30px;padding:14px 36px;border:1px solid var(--gold);border-radius:50px;color:var(--gold);text-decoration:none;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;transition:.3s}
+        .about-more:hover{background:var(--gold);color:var(--deep-blue);transform:translateY(-2px);box-shadow:0 8px 25px rgba(200,168,78,.3)}
+
+        /* Footer for home */
+        .home-footer{position:relative;z-index:1;text-align:center;padding:40px 20px;border-top:1px solid var(--glass-border);margin-top:40px}
+
         @media(max-width:768px){
+            .news-carousel{margin-top:80px;margin-left:15px;width:calc(100% - 30px)}
+            .news-slide-img{height:160px}
+            .news-slide-body{padding:14px 18px}
             .hero-social{left:15px;bottom:70px;flex-direction:row;gap:12px}
             .hero-nav{flex-wrap:wrap;justify-content:center;gap:10px;bottom:80px;width:90%}
             .hero-nav a{padding:8px 16px;font-size:10px}
+            .home-schedule{padding:60px 20px 40px}
+            .schedule-banner{padding:30px 20px}
+            .schedule-event{flex-direction:column;gap:16px;padding:20px}
+            .schedule-date-box{min-width:auto;width:100%}
+            .home-about{padding:60px 20px 50px}
+            .home-about-inner{flex-direction:column;text-align:center;gap:30px}
+            .home-about-img{width:220px}
+            .home-about-text .about-tags{justify-content:center}
         }
     </style>
 </head>
 <body>
-<div id="loading"><img src="Touka_s.png" alt="Loading..."><p>DELIVERING...</p></div>
+<div id="loading"><img src="Logo_blue.png" alt="Loading..."><p>DELIVERING...</p></div>
 <canvas id="stars-canvas"></canvas>
 <nav>
     <a href="index.html" class="nav-logo">SORAMARU AO</a>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active" onclick="closeNav()">Home</a></li>
-        <li><a href="about.html" onclick="closeNav()">About</a></li>
+        <li><a href="news.html" onclick="closeNav()">News</a></li>
+        <li><a href="schedule.html" onclick="closeNav()">Schedule</a></li>
+        <li><a href="about.html" onclick="closeNav()">Profile</a></li>
         <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
         <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
         <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
@@ -53,13 +168,55 @@
 <div class="hero-wrap">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
-    <div class="hero-center">
-        <p class="sub">Cosmic Delivery VTuber</p>
-        <h1>宙丸アオ</h1>
-        <p class="tagline">- 宇宙を駆ける配達員 -</p>
+    <div class="news-carousel" id="newsCarousel">
+        <div class="news-carousel-header">
+            <span class="news-carousel-label">NEWS</span>
+            <div class="news-carousel-dots" id="newsDots">
+                <span class="news-dot active" data-index="0"></span>
+                <span class="news-dot" data-index="1"></span>
+                <span class="news-dot" data-index="2"></span>
+                <span class="news-dot" data-index="3"></span>
+            </div>
+        </div>
+        <div class="news-carousel-viewport">
+            <a class="news-slide active" href="news.html#news-1">
+                <img class="news-slide-img" src="1周年イラスト.png" alt="News">
+                <div class="news-slide-body">
+                    <div class="news-slide-date">2026.04.01</div>
+                    <div class="news-slide-title">公式ホームページをリニューアルしました！</div>
+                    <div class="news-slide-desc">新デザインで生まれ変わった公式サイトをお楽しみください。</div>
+                </div>
+            </a>
+            <a class="news-slide" href="news.html#news-2">
+                <img class="news-slide-img" src="宙丸アオbooth.png" alt="News">
+                <div class="news-slide-body">
+                    <div class="news-slide-date">2026.03.15</div>
+                    <div class="news-slide-title">新グッズ販売開始 - BOOTHにて</div>
+                    <div class="news-slide-desc">オリジナルグッズが登場！ BOOTHショップをチェック。</div>
+                </div>
+            </a>
+            <a class="news-slide" href="news.html#news-3">
+                <img class="news-slide-img" src="BDillust.png" alt="News">
+                <div class="news-slide-body">
+                    <div class="news-slide-date">2026.03.01</div>
+                    <div class="news-slide-title">TikTokフォロワー感謝企画 開催中！</div>
+                    <div class="news-slide-desc">いつも応援ありがとう！ 特別企画をお届けします。</div>
+                </div>
+            </a>
+            <a class="news-slide" href="news.html#news-4">
+                <img class="news-slide-img" src="戦闘前.png" alt="News">
+                <div class="news-slide-body">
+                    <div class="news-slide-date">2026.02.20</div>
+                    <div class="news-slide-title">コラボ配信決定！</div>
+                    <div class="news-slide-desc">詳細は近日公開。お楽しみに！</div>
+                </div>
+            </a>
+        </div>
     </div>
     <div class="hero-nav">
-        <a href="about.html">About</a>
+        <a href="news.html">News</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="about.html">Profile</a>
         <a href="gallery.html">Gallery</a>
         <a href="contents.html">Contents</a>
         <a href="fan.html">Fan</a>
@@ -74,7 +231,116 @@
     </div>
     <div class="scroll-hint"><span>SCROLL</span><div class="scroll-line"></div></div>
 </div>
-<img src="SD3.png" alt="マスコット" class="sd-mascot" id="sdMascot">
+
+<!-- Schedule Section -->
+<section class="home-schedule">
+    <div class="schedule-banner reveal">
+        <div class="schedule-banner-header">
+            <span class="schedule-badge">UPCOMING</span>
+            <h3>SCHEDULE</h3>
+        </div>
+        <div class="schedule-events">
+            <div class="schedule-event">
+                <div class="schedule-date-box">
+                    <div class="s-month">JUL</div>
+                    <div class="s-day">3</div>
+                    <div class="s-year">2026</div>
+                </div>
+                <div class="schedule-info">
+                    <div class="s-tags">
+                        <span class="s-tag gold">BIRTHDAY</span>
+                        <span class="s-tag">LIVE2D</span>
+                    </div>
+                    <h4>生誕祭 + Live2D実装</h4>
+                    <p>宙丸アオの誕生日をお祝い！ そしてついにLive2Dが実装されます。お見逃しなく！</p>
+                </div>
+            </div>
+            <div class="schedule-event">
+                <div class="schedule-date-box">
+                    <div class="s-month">JUL</div>
+                    <div class="s-day">23-26</div>
+                    <div class="s-year">2026</div>
+                </div>
+                <div class="schedule-info">
+                    <div class="s-tags">
+                        <span class="s-tag gold">EVENT</span>
+                        <span class="s-tag">BCC</span>
+                    </div>
+                    <h4>BCCダイヤモンドリーグ</h4>
+                    <p>7月23日〜26日の4日間、BCCダイヤモンドリーグに参加！ 応援よろしくお願いします！</p>
+                </div>
+            </div>
+        </div>
+        <a href="schedule.html" class="schedule-more">VIEW ALL →</a>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="home-about">
+    <div class="section-header">
+        <p class="section-label">About</p>
+        <h2 class="section-title">WHO IS SORAMARU AO?</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="home-about-inner reveal">
+        <div class="home-about-img">
+            <img src="通常立ち絵.png" alt="宙丸アオ">
+        </div>
+        <div class="home-about-text">
+            <p class="about-sub">Cosmic Delivery VTuber</p>
+            <h3>宙丸アオ / Soramaru Ao</h3>
+            <p>宇宙を駆ける配達員VTuber。<br>広大な宇宙を旅しながら、届け物と笑顔を届けます。</p>
+            <p>TikTokを中心に活動中。歌・ゲーム・雑談など様々なコンテンツをお届けしています。<br>いつでも全力で、みんなに元気と楽しさを配達中！</p>
+            <div class="about-tags">
+                <span class="about-tag">🚀 宇宙配達員</span>
+                <span class="about-tag">🎤 歌 / ゲーム</span>
+                <span class="about-tag">📦 笑顔をお届け</span>
+                <span class="about-tag">🐺 相棒と冒険</span>
+            </div>
+            <a href="about.html" class="about-more">MORE DETAIL →</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-logo">SORAMARU AO</div>
+    <div class="footer-social">
+        <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+        <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+    </div>
+    <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+</footer>
+
 <script src="common.js"></script>
+<script>
+(function(){
+    var slides=document.querySelectorAll('.news-slide');
+    var dots=document.querySelectorAll('.news-dot');
+    if(slides.length<2)return;
+    var idx=0,timer;
+    function goTo(n){
+        slides[idx].classList.remove('active');
+        dots[idx].classList.remove('active');
+        idx=n%slides.length;
+        slides[idx].classList.remove('active');
+        void slides[idx].offsetWidth;
+        slides[idx].classList.add('active');
+        dots[idx].classList.add('active');
+    }
+    function next(){goTo(idx+1)}
+    function startAuto(){timer=setInterval(next,5000)}
+    dots.forEach(function(d){
+        d.addEventListener('click',function(){
+            clearInterval(timer);
+            goTo(parseInt(this.dataset.index));
+            startAuto();
+        });
+    });
+    startAuto();
+})();
+</script>
 </body>
 </html>

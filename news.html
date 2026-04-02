@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - 宙丸アオ / Soramaru Ao</title>
+    <link rel="icon" href="Touka_s.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .news-hero{position:relative;width:100%;height:50vh;min-height:350px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .news-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .news-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9))}
+        .news-hero-text{position:relative;z-index:1;text-align:center}
+
+        .news-main{max-width:900px;margin:0 auto;padding:60px 40px}
+
+        .news-list{display:flex;flex-direction:column;gap:30px}
+
+        .news-article{
+            display:flex;gap:24px;padding:24px;
+            border:1px solid var(--glass-border);border-radius:16px;
+            background:var(--glass-bg);backdrop-filter:blur(20px);
+            transition:.4s;cursor:pointer;text-decoration:none;color:inherit;
+        }
+        .news-article:hover{
+            border-color:rgba(200,168,78,.5);
+            box-shadow:0 10px 40px rgba(0,0,0,.3),0 0 30px rgba(200,168,78,.1);
+            transform:translateY(-3px);
+        }
+        .news-article-img{
+            flex-shrink:0;width:200px;height:140px;border-radius:10px;overflow:hidden;
+        }
+        .news-article-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+        .news-article:hover .news-article-img img{transform:scale(1.05)}
+        .news-article-body{flex:1;display:flex;flex-direction:column;justify-content:center}
+        .news-article-date{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--gold);letter-spacing:2px;margin-bottom:8px}
+        .news-article-title{font-size:18px;font-weight:700;color:var(--white);line-height:1.6;margin-bottom:8px}
+        .news-article-desc{font-size:14px;color:rgba(240,240,245,.55);line-height:1.8}
+        .news-article-arrow{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--gold);letter-spacing:2px;margin-top:auto;padding-top:10px}
+
+        /* Detail section (shown via hash) */
+        .news-detail{display:none;max-width:900px;margin:0 auto;padding:60px 40px}
+        .news-detail.active{display:block}
+        .news-detail-back{
+            display:inline-flex;align-items:center;gap:8px;
+            font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;
+            color:var(--gold);text-decoration:none;margin-bottom:30px;transition:.3s;
+        }
+        .news-detail-back:hover{opacity:.7}
+        .news-detail-img{width:100%;max-height:400px;object-fit:cover;border-radius:16px;margin-bottom:30px;border:1px solid var(--glass-border)}
+        .news-detail-date{font-family:'Orbitron',sans-serif;font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:10px}
+        .news-detail-title{font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--white);line-height:1.5;margin-bottom:20px}
+        .news-detail-content{font-size:15px;color:rgba(240,240,245,.7);line-height:2.2}
+        .news-detail-content p{margin-bottom:16px}
+
+        @media(max-width:768px){
+            .news-main{padding:40px 20px}
+            .news-article{flex-direction:column;gap:16px}
+            .news-article-img{width:100%;height:180px}
+            .news-detail{padding:40px 20px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="Logo_blue.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="closeNav()">Home</a></li>
+        <li><a href="news.html" class="active" onclick="closeNav()">News</a></li>
+        <li><a href="schedule.html" onclick="closeNav()">Schedule</a></li>
+        <li><a href="about.html" onclick="closeNav()">Profile</a></li>
+        <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
+        <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
+        <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
+        <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <!-- Hero Banner -->
+    <div class="news-hero">
+        <div class="news-hero-bg"></div>
+        <div class="news-hero-overlay"></div>
+        <div class="news-hero-text">
+            <p class="section-label">Information</p>
+            <h2 class="section-title">NEWS</h2>
+        </div>
+    </div>
+
+    <!-- News List -->
+    <div class="news-main" id="newsList">
+        <div class="news-list">
+            <a class="news-article reveal" href="news.html#news-1" onclick="showDetail('news-1');return false;">
+                <div class="news-article-img"><img src="1周年イラスト.png" alt=""></div>
+                <div class="news-article-body">
+                    <div class="news-article-date">2026.04.01</div>
+                    <div class="news-article-title">公式ホームページをリニューアルしました！</div>
+                    <div class="news-article-desc">新デザインで生まれ変わった公式サイトをお楽しみください。</div>
+                    <div class="news-article-arrow">READ MORE →</div>
+                </div>
+            </a>
+            <a class="news-article reveal" href="news.html#news-2" onclick="showDetail('news-2');return false;">
+                <div class="news-article-img"><img src="宙丸アオbooth.png" alt=""></div>
+                <div class="news-article-body">
+                    <div class="news-article-date">2026.03.15</div>
+                    <div class="news-article-title">新グッズ販売開始 - BOOTHにて</div>
+                    <div class="news-article-desc">オリジナルグッズが登場！ BOOTHショップをチェック。</div>
+                    <div class="news-article-arrow">READ MORE →</div>
+                </div>
+            </a>
+            <a class="news-article reveal" href="news.html#news-3" onclick="showDetail('news-3');return false;">
+                <div class="news-article-img"><img src="BDillust.png" alt=""></div>
+                <div class="news-article-body">
+                    <div class="news-article-date">2026.03.01</div>
+                    <div class="news-article-title">TikTokフォロワー感謝企画 開催中！</div>
+                    <div class="news-article-desc">いつも応援ありがとう！ 特別企画をお届けします。</div>
+                    <div class="news-article-arrow">READ MORE →</div>
+                </div>
+            </a>
+            <a class="news-article reveal" href="news.html#news-4" onclick="showDetail('news-4');return false;">
+                <div class="news-article-img"><img src="戦闘前.png" alt=""></div>
+                <div class="news-article-body">
+                    <div class="news-article-date">2026.02.20</div>
+                    <div class="news-article-title">コラボ配信決定！</div>
+                    <div class="news-article-desc">詳細は近日公開。お楽しみに！</div>
+                    <div class="news-article-arrow">READ MORE →</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- News Detail Pages -->
+    <div class="news-detail" id="news-1">
+        <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
+        <img class="news-detail-img" src="1周年イラスト.png" alt="">
+        <div class="news-detail-date">2026.04.01</div>
+        <div class="news-detail-title">公式ホームページをリニューアルしました！</div>
+        <div class="news-detail-content">
+            <p>宙丸アオの公式ホームページが新しいデザインで生まれ変わりました！</p>
+            <p>宇宙をテーマにした高級感のあるデザインで、プロフィール・ギャラリー・グッズ情報など、すべてのコンテンツをより見やすくお届けします。</p>
+            <p>今後もコンテンツを充実させていきますので、ぜひチェックしてください！</p>
+        </div>
+    </div>
+    <div class="news-detail" id="news-2">
+        <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
+        <img class="news-detail-img" src="宙丸アオbooth.png" alt="">
+        <div class="news-detail-date">2026.03.15</div>
+        <div class="news-detail-title">新グッズ販売開始 - BOOTHにて</div>
+        <div class="news-detail-content">
+            <p>お待たせしました！ 宙丸アオのオリジナルグッズがBOOTHにて販売開始です。</p>
+            <p>詳しくはGoodsページまたはBOOTHショップをご確認ください。</p>
+        </div>
+    </div>
+    <div class="news-detail" id="news-3">
+        <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
+        <img class="news-detail-img" src="BDillust.png" alt="">
+        <div class="news-detail-date">2026.03.01</div>
+        <div class="news-detail-title">TikTokフォロワー感謝企画 開催中！</div>
+        <div class="news-detail-content">
+            <p>いつも応援してくれる皆さんへの感謝を込めて、特別企画を開催中です！</p>
+            <p>TikTokアカウントをフォローして、最新情報をお見逃しなく。</p>
+        </div>
+    </div>
+    <div class="news-detail" id="news-4">
+        <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
+        <img class="news-detail-img" src="戦闘前.png" alt="">
+        <div class="news-detail-date">2026.02.20</div>
+        <div class="news-detail-title">コラボ配信決定！</div>
+        <div class="news-detail-content">
+            <p>コラボ配信が決定しました！ 詳細は近日公開予定です。</p>
+            <p>お楽しみに！</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script src="common.js"></script>
+<script>
+function showDetail(id){
+    document.getElementById('newsList').style.display='none';
+    document.querySelectorAll('.news-detail').forEach(function(d){d.classList.remove('active')});
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+    history.pushState(null,null,'#'+id);
+}
+function hideDetail(){
+    document.querySelectorAll('.news-detail').forEach(function(d){d.classList.remove('active')});
+    document.getElementById('newsList').style.display='block';
+    history.pushState(null,null,'news.html');
+}
+(function(){
+    var hash=window.location.hash.replace('#','');
+    if(hash&&document.getElementById(hash)){showDetail(hash)}
+})();
+window.addEventListener('popstate',function(){
+    var hash=window.location.hash.replace('#','');
+    if(hash&&document.getElementById(hash)){showDetail(hash)}else{hideDetail()}
+});
+</script>
+</body>
+</html>

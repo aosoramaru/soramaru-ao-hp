@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - 宙丸アオ / Soramaru Ao</title>
+    <link rel="icon" href="Touka_s.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .schedule-hero{position:relative;width:100%;height:50vh;min-height:350px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .schedule-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .schedule-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9))}
+        .schedule-hero-text{position:relative;z-index:1;text-align:center}
+
+        .schedule-main{max-width:900px;margin:0 auto;padding:60px 40px}
+
+        .schedule-timeline{position:relative;padding-left:40px}
+        .schedule-timeline::before{
+            content:'';position:absolute;top:0;left:14px;width:2px;height:100%;
+            background:linear-gradient(to bottom,var(--gold),rgba(200,168,78,.1));
+        }
+        .timeline-item{position:relative;margin-bottom:50px}
+        .timeline-item::before{
+            content:'';position:absolute;left:-33px;top:8px;
+            width:16px;height:16px;border-radius:50%;
+            background:var(--gold);
+            box-shadow:0 0 12px rgba(200,168,78,.5);
+        }
+        .timeline-item.past::before{background:rgba(240,240,245,.25);box-shadow:none}
+        .timeline-date{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--gold);letter-spacing:2px;margin-bottom:10px}
+        .timeline-card{
+            padding:30px;border-radius:16px;
+            border:1px solid var(--glass-border);
+            background:var(--glass-bg);backdrop-filter:blur(20px);
+            transition:.4s;
+        }
+        .timeline-card:hover{
+            border-color:rgba(200,168,78,.5);
+            box-shadow:0 10px 40px rgba(0,0,0,.3),0 0 30px rgba(200,168,78,.1);
+            transform:translateY(-3px);
+        }
+        .timeline-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+        .timeline-tag{
+            font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:1px;
+            padding:4px 14px;border-radius:20px;
+            border:1px solid rgba(0,212,255,.3);color:var(--accent-cyan);
+            background:rgba(0,212,255,.08);
+        }
+        .timeline-tag.gold{border-color:rgba(200,168,78,.3);color:var(--gold);background:rgba(200,168,78,.08)}
+        .timeline-card h3{font-size:20px;font-weight:900;color:var(--white);margin-bottom:10px;letter-spacing:1px}
+        .timeline-card p{font-size:14px;color:rgba(240,240,245,.6);line-height:2}
+
+        @media(max-width:768px){
+            .schedule-main{padding:40px 20px}
+            .timeline-card{padding:20px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="Logo_blue.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="closeNav()">Home</a></li>
+        <li><a href="news.html" onclick="closeNav()">News</a></li>
+        <li><a href="schedule.html" class="active" onclick="closeNav()">Schedule</a></li>
+        <li><a href="about.html" onclick="closeNav()">Profile</a></li>
+        <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
+        <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
+        <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
+        <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <!-- Hero Banner -->
+    <div class="schedule-hero">
+        <div class="schedule-hero-bg"></div>
+        <div class="schedule-hero-overlay"></div>
+        <div class="schedule-hero-text">
+            <p class="section-label">Upcoming Events</p>
+            <h2 class="section-title">SCHEDULE</h2>
+        </div>
+    </div>
+
+    <div class="schedule-main">
+        <div class="schedule-timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-date">2026.07.03 (FRI)</div>
+                <div class="timeline-card">
+                    <div class="timeline-tags">
+                        <span class="timeline-tag gold">BIRTHDAY</span>
+                        <span class="timeline-tag">LIVE2D</span>
+                    </div>
+                    <h3>生誕祭 + Live2D実装</h3>
+                    <p>宙丸アオの誕生日をお祝い！<br>そしてついにLive2Dモデルが実装されます。<br>特別な一日をみんなで一緒に過ごしましょう！</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-date">2026.07.23 - 07.26</div>
+                <div class="timeline-card">
+                    <div class="timeline-tags">
+                        <span class="timeline-tag gold">EVENT</span>
+                        <span class="timeline-tag">BCC</span>
+                    </div>
+                    <h3>BCCダイヤモンドリーグ</h3>
+                    <p>7月23日〜26日の4日間にわたるイベントに参加！<br>詳細は近日公開予定。応援よろしくお願いします！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script src="common.js"></script>
+</body>
+</html>
