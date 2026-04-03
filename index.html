@@ -28,6 +28,8 @@
         .news-slide-date{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
         .news-slide-title{font-size:15px;font-weight:700;color:var(--white);line-height:1.6;letter-spacing:1px}
         .news-slide-desc{font-size:13px;color:rgba(240,240,245,.55);margin-top:6px;line-height:1.7}
+        .news-slide.schedule-slide .news-slide-body{padding:30px 24px}
+        .news-carousel-label.sch{background:linear-gradient(135deg,var(--accent-cyan),#4a9eff);color:var(--deep-blue)}
         @keyframes newsFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
         .hero-social{position:absolute;left:40px;bottom:40px;display:flex;flex-direction:column;gap:20px;z-index:3;opacity:0;animation:slideUp 1s ease 1.2s forwards}
@@ -37,10 +39,6 @@
         .scroll-hint span{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:rgba(240,240,245,.4)}
         .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
         @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
-        .hero-nav{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:18px;opacity:0;animation:slideUp 1s ease 1.1s forwards}
-        .hero-nav a{display:flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--glass-border);border-radius:50px;text-decoration:none;color:var(--white);font-size:12px;letter-spacing:2px;text-transform:uppercase;transition:.3s;background:var(--glass-bg);backdrop-filter:blur(10px);font-family:'Orbitron',sans-serif}
-        .hero-nav a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 25px rgba(200,168,78,.2)}
-
         /* Schedule Section */
         .home-schedule{position:relative;z-index:1;padding:100px 40px 60px;max-width:1100px;margin:0 auto}
         .schedule-banner{
@@ -114,7 +112,7 @@
         /* About Section */
         .home-about{position:relative;z-index:1;padding:100px 40px 80px;max-width:1100px;margin:0 auto}
         .home-about-inner{display:flex;align-items:center;gap:60px}
-        .home-about-img{flex-shrink:0;width:300px;position:relative}
+        .home-about-img{flex-shrink:0;width:380px;position:relative}
         .home-about-img img{width:100%;border-radius:16px;filter:drop-shadow(0 0 30px rgba(200,168,78,.15))}
         .home-about-img::before{content:'';position:absolute;top:-8px;left:-8px;right:-8px;bottom:-8px;border:1px solid var(--glass-border);border-radius:20px}
         .home-about-text h3{font-family:'Orbitron',sans-serif;font-size:clamp(20px,3vw,28px);letter-spacing:3px;margin-bottom:8px;background:linear-gradient(135deg,var(--white),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -134,33 +132,31 @@
             .news-slide-img{height:160px}
             .news-slide-body{padding:14px 18px}
             .hero-social{left:15px;bottom:70px;flex-direction:row;gap:12px}
-            .hero-nav{flex-wrap:wrap;justify-content:center;gap:10px;bottom:80px;width:90%}
-            .hero-nav a{padding:8px 16px;font-size:10px}
             .home-schedule{padding:60px 20px 40px}
             .schedule-banner{padding:30px 20px}
             .schedule-event{flex-direction:column;gap:16px;padding:20px}
             .schedule-date-box{min-width:auto;width:100%}
             .home-about{padding:60px 20px 50px}
             .home-about-inner{flex-direction:column;text-align:center;gap:30px}
-            .home-about-img{width:220px}
+            .home-about-img{width:280px}
             .home-about-text .about-tags{justify-content:center}
         }
     </style>
 </head>
 <body>
-<div id="loading"><img src="Logo_blue.png" alt="Loading..."><p>DELIVERING...</p></div>
+<div id="loading"><img src="宇宙服ルド.png" alt="Loading..."><p>DELIVERING...</p></div>
 <canvas id="stars-canvas"></canvas>
 <nav>
     <a href="index.html" class="nav-logo">SORAMARU AO</a>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active" onclick="closeNav()">Home</a></li>
         <li><a href="news.html" onclick="closeNav()">News</a></li>
-        <li><a href="schedule.html" onclick="closeNav()">Schedule</a></li>
         <li><a href="about.html" onclick="closeNav()">Profile</a></li>
-        <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
         <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
         <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
         <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="guidelines.html" onclick="closeNav()">Guidelines</a></li>
+        <li><a href="faq.html" onclick="closeNav()">FAQ</a></li>
         <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
     </ul>
     <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
@@ -183,45 +179,33 @@
                 <img class="news-slide-img" src="1周年イラスト.png" alt="News">
                 <div class="news-slide-body">
                     <div class="news-slide-date">2026.04.01</div>
-                    <div class="news-slide-title">公式ホームページをリニューアルしました！</div>
-                    <div class="news-slide-desc">新デザインで生まれ変わった公式サイトをお楽しみください。</div>
+                    <div class="news-slide-title">公式ホームページが公開されました！</div>
+                    <div class="news-slide-desc">宙丸アオの公式サイトがオープン！ ぜひチェックしてください。</div>
                 </div>
             </a>
             <a class="news-slide" href="news.html#news-2">
                 <img class="news-slide-img" src="宙丸アオbooth.png" alt="News">
                 <div class="news-slide-body">
-                    <div class="news-slide-date">2026.03.15</div>
-                    <div class="news-slide-title">新グッズ販売開始 - BOOTHにて</div>
-                    <div class="news-slide-desc">オリジナルグッズが登場！ BOOTHショップをチェック。</div>
+                    <div class="news-slide-date">2026.02.28</div>
+                    <div class="news-slide-title">1周年記念グッズ販売開始</div>
+                    <div class="news-slide-desc">1周年を記念したグッズが登場！ BOOTHショップをチェック。</div>
                 </div>
             </a>
-            <a class="news-slide" href="news.html#news-3">
-                <img class="news-slide-img" src="BDillust.png" alt="News">
+            <a class="news-slide schedule-slide" href="news.html" data-type="schedule">
                 <div class="news-slide-body">
-                    <div class="news-slide-date">2026.03.01</div>
-                    <div class="news-slide-title">TikTokフォロワー感謝企画 開催中！</div>
-                    <div class="news-slide-desc">いつも応援ありがとう！ 特別企画をお届けします。</div>
+                    <div class="news-slide-date" style="color:var(--accent-cyan)">2026.07.03</div>
+                    <div class="news-slide-title">生誕祭 + Live2D実装</div>
+                    <div class="news-slide-desc">宙丸アオの誕生日をお祝い！ そしてついにLive2Dが実装されます。お見逃しなく！</div>
                 </div>
             </a>
-            <a class="news-slide" href="news.html#news-4">
-                <img class="news-slide-img" src="戦闘前.png" alt="News">
+            <a class="news-slide schedule-slide" href="news.html" data-type="schedule">
                 <div class="news-slide-body">
-                    <div class="news-slide-date">2026.02.20</div>
-                    <div class="news-slide-title">コラボ配信決定！</div>
-                    <div class="news-slide-desc">詳細は近日公開。お楽しみに！</div>
+                    <div class="news-slide-date" style="color:var(--accent-cyan)">2026.07.23 - 07.26</div>
+                    <div class="news-slide-title">BCCダイヤモンドリーグ</div>
+                    <div class="news-slide-desc">4日間のイベントに参加！ 応援よろしくお願いします！</div>
                 </div>
             </a>
         </div>
-    </div>
-    <div class="hero-nav">
-        <a href="news.html">News</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="about.html">Profile</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="contents.html">Contents</a>
-        <a href="fan.html">Fan</a>
-        <a href="goods.html">Goods</a>
-        <a href="contact.html">Contact</a>
     </div>
     <div class="hero-social">
         <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
@@ -231,6 +215,33 @@
     </div>
     <div class="scroll-hint"><span>SCROLL</span><div class="scroll-line"></div></div>
 </div>
+
+<!-- About Section -->
+<section class="home-about">
+    <div class="section-header">
+        <p class="section-label">Profile</p>
+        <h2 class="section-title">WHO IS SORAMARU AO?</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="home-about-inner reveal">
+        <div class="home-about-img">
+            <img src="宇宙初期一枚絵.png" alt="宙丸アオ">
+        </div>
+        <div class="home-about-text">
+            <p class="about-sub">Cosmic Delivery VTuber</p>
+            <h3>宙丸アオ / Soramaru Ao</h3>
+            <p>宇宙を駆ける配達員VTuber。<br>広大な宇宙を旅しながら、届け物と笑顔を届けます。</p>
+            <p>TikTokを中心に活動中。歌・ゲーム・雑談など様々なコンテンツをお届けしています。<br>いつでも全力で、みんなに元気と楽しさを配達中！</p>
+            <div class="about-tags">
+                <span class="about-tag">🚀 宇宙配達員</span>
+                <span class="about-tag">🎤 歌 / ゲーム</span>
+                <span class="about-tag">📦 笑顔をお届け</span>
+                <span class="about-tag">🐺 相棒と冒険</span>
+            </div>
+            <a href="about.html" class="about-more">MORE DETAIL →</a>
+        </div>
+    </div>
+</section>
 
 <!-- Schedule Section -->
 <section class="home-schedule">
@@ -271,34 +282,7 @@
                 </div>
             </div>
         </div>
-        <a href="schedule.html" class="schedule-more">VIEW ALL →</a>
-    </div>
-</section>
-
-<!-- About Section -->
-<section class="home-about">
-    <div class="section-header">
-        <p class="section-label">About</p>
-        <h2 class="section-title">WHO IS SORAMARU AO?</h2>
-        <div class="divider"></div>
-    </div>
-    <div class="home-about-inner reveal">
-        <div class="home-about-img">
-            <img src="通常立ち絵.png" alt="宙丸アオ">
-        </div>
-        <div class="home-about-text">
-            <p class="about-sub">Cosmic Delivery VTuber</p>
-            <h3>宙丸アオ / Soramaru Ao</h3>
-            <p>宇宙を駆ける配達員VTuber。<br>広大な宇宙を旅しながら、届け物と笑顔を届けます。</p>
-            <p>TikTokを中心に活動中。歌・ゲーム・雑談など様々なコンテンツをお届けしています。<br>いつでも全力で、みんなに元気と楽しさを配達中！</p>
-            <div class="about-tags">
-                <span class="about-tag">🚀 宇宙配達員</span>
-                <span class="about-tag">🎤 歌 / ゲーム</span>
-                <span class="about-tag">📦 笑顔をお届け</span>
-                <span class="about-tag">🐺 相棒と冒険</span>
-            </div>
-            <a href="about.html" class="about-more">MORE DETAIL →</a>
-        </div>
+        <a href="news.html" class="schedule-more">VIEW ALL →</a>
     </div>
 </section>
 
@@ -319,8 +303,19 @@
 (function(){
     var slides=document.querySelectorAll('.news-slide');
     var dots=document.querySelectorAll('.news-dot');
+    var label=document.querySelector('.news-carousel-label');
     if(slides.length<2)return;
     var idx=0,timer;
+    function updateLabel(){
+        var type=slides[idx].getAttribute('data-type');
+        if(type==='schedule'){
+            label.textContent='SCHEDULE';
+            label.classList.add('sch');
+        }else{
+            label.textContent='NEWS';
+            label.classList.remove('sch');
+        }
+    }
     function goTo(n){
         slides[idx].classList.remove('active');
         dots[idx].classList.remove('active');
@@ -329,6 +324,7 @@
         void slides[idx].offsetWidth;
         slides[idx].classList.add('active');
         dots[idx].classList.add('active');
+        updateLabel();
     }
     function next(){goTo(idx+1)}
     function startAuto(){timer=setInterval(next,5000)}

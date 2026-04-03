@@ -55,7 +55,37 @@
         .news-detail-content{font-size:15px;color:rgba(240,240,245,.7);line-height:2.2}
         .news-detail-content p{margin-bottom:16px}
 
+        /* Schedule Section */
+        .news-schedule{max-width:900px;margin:0 auto;padding:60px 40px 0}
+        .news-schedule-header{margin-bottom:30px}
+        .news-schedule-header h3{font-family:'Orbitron',sans-serif;font-size:clamp(18px,3vw,24px);letter-spacing:4px;background:linear-gradient(135deg,var(--white),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .news-schedule-header .sch-badge{display:inline-block;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;padding:5px 16px;border-radius:4px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--deep-blue);margin-bottom:12px}
+        .sch-timeline{display:flex;flex-direction:column;gap:20px}
+        .sch-item{
+            display:flex;align-items:flex-start;gap:24px;padding:24px;
+            border-radius:16px;border:1px solid var(--glass-border);
+            background:var(--glass-bg);backdrop-filter:blur(20px);
+            transition:.4s;position:relative;overflow:hidden;
+        }
+        .sch-item::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--gold),var(--accent-cyan));border-radius:4px}
+        .sch-item:hover{border-color:rgba(200,168,78,.5);box-shadow:0 8px 30px rgba(200,168,78,.15);transform:translateY(-3px)}
+        .sch-date{flex-shrink:0;text-align:center;min-width:80px;padding:14px 10px;border-radius:12px;background:linear-gradient(135deg,rgba(200,168,78,.15),rgba(200,168,78,.05));border:1px solid rgba(200,168,78,.25)}
+        .sch-date .sd-month{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+        .sch-date .sd-day{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:var(--white);line-height:1.1;margin:2px 0}
+        .sch-date .sd-year{font-family:'Orbitron',sans-serif;font-size:10px;color:rgba(240,240,245,.4)}
+        .sch-body h4{font-size:18px;font-weight:900;color:var(--white);margin-bottom:6px}
+        .sch-body p{font-size:13px;color:rgba(240,240,245,.55);line-height:1.8}
+        .sch-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+        .sch-tag{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:1px;padding:3px 10px;border-radius:20px;border:1px solid rgba(0,212,255,.3);color:var(--accent-cyan);background:rgba(0,212,255,.08)}
+        .sch-tag.gold{border-color:rgba(200,168,78,.3);color:var(--gold);background:rgba(200,168,78,.08)}
+        .news-section-label{max-width:900px;margin:0 auto;padding:50px 40px 0}
+        .news-section-label h3{font-family:'Orbitron',sans-serif;font-size:clamp(18px,3vw,24px);letter-spacing:4px;background:linear-gradient(135deg,var(--white),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
         @media(max-width:768px){
+            .news-schedule{padding:40px 20px 0}
+            .sch-item{flex-direction:column;gap:14px;padding:18px}
+            .sch-date{min-width:auto;width:100%}
+            .news-section-label{padding:40px 20px 0}
             .news-main{padding:40px 20px}
             .news-article{flex-direction:column;gap:16px}
             .news-article-img{width:100%;height:180px}
@@ -64,7 +94,7 @@
     </style>
 </head>
 <body>
-<div id="loading"><img src="Logo_blue.png" alt="Loading..."><p>DELIVERING...</p></div>
+<div id="loading"><img src="宇宙服ルド.png" alt="Loading..."><p>DELIVERING...</p></div>
 <canvas id="stars-canvas"></canvas>
 
 <nav>
@@ -72,12 +102,12 @@
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html" onclick="closeNav()">Home</a></li>
         <li><a href="news.html" class="active" onclick="closeNav()">News</a></li>
-        <li><a href="schedule.html" onclick="closeNav()">Schedule</a></li>
         <li><a href="about.html" onclick="closeNav()">Profile</a></li>
-        <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
         <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
         <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
         <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="guidelines.html" onclick="closeNav()">Guidelines</a></li>
+        <li><a href="faq.html" onclick="closeNav()">FAQ</a></li>
         <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
     </ul>
     <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
@@ -90,9 +120,52 @@
         <div class="news-hero-overlay"></div>
         <div class="news-hero-text">
             <p class="section-label">Information</p>
-            <h2 class="section-title">NEWS</h2>
+            <h2 class="section-title">NEWS & SCHEDULE</h2>
         </div>
     </div>
+
+    <!-- Schedule -->
+    <div class="news-schedule" id="scheduleSection">
+        <div class="news-schedule-header">
+            <span class="sch-badge">UPCOMING</span>
+            <h3>SCHEDULE</h3>
+        </div>
+        <div class="sch-timeline">
+            <div class="sch-item reveal">
+                <div class="sch-date">
+                    <div class="sd-month">JUL</div>
+                    <div class="sd-day">3</div>
+                    <div class="sd-year">2026</div>
+                </div>
+                <div class="sch-body">
+                    <div class="sch-tags">
+                        <span class="sch-tag gold">BIRTHDAY</span>
+                        <span class="sch-tag">LIVE2D</span>
+                    </div>
+                    <h4>生誕祭 + Live2D実装</h4>
+                    <p>宙丸アオの誕生日をお祝い！ そしてついにLive2Dモデルが実装されます。特別な一日をみんなで一緒に過ごしましょう！</p>
+                </div>
+            </div>
+            <div class="sch-item reveal">
+                <div class="sch-date">
+                    <div class="sd-month">JUL</div>
+                    <div class="sd-day">23-26</div>
+                    <div class="sd-year">2026</div>
+                </div>
+                <div class="sch-body">
+                    <div class="sch-tags">
+                        <span class="sch-tag gold">EVENT</span>
+                        <span class="sch-tag">BCC</span>
+                    </div>
+                    <h4>BCCダイヤモンドリーグ</h4>
+                    <p>7月23日〜26日の4日間にわたるイベントに参加！ 応援よろしくお願いします！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Section Label -->
+    <div class="news-section-label"><h3>NEWS</h3></div>
 
     <!-- News List -->
     <div class="news-main" id="newsList">
@@ -101,35 +174,17 @@
                 <div class="news-article-img"><img src="1周年イラスト.png" alt=""></div>
                 <div class="news-article-body">
                     <div class="news-article-date">2026.04.01</div>
-                    <div class="news-article-title">公式ホームページをリニューアルしました！</div>
-                    <div class="news-article-desc">新デザインで生まれ変わった公式サイトをお楽しみください。</div>
+                    <div class="news-article-title">公式ホームページが公開されました！</div>
+                    <div class="news-article-desc">宙丸アオの公式サイトがオープン！ ぜひチェックしてください。</div>
                     <div class="news-article-arrow">READ MORE →</div>
                 </div>
             </a>
             <a class="news-article reveal" href="news.html#news-2" onclick="showDetail('news-2');return false;">
                 <div class="news-article-img"><img src="宙丸アオbooth.png" alt=""></div>
                 <div class="news-article-body">
-                    <div class="news-article-date">2026.03.15</div>
-                    <div class="news-article-title">新グッズ販売開始 - BOOTHにて</div>
-                    <div class="news-article-desc">オリジナルグッズが登場！ BOOTHショップをチェック。</div>
-                    <div class="news-article-arrow">READ MORE →</div>
-                </div>
-            </a>
-            <a class="news-article reveal" href="news.html#news-3" onclick="showDetail('news-3');return false;">
-                <div class="news-article-img"><img src="BDillust.png" alt=""></div>
-                <div class="news-article-body">
-                    <div class="news-article-date">2026.03.01</div>
-                    <div class="news-article-title">TikTokフォロワー感謝企画 開催中！</div>
-                    <div class="news-article-desc">いつも応援ありがとう！ 特別企画をお届けします。</div>
-                    <div class="news-article-arrow">READ MORE →</div>
-                </div>
-            </a>
-            <a class="news-article reveal" href="news.html#news-4" onclick="showDetail('news-4');return false;">
-                <div class="news-article-img"><img src="戦闘前.png" alt=""></div>
-                <div class="news-article-body">
-                    <div class="news-article-date">2026.02.20</div>
-                    <div class="news-article-title">コラボ配信決定！</div>
-                    <div class="news-article-desc">詳細は近日公開。お楽しみに！</div>
+                    <div class="news-article-date">2026.02.28</div>
+                    <div class="news-article-title">1周年記念グッズ販売開始</div>
+                    <div class="news-article-desc">1周年を記念したグッズが登場！ BOOTHショップをチェック。</div>
                     <div class="news-article-arrow">READ MORE →</div>
                 </div>
             </a>
@@ -141,9 +196,9 @@
         <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
         <img class="news-detail-img" src="1周年イラスト.png" alt="">
         <div class="news-detail-date">2026.04.01</div>
-        <div class="news-detail-title">公式ホームページをリニューアルしました！</div>
+        <div class="news-detail-title">公式ホームページが公開されました！</div>
         <div class="news-detail-content">
-            <p>宙丸アオの公式ホームページが新しいデザインで生まれ変わりました！</p>
+            <p>宙丸アオの公式ホームページがついに公開されました！</p>
             <p>宇宙をテーマにした高級感のあるデザインで、プロフィール・ギャラリー・グッズ情報など、すべてのコンテンツをより見やすくお届けします。</p>
             <p>今後もコンテンツを充実させていきますので、ぜひチェックしてください！</p>
         </div>
@@ -151,31 +206,11 @@
     <div class="news-detail" id="news-2">
         <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
         <img class="news-detail-img" src="宙丸アオbooth.png" alt="">
-        <div class="news-detail-date">2026.03.15</div>
-        <div class="news-detail-title">新グッズ販売開始 - BOOTHにて</div>
+        <div class="news-detail-date">2026.02.28</div>
+        <div class="news-detail-title">1周年記念グッズ販売開始</div>
         <div class="news-detail-content">
             <p>お待たせしました！ 宙丸アオのオリジナルグッズがBOOTHにて販売開始です。</p>
             <p>詳しくはGoodsページまたはBOOTHショップをご確認ください。</p>
-        </div>
-    </div>
-    <div class="news-detail" id="news-3">
-        <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
-        <img class="news-detail-img" src="BDillust.png" alt="">
-        <div class="news-detail-date">2026.03.01</div>
-        <div class="news-detail-title">TikTokフォロワー感謝企画 開催中！</div>
-        <div class="news-detail-content">
-            <p>いつも応援してくれる皆さんへの感謝を込めて、特別企画を開催中です！</p>
-            <p>TikTokアカウントをフォローして、最新情報をお見逃しなく。</p>
-        </div>
-    </div>
-    <div class="news-detail" id="news-4">
-        <a class="news-detail-back" href="news.html" onclick="hideDetail();return false;">← BACK TO NEWS</a>
-        <img class="news-detail-img" src="戦闘前.png" alt="">
-        <div class="news-detail-date">2026.02.20</div>
-        <div class="news-detail-title">コラボ配信決定！</div>
-        <div class="news-detail-content">
-            <p>コラボ配信が決定しました！ 詳細は近日公開予定です。</p>
-            <p>お楽しみに！</p>
         </div>
     </div>
 

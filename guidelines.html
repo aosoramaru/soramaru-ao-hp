@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guidelines - 宙丸アオ / Soramaru Ao</title>
+    <link rel="icon" href="Touka_s.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gl-hero{position:relative;width:100%;height:50vh;min-height:350px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .gl-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .gl-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9))}
+        .gl-hero-text{position:relative;z-index:1;text-align:center}
+
+        .gl-main{max-width:900px;margin:0 auto;padding:60px 40px}
+
+        .gl-section{margin-bottom:40px;padding:32px;border-radius:16px}
+        .gl-section-title{
+            font-family:'Orbitron',sans-serif;font-size:clamp(16px,2.5vw,22px);
+            font-weight:700;letter-spacing:3px;color:var(--gold);
+            margin-bottom:20px;padding-bottom:12px;
+            border-bottom:1px solid rgba(200,168,78,.25);
+        }
+        .gl-section p{
+            font-size:15px;color:rgba(240,240,245,.7);line-height:2;
+        }
+        .gl-section ul{
+            list-style:none;padding:0;margin:0;
+        }
+        .gl-section ul li{
+            position:relative;padding:8px 0 8px 24px;
+            font-size:15px;color:rgba(240,240,245,.7);line-height:1.9;
+        }
+        .gl-section ul li::before{
+            content:'';position:absolute;left:0;top:17px;
+            width:8px;height:8px;border-radius:50%;
+            background:var(--gold);opacity:.6;
+        }
+
+        @media(max-width:768px){
+            .gl-main{padding:40px 20px}
+            .gl-section{padding:24px 20px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="宇宙服ルド.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="closeNav()">Home</a></li>
+        <li><a href="news.html" onclick="closeNav()">News</a></li>
+        <li><a href="about.html" onclick="closeNav()">Profile</a></li>
+        <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
+        <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
+        <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="guidelines.html" class="active" onclick="closeNav()">Guidelines</a></li>
+        <li><a href="faq.html" onclick="closeNav()">FAQ</a></li>
+        <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <!-- Hero Banner -->
+    <div class="gl-hero">
+        <div class="gl-hero-bg"></div>
+        <div class="gl-hero-overlay"></div>
+        <div class="gl-hero-text">
+            <p class="section-label">Fan Guidelines</p>
+            <h1 class="section-title">GUIDELINES</h1>
+        </div>
+    </div>
+
+    <div class="gl-main">
+
+        <!-- はじめに -->
+        <div class="glass-card gl-section reveal">
+            <div class="gl-section-title">はじめに</div>
+            <p>いつも宙丸アオを応援いただき、ありがとうございます。皆様が安心して楽しく応援・創作活動ができるよう、以下のガイドラインを設けております。ご一読のうえ、ご協力をお願いいたします。</p>
+        </div>
+
+        <!-- 二次創作について -->
+        <div class="glass-card gl-section reveal">
+            <div class="gl-section-title">二次創作について</div>
+            <ul>
+                <li>ファンアート・動画・音声作品などの二次創作は大歓迎です</li>
+                <li>SNS等への投稿時は「#アオ宛」のハッシュタグをつけてください</li>
+                <li>公式と誤認されるような表現はお控えください</li>
+                <li>R-18作品は年齢制限の表記をお願いします</li>
+                <li>他者の権利を侵害する内容はお控えください</li>
+            </ul>
+        </div>
+
+        <!-- 配信・動画の切り抜きについて -->
+        <div class="glass-card gl-section reveal">
+            <div class="gl-section-title">配信・動画の切り抜きについて</div>
+            <ul>
+                <li>切り抜き動画の作成・投稿は許可しています</li>
+                <li>宙丸アオの配信であることがわかるようにクレジット表記をお願いします</li>
+                <li>悪意のある編集・印象操作を目的とした切り抜きは禁止です</li>
+                <li>収益化については現時点では許可していますが、今後変更の可能性があります</li>
+            </ul>
+        </div>
+
+        <!-- 禁止事項 -->
+        <div class="glass-card gl-section reveal">
+            <div class="gl-section-title">禁止事項</div>
+            <ul>
+                <li>公式を名乗る行為・公式と誤認させる行為</li>
+                <li>誹謗中傷・他のクリエイターやファンへの攻撃的な行為</li>
+                <li>個人情報の詮索・拡散</li>
+                <li>宙丸アオのイメージを著しく損なう行為</li>
+                <li>ガイドラインの内容を無視した商用利用</li>
+            </ul>
+        </div>
+
+        <!-- 商用利用について -->
+        <div class="glass-card gl-section reveal">
+            <div class="gl-section-title">商用利用について</div>
+            <ul>
+                <li>個人での同人活動（即売会・BOOTH等）は許可しています</li>
+                <li>法人・企業による商用利用は事前にお問い合わせください</li>
+                <li>公式グッズと誤認される商品の販売は禁止です</li>
+            </ul>
+        </div>
+
+        <!-- お願い -->
+        <div class="glass-card gl-section reveal">
+            <div class="gl-section-title">お願い</div>
+            <ul>
+                <li>本ガイドラインは予告なく変更される場合があります</li>
+                <li>不明な点がございましたらContactページよりお問い合わせください</li>
+                <li>みんなで楽しく応援できる環境づくりにご協力をお願いします</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script src="common.js"></script>
+</body>
+</html>
