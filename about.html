@@ -9,47 +9,90 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        .about-hero{
-            position:relative;width:100%;height:50vh;min-height:350px;
-            display:flex;align-items:center;justify-content:center;overflow:hidden;
-        }
-        .about-hero-bg{
-            position:absolute;top:0;left:0;width:100%;height:100%;
-            background:url('宇宙背景.png') center center/cover no-repeat;
-        }
-        .about-hero-overlay{
-            position:absolute;top:0;left:0;width:100%;height:100%;
-            background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9));
-        }
+        .about-hero{position:relative;width:100%;height:50vh;min-height:350px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .about-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .about-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9))}
         .about-hero-text{position:relative;z-index:1;text-align:center}
 
         .about-main{max-width:1100px;margin:0 auto;padding:60px 40px}
 
-        .profile-section{display:flex;align-items:flex-start;gap:60px;margin-bottom:80px}
-        .profile-image{flex-shrink:0;width:420px;position:relative}
-        .profile-image img{width:100%;border-radius:16px;filter:drop-shadow(0 0 30px rgba(74,158,255,.2))}
-        .profile-image::before{content:'';position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;border:1px solid var(--glass-border);border-radius:20px}
-        .profile-text h3{font-size:24px;color:var(--gold-light);margin-bottom:20px;font-weight:700}
-        .profile-text p{font-size:15px;line-height:2.2;color:rgba(240,240,245,.7);margin-bottom:16px}
+        /* Profile Top: Left image + Right text */
+        .profile-top{display:flex;align-items:flex-start;gap:50px;margin-bottom:70px}
+        .profile-img-area{display:flex;align-items:flex-start;gap:12px;flex-shrink:0}
+        .profile-left{width:380px;position:relative}
+        .profile-left{overflow:hidden}
+        .profile-left img#costumeImg{width:140%;max-width:none;margin-left:-5%;border-radius:16px;transition:opacity .4s}
+        .profile-left::before{content:'';position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;border:1px solid var(--glass-border);border-radius:20px;pointer-events:none}
+        /* Costume Switcher (beside image) */
+        .costume-switcher{display:flex;flex-direction:column;gap:10px;padding-top:10px}
+        .costume-btn{
+            width:56px;height:56px;border-radius:12px;overflow:hidden;cursor:pointer;
+            border:2px solid var(--glass-border);transition:.3s;opacity:.5;
+        }
+        .costume-btn.active{border-color:var(--gold);opacity:1;box-shadow:0 0 15px rgba(200,168,78,.3)}
+        .costume-btn:hover{opacity:.8;border-color:rgba(200,168,78,.5)}
+        .costume-btn img{width:350%;height:350%;object-fit:cover;object-position:top left;margin-left:-50%;margin-top:-15%}
+        .profile-right{flex:1}
+        .profile-name-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+        .profile-right h3{font-size:clamp(30px,4vw,40px);color:var(--gold-light);margin-bottom:0;font-weight:900}
+        .voice-btn{
+            width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--deep-blue);
+            font-size:12px;cursor:pointer;transition:.3s;border:none;flex-shrink:0;
+        }
+        .voice-btn:hover{box-shadow:0 0 15px rgba(200,168,78,.5);transform:scale(1.1)}
+        .profile-right .profile-name-en{font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:5px;color:var(--gold);margin-bottom:8px;margin-top:6px}
+        .profile-right .profile-catch{font-size:15px;color:var(--accent-cyan);letter-spacing:2px;margin-bottom:28px;font-style:italic}
+        .profile-right .profile-message{font-size:15px;line-height:2.4;color:rgba(240,240,245,.7);margin-bottom:16px}
+        .profile-right .profile-motto{
+            margin-top:24px;padding:20px 28px;border-radius:12px;
+            border-left:3px solid var(--gold);
+            background:rgba(200,168,78,.05);
+            font-size:16px;font-weight:700;color:var(--gold-light);letter-spacing:2px;
+        }
 
-        .stats-row{display:flex;gap:20px;margin-top:30px;flex-wrap:wrap}
-        .stat-card{text-align:center;padding:20px 30px;border:1px solid var(--glass-border);border-radius:16px;background:rgba(200,168,78,.05);flex:1;min-width:120px}
-        .stat-card .icon{font-size:28px;margin-bottom:8px}
-        .stat-card .label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+        /* Section Title (shared) */
+        .p-section{margin-bottom:60px}
+        .p-section h4{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--gold-light);letter-spacing:3px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--glass-border)}
 
-        .concept-section{margin-top:80px}
-        .concept-section h3{font-family:'Orbitron',sans-serif;font-size:20px;color:var(--gold-light);letter-spacing:3px;margin-bottom:30px;text-align:center}
-        .concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-        .concept-card{text-align:center;padding:35px 25px}
-        .concept-card .concept-icon{font-size:36px;margin-bottom:15px}
-        .concept-card h4{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--gold-light);letter-spacing:2px;margin-bottom:10px}
-        .concept-card p{font-size:13px;color:rgba(240,240,245,.6);line-height:1.8}
+        /* Info Table */
+        .info-table{width:100%}
+        .info-table tr{border-bottom:1px solid rgba(200,168,78,.1)}
+        .info-table td{padding:18px 0;font-size:16px;vertical-align:top}
+        .info-table td:first-child{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--gold);width:160px;text-transform:uppercase;padding-right:20px}
+        .info-table td:last-child{color:rgba(240,240,245,.75);line-height:1.8}
+
+        /* Hashtag */
+        .hashtag-card{padding:24px 30px;border-radius:16px;border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(20px);text-align:center}
+        .hashtag-main{display:flex;align-items:center;gap:16px;margin-bottom:16px;justify-content:center}
+        .hashtag-main .ht-tag{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--accent-cyan);letter-spacing:2px}
+        .hashtag-main .ht-label{font-size:13px;color:rgba(240,240,245,.5)}
+        .hashtag-desc{font-size:14px;color:rgba(240,240,245,.55);line-height:1.8}
+
+        /* Credit */
+        .credit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+        .credit-card{padding:24px;border-radius:16px;border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(20px);transition:.3s}
+        .credit-card:hover{border-color:rgba(200,168,78,.4)}
+        .credit-role{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+        .credit-name{font-size:16px;font-weight:700;color:var(--white)}
+        .credit-name a{color:var(--white);text-decoration:none;transition:.3s}
+        .credit-name a:hover{color:var(--gold-light)}
+        .credit-sub{font-size:12px;color:rgba(240,240,245,.4);margin-top:4px}
+
+
+        /* 三面図 */
+        .ref-image{width:100%;border-radius:16px;border:1px solid var(--glass-border);cursor:pointer;transition:.3s}
+        .ref-image:hover{border-color:var(--gold);box-shadow:0 0 30px rgba(200,168,78,.15)}
 
         @media(max-width:768px){
-            .profile-section{flex-direction:column;align-items:center;text-align:center;gap:30px}
-            .profile-image{width:300px}
-            .stats-row{justify-content:center}
-            .concept-grid{grid-template-columns:1fr;gap:16px}
+            .profile-top{flex-direction:column;align-items:center;text-align:center;gap:30px}
+            .profile-img-area{justify-content:center}
+            .costume-switcher{flex-direction:row}
+            .profile-left{width:280px}
+            .profile-right .profile-motto{text-align:center}
+            .info-table td:first-child{width:110px;font-size:10px}
+            .credit-grid{grid-template-columns:1fr}
+            .voice-grid{grid-template-columns:1fr}
             .about-main{padding:40px 20px}
         }
     </style>
@@ -86,44 +129,82 @@
     </div>
 
     <div class="about-main">
-        <!-- Profile Section -->
-        <div class="profile-section reveal">
-            <div class="profile-image">
-                <img src="宇宙初期一枚絵.png" alt="宙丸アオ">
+        <!-- Profile Top: Left image + Right text -->
+        <div class="profile-top reveal">
+            <div class="profile-img-area">
+                <div class="profile-left">
+                    <img id="costumeImg" src="Smileアオ.png" alt="宙丸アオ">
+                </div>
+                <div class="costume-switcher">
+                    <div class="costume-btn active" onclick="switchCostume(this,'Smileアオ.png')"><img src="Smileアオ.png" alt="スマイル"></div>
+                </div>
             </div>
-            <div class="profile-text">
-                <h3>宙丸アオ / Soramaru Ao</h3>
-                <p>宇宙を駆ける配達員VTuber。<br>広大な宇宙を旅しながら、届け物と笑顔を届けます。</p>
-                <p>TikTokを中心に活動中。歌・ゲーム・雑談など様々なコンテンツをお届けしています。いつでも全力で、みんなに元気と楽しさを配達中！</p>
-                <p>相棒のマスコットと一緒に、宇宙のどこへでもお届けに参ります。</p>
-                <div class="stats-row">
-                    <div class="stat-card"><div class="icon">🌟</div><div class="label">Star</div></div>
-                    <div class="stat-card"><div class="icon">📮</div><div class="label">Post</div></div>
-                    <div class="stat-card"><div class="icon">🐾</div><div class="label">Paw</div></div>
+            <div class="profile-right">
+                <div class="profile-name-row">
+                    <h3>宙丸アオ</h3>
+                    <button class="voice-btn" title="Voice 1">▶</button>
+                    <button class="voice-btn" title="Voice 2">▶</button>
+                </div>
+                <p class="profile-name-en">SORAMARU AO</p>
+                <p class="profile-catch">— 君のとなりのアオくん —</p>
+                <p class="profile-message">なりたい自分の姿で、オンラインでこんなにも人を笑顔にできるのか ——<br>そう気づいた瞬間が、宙丸アオの始まりでした。</p>
+                <p class="profile-message">届けるのは荷物じゃなくて、笑顔。<br>宙丸アオを見てくれた人が少しでも笑ってくれたり、<br>ワクワクしてくれたら —— その笑顔を宇宙の果てまで届けていきたい。</p>
+                <p class="profile-message">いつか、画面の向こうの君に会いに行きたい。<br>リアルイベントのステージに立って、ZEPPを流青群の光で埋め尽くす。<br>それが今、宙丸アオが目指している場所です。</p>
+                <div class="profile-motto">「常に童心を忘れない」</div>
+            </div>
+        </div>
+
+        <!-- Basic Info -->
+        <div class="p-section reveal">
+            <h4>BASIC INFO</h4>
+            <table class="info-table">
+                <tr><td>Birthday</td><td>7月3日</td></tr>
+                <tr><td>Debut</td><td>2025年2月27日</td></tr>
+                <tr><td>Height</td><td>160cm</td></tr>
+                <tr><td>Age</td><td>ちょうどいい20代</td></tr>
+                <tr><td>Likes</td><td>配信 / ほしいも / ジャーキー</td></tr>
+                <tr><td>Dislikes</td><td>ホラーゲーム / お化け屋敷</td></tr>
+                <tr><td>Games</td><td>APEX / マイクラ / アクションゲーム</td></tr>
+                <tr><td>Fan Name</td><td>流青群（りゅうせいぐん）</td></tr>
+                <tr><td>Fan Mark</td><td>🌟📮🐾</td></tr>
+                <tr><td>Activity</td><td>TikTok配信（歌・ゲーム・雑談）</td></tr>
+            </table>
+        </div>
+
+        <!-- Hashtag -->
+        <div class="p-section reveal">
+            <h4>HASHTAG</h4>
+            <div class="hashtag-card">
+                <div class="hashtag-main">
+                    <span class="ht-tag">#アオ宛</span>
+                    <span class="ht-label">総合タグ</span>
+                </div>
+                <p class="hashtag-desc">ファンアート・配信感想・応援メッセージなど、宙丸アオに関する投稿はすべてこのタグをご使用ください。</p>
+            </div>
+        </div>
+
+        <!-- Credit -->
+        <div class="p-section reveal">
+            <h4>CREDIT</h4>
+            <div class="credit-grid">
+                <div class="credit-card">
+                    <div class="credit-role">Character Design / Creator</div>
+                    <div class="credit-name"><a href="https://x.com/MottariQuestion" target="_blank" rel="noopener">もったり先生</a></div>
+                    <div class="credit-sub">創造主</div>
+                </div>
+                <div class="credit-card">
+                    <div class="credit-role">Live2D Modeling</div>
+                    <div class="credit-name">？</div>
+                    <div class="credit-sub">近日公開予定</div>
                 </div>
             </div>
         </div>
 
-        <!-- Concept Section -->
-        <div class="concept-section reveal">
-            <h3>CONCEPT</h3>
-            <div class="concept-grid">
-                <div class="glass-card concept-card">
-                    <div class="concept-icon">🚀</div>
-                    <h4>SPACE</h4>
-                    <p>果てしない宇宙を舞台に<br>星々を巡る冒険の旅</p>
-                </div>
-                <div class="glass-card concept-card">
-                    <div class="concept-icon">📦</div>
-                    <h4>DELIVERY</h4>
-                    <p>届けたいのは荷物だけじゃない<br>笑顔と元気をお届け</p>
-                </div>
-                <div class="glass-card concept-card">
-                    <div class="concept-icon">🐺</div>
-                    <h4>PARTNER</h4>
-                    <p>いつも一緒の相棒マスコット<br>宇宙旅の頼れるパートナー</p>
-                </div>
-            </div>
+        <!-- 三面図 -->
+        <div class="p-section reveal">
+            <h4>CHARACTER SHEET</h4>
+            <img class="ref-image" src="三面図１.jpg" alt="三面図1" onclick="window.open(this.src)" style="margin-bottom:16px">
+            <img class="ref-image" src="三面図２.jpg" alt="三面図2" onclick="window.open(this.src)">
         </div>
     </div>
 
@@ -141,5 +222,12 @@
 </div>
 
 <script src="common.js"></script>
+<script>
+function switchCostume(btn,src){
+    document.getElementById('costumeImg').src=src;
+    document.querySelectorAll('.costume-btn').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+}
+</script>
 </body>
 </html>

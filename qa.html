@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A - 宙丸アオ / Soramaru Ao</title>
+    <link rel="icon" href="Touka_s.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .qa-hero{
+            position:relative;width:100%;height:50vh;min-height:350px;
+            display:flex;align-items:center;justify-content:center;overflow:hidden;
+        }
+        .qa-hero-bg{
+            position:absolute;top:0;left:0;width:100%;height:100%;
+            background:url('宇宙背景.png') center center/cover no-repeat;
+        }
+        .qa-hero-overlay{
+            position:absolute;top:0;left:0;width:100%;height:100%;
+            background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9));
+        }
+        .qa-hero-text{position:relative;z-index:1;text-align:center}
+
+        .qa-main{max-width:900px;margin:0 auto;padding:60px 40px}
+
+        .qa-item{
+            border:1px solid var(--glass-border);border-radius:16px;
+            background:var(--glass-bg);backdrop-filter:blur(20px);
+            margin-bottom:16px;overflow:hidden;
+            transition:border-color .4s,box-shadow .4s;
+        }
+        .qa-item:hover{
+            border-color:rgba(200,168,78,.35);
+            box-shadow:0 4px 20px rgba(0,0,0,.2),0 0 15px rgba(200,168,78,.06);
+        }
+        .qa-item.open{
+            border-color:rgba(200,168,78,.5);
+            box-shadow:0 8px 30px rgba(0,0,0,.3),0 0 25px rgba(200,168,78,.1);
+        }
+
+        .qa-question{
+            padding:24px;font-weight:700;color:var(--white);
+            cursor:pointer;display:flex;align-items:center;gap:16px;
+            user-select:none;transition:background .3s;
+        }
+        .qa-question:hover{background:rgba(255,255,255,.02)}
+        .qa-question .q-prefix{
+            font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;
+            color:var(--gold-light);flex-shrink:0;
+        }
+        .qa-question .q-text{flex:1;font-size:16px;line-height:1.6}
+        .qa-question .q-arrow{
+            flex-shrink:0;font-size:14px;color:rgba(240,240,245,.4);
+            transition:transform .3s ease;
+        }
+        .qa-item.open .qa-question .q-arrow{
+            transform:rotate(180deg);
+        }
+
+        .qa-answer{
+            max-height:0;overflow:hidden;
+            transition:max-height .4s ease,padding .3s ease;
+        }
+        .qa-item.open .qa-answer{
+            max-height:300px;
+        }
+        .qa-answer-inner{
+            padding:0 24px 24px 58px;
+            color:rgba(240,240,245,.7);font-size:15px;line-height:2;
+        }
+
+        @media(max-width:768px){
+            .qa-main{padding:40px 20px}
+            .qa-question{padding:18px 16px;gap:12px}
+            .qa-question .q-prefix{font-size:16px}
+            .qa-question .q-text{font-size:14px}
+            .qa-answer-inner{padding:0 16px 18px 44px;font-size:14px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="宇宙服ルド.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="closeNav()">Home</a></li>
+        <li><a href="news.html" onclick="closeNav()">News</a></li>
+        <li><a href="about.html" onclick="closeNav()">Profile</a></li>
+        <li><a href="contents.html" onclick="closeNav()">Contents</a></li>
+        <li><a href="fan.html" onclick="closeNav()">Fan</a></li>
+        <li><a href="guidelines.html" onclick="closeNav()">Guidelines</a></li>
+        <li><a href="qa.html" class="active" onclick="closeNav()">Q&A</a></li>
+        <li><a href="goods.html" onclick="closeNav()">Goods</a></li>
+        <li><a href="contact.html" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <!-- Hero Banner -->
+    <div class="qa-hero">
+        <div class="qa-hero-bg"></div>
+        <div class="qa-hero-overlay"></div>
+        <div class="qa-hero-text">
+            <p class="section-label">Questions & Answers</p>
+            <h2 class="section-title">Q&A</h2>
+        </div>
+    </div>
+
+    <div class="qa-main">
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">宙丸アオってどんなVTuber？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">宇宙を駆ける配達員をテーマにしたVTuberです。TikTokを中心に、歌・ゲーム・雑談などの配信活動を行っています。相棒のマスコットと一緒に、皆さんに笑顔と元気をお届けしています！</div>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">どこで活動を見られますか？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">主にTikTok（@soramaru_ao_v）で活動しています。その他、X（Twitter）やInstagramでも情報を発信しています。詳しくは<a href="contents.html" style="color:var(--gold-light);text-decoration:underline">Contents</a>ページをご確認ください。</div>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">ファンの名前はありますか？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">ファンの皆さんは「流青群（りゅうせいぐん）」と呼ばれています！ 宙丸アオと一緒に宇宙を駆ける仲間たちです。</div>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">グッズはどこで買えますか？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">BOOTHショップにて販売しています。詳しくは<a href="goods.html" style="color:var(--gold-light);text-decoration:underline">Goods</a>ページをご確認ください。</div>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">ファンアートを描いてもいいですか？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">大歓迎です！ SNSに投稿する際は「#宙丸アオ」のハッシュタグをつけていただけると嬉しいです。詳しくは<a href="guidelines.html" style="color:var(--gold-light);text-decoration:underline">Guidelines</a>ページをご確認ください。</div>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">コラボや企業案件の依頼はできますか？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">はい、お気軽に<a href="contact.html" style="color:var(--gold-light);text-decoration:underline">Contact</a>ページよりお問い合わせください。コラボ・企業案件・イベント出演など、様々なご依頼をお待ちしています。</div>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">配信の切り抜きを作ってもいいですか？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">はい、切り抜き動画の作成は許可しています。クレジット表記をお願いいたします。詳しくは<a href="guidelines.html" style="color:var(--gold-light);text-decoration:underline">Guidelines</a>ページをご確認ください。</div>
+            </div>
+        </div>
+
+        <div class="qa-item">
+            <div class="qa-question">
+                <span class="q-prefix">Q.</span>
+                <span class="q-text">誕生日はいつですか？</span>
+                <span class="q-arrow">▼</span>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-answer-inner">7月3日です！ 毎年生誕祭を開催予定ですので、お楽しみに。</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script src="common.js"></script>
+<script>
+document.querySelectorAll('.qa-question').forEach(function(q){
+    q.addEventListener('click',function(){
+        this.parentElement.classList.toggle('open');
+    });
+});
+</script>
+</body>
+</html>

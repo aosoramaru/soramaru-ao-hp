@@ -33,6 +33,12 @@
 
         .fan-main{max-width:1000px;margin:0 auto;padding:60px 40px}
 
+        .fan-concept{text-align:center;margin-bottom:60px;padding:50px 40px;border-radius:20px;border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(20px)}
+        .fan-concept h3{font-family:'Orbitron',sans-serif;font-size:clamp(24px,4vw,32px);letter-spacing:4px;margin-bottom:8px;color:var(--white)}
+        .fan-concept h3 .star-blue{color:var(--accent-cyan);text-shadow:0 0 20px rgba(0,212,255,.5)}
+        .fan-concept .fan-concept-sub{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
+        .fan-concept p{font-size:16px;color:rgba(240,240,245,.65);line-height:2.2;max-width:700px;margin:0 auto}
+
         .fan-intro{text-align:center;margin-bottom:50px}
         .fan-badge{
             display:inline-block;font-family:'Orbitron',sans-serif;font-size:12px;
@@ -43,59 +49,46 @@
         }
         .fan-intro p{font-size:15px;color:rgba(240,240,245,.55);line-height:2}
 
+        .member-explain{text-align:center;margin-bottom:40px;padding:30px;border-radius:16px;border:1px solid rgba(0,212,255,.15);background:rgba(0,212,255,.03)}
+        .member-explain p{font-size:14px;color:rgba(240,240,245,.5);line-height:2}
+        .member-explain .explain-icons{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap}
+        .member-explain .explain-item{text-align:center}
+        .member-explain .explain-item .ei-icon{font-size:24px;margin-bottom:4px}
+        .member-explain .explain-item .ei-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:1px;color:var(--accent-cyan)}
+
         .fans-grid{
-            display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-            gap:20px;margin-bottom:60px;
+            display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+            gap:24px;margin-bottom:60px;
         }
         .fan-card{
-            display:flex;align-items:center;gap:16px;
-            padding:20px 24px;position:relative;overflow:hidden;
+            display:flex;align-items:center;gap:20px;
+            padding:28px 30px;position:relative;overflow:hidden;
+            background:linear-gradient(135deg,rgba(10,14,39,.7),rgba(0,212,255,.03));
         }
         .fan-card::before{
             content:'';position:absolute;top:0;left:0;
             width:3px;height:100%;
-            background:linear-gradient(to bottom,var(--accent-cyan),transparent);
+            background:linear-gradient(to bottom,var(--gold),var(--accent-cyan));
             border-radius:3px;
         }
-        .fan-level{
-            flex-shrink:0;width:54px;height:54px;
-            display:flex;flex-direction:column;align-items:center;justify-content:center;
-            border-radius:50%;
-            background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(74,158,255,.08));
-            border:1px solid rgba(0,212,255,.3);
+        .fan-card::after{
+            content:'🌟';position:absolute;top:12px;right:16px;font-size:18px;opacity:.4;
         }
-        .fan-level .lv-num{
-            font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;
-            color:var(--accent-cyan);line-height:1;
-        }
-        .fan-level .lv-label{
-            font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:1px;
-            color:rgba(0,212,255,.6);text-transform:uppercase;
+        .fan-icon{
+            flex-shrink:0;width:56px;height:56px;
+            display:flex;align-items:center;justify-content:center;
+            border-radius:50%;font-size:26px;
+            background:linear-gradient(135deg,rgba(200,168,78,.15),rgba(0,212,255,.08));
+            border:1px solid rgba(200,168,78,.3);
         }
         .fan-details{flex:1;min-width:0}
         .fan-username{
-            font-size:16px;font-weight:700;color:var(--white);margin-bottom:3px;
-            overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-        }
-        .fan-tiktok-id{
-            font-size:12px;color:rgba(240,240,245,.4);margin-bottom:5px;
+            font-size:18px;font-weight:900;color:var(--white);margin-bottom:4px;
             overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
         }
         .fan-achieved{
-            font-family:'Orbitron',sans-serif;font-size:10px;
-            letter-spacing:1px;color:var(--gold);
-        }
-
-        .fans-cta{
-            text-align:center;padding:50px 30px;
-            border:1px solid var(--glass-border);border-radius:20px;
-            background:var(--glass-bg);backdrop-filter:blur(20px);
-        }
-        .fans-cta p{font-size:15px;color:rgba(240,240,245,.5);margin-bottom:12px;line-height:1.8}
-        .fans-cta .cta-hl{
-            font-family:'Orbitron',sans-serif;font-size:clamp(18px,3vw,24px);
-            letter-spacing:4px;color:var(--accent-cyan);
-            text-shadow:0 0 20px rgba(0,212,255,.3);
+            font-family:'Orbitron',sans-serif;font-size:11px;
+            letter-spacing:2px;color:var(--gold);
         }
 
         @media(max-width:768px){
@@ -137,34 +130,46 @@
     </div>
 
     <div class="fan-main">
+        <!-- 流青群コンセプト -->
+        <div class="fan-concept reveal">
+            <h3>流<span class="star-blue">青</span>群</h3>
+            <p class="fan-concept-sub">RYUSEIGUNG</p>
+            <p>宇宙を駆ける宙丸アオの周りを、同じ方向を向いて一緒に流れていく星たち。<br>それが「流青群」です。</p>
+            <p>流星のように輝きながら、ひとりひとりがアオと同じ空を駆け抜けていく。<br>バラバラの場所にいても、同じ想いで同じ方向へ進んでいく —— そんな仲間たちの集まりです。</p>
+        </div>
+
         <!-- Intro -->
         <div class="fan-intro reveal">
-            <div class="fan-badge">MEMBER LV.50 ACHIEVERS</div>
-            <p>宙丸アオを応援してくれる流星群の皆さん。<br>TikTokメンバーレベルMAXに到達した仲間たちを紹介します。</p>
+            <div class="fan-badge">MAX LEVEL ACHIEVERS</div>
+            <p>TikTokのメンバーレベルは、コメント数・視聴時間・ギフトなどの応援活動によって上がっていきます。<br>その最高レベルに到達した方たちをここで紹介しています。</p>
+        </div>
+
+        <!-- Member Explain -->
+        <div class="member-explain reveal">
+            <p>メンバーレベルMAXへの道のり</p>
+            <div class="explain-icons">
+                <div class="explain-item"><div class="ei-icon">💬</div><div class="ei-label">COMMENT</div></div>
+                <div class="explain-item"><div class="ei-icon">👀</div><div class="ei-label">WATCH</div></div>
+                <div class="explain-item"><div class="ei-icon">🎁</div><div class="ei-label">GIFT</div></div>
+            </div>
         </div>
 
         <!-- Fan Cards -->
         <div class="fans-grid">
             <div class="glass-card fan-card reveal">
-                <div class="fan-level"><span class="lv-num">50</span><span class="lv-label">LV</span></div>
+                <div class="fan-icon">⭐</div>
                 <div class="fan-details">
                     <div class="fan-username">気まぐれすんすん</div>
                     <div class="fan-achieved">ACHIEVED: 2025.09.09</div>
                 </div>
             </div>
             <div class="glass-card fan-card reveal">
-                <div class="fan-level"><span class="lv-num">50</span><span class="lv-label">LV</span></div>
+                <div class="fan-icon">⭐</div>
                 <div class="fan-details">
                     <div class="fan-username">るン</div>
                     <div class="fan-achieved">ACHIEVED: 2026.03.13</div>
                 </div>
             </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="fans-cta reveal">
-            <p>次にここに載るのはあなたかも？</p>
-            <span class="cta-hl">TARGET: LV.50</span>
         </div>
     </div>
 
