@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Fan Voice - 宙丸アオ / Soramaru Ao</title>
+    <meta name="description" content="宙丸アオへのファンの声。流青群のメッセージを投稿・閲覧できるページです。">
+    <link rel="canonical" href="https://soramaru-ao-hp.vercel.app/fanvoice.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soramaru-ao-hp.vercel.app/fanvoice.html">
+    <meta property="og:title" content="Fan Voice - 宙丸アオ / Soramaru Ao">
+    <meta property="og:description" content="宙丸アオへのファンの声。流青群のメッセージを投稿・閲覧できるページです。">
+    <meta property="og:image" content="https://soramaru-ao-hp.vercel.app/1周年イラスト.png">
+    <meta property="og:site_name" content="宙丸アオ Official">
+    <meta property="og:locale" content="ja_JP">
+    <link rel="icon" href="Logo_blue.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .fv-hero{
+            position:relative;width:100%;height:50vh;min-height:350px;
+            display:flex;align-items:center;justify-content:center;overflow:hidden;
+        }
+        .fv-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .fv-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.9))}
+        .fv-hero-text{position:relative;z-index:1;text-align:center}
+
+        .fv-main{max-width:900px;margin:0 auto;padding:60px 40px}
+
+        /* Form */
+        .fv-form-wrap{
+            margin-bottom:60px;padding:40px;border-radius:20px;
+            border:1px solid var(--glass-border);background:var(--glass-bg);
+            backdrop-filter:blur(20px);
+        }
+        .fv-form-title{
+            font-family:'Orbitron',sans-serif;font-size:16px;letter-spacing:3px;
+            color:var(--gold);margin-bottom:8px;
+        }
+        .fv-form-sub{font-size:13px;color:rgba(240,240,245,.5);margin-bottom:24px;line-height:1.8}
+        .fv-field{margin-bottom:18px}
+        .fv-field label{
+            display:block;font-family:'Orbitron',sans-serif;font-size:11px;
+            letter-spacing:2px;color:var(--gold-light);margin-bottom:8px;
+            text-transform:uppercase;
+        }
+        .fv-field input,
+        .fv-field textarea{
+            width:100%;padding:14px 18px;border-radius:10px;
+            border:1px solid var(--glass-border);
+            background:rgba(10,14,39,.5);color:var(--white);
+            font-family:'Noto Sans JP',sans-serif;font-size:14px;
+            transition:border-color .3s,box-shadow .3s;resize:vertical;
+        }
+        .fv-field input:focus,
+        .fv-field textarea:focus{
+            outline:none;border-color:var(--gold);
+            box-shadow:0 0 15px rgba(200,168,78,.2);
+        }
+        .fv-field textarea{min-height:120px;font-family:'Noto Sans JP',sans-serif}
+        .fv-field .fv-counter{font-size:11px;color:rgba(240,240,245,.4);text-align:right;margin-top:4px;font-family:'Orbitron',sans-serif}
+        .fv-submit{
+            display:inline-block;padding:14px 40px;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));
+            color:var(--deep-blue);border:none;border-radius:50px;
+            font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;
+            letter-spacing:3px;cursor:pointer;transition:.3s;
+        }
+        .fv-submit:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(200,168,78,.35)}
+        .fv-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+        .fv-notice{
+            margin-top:14px;font-size:12px;color:rgba(240,240,245,.4);
+            padding:10px 14px;border-radius:8px;
+            border:1px solid rgba(200,168,78,.15);background:rgba(200,168,78,.03);
+            line-height:1.8;
+        }
+        .fv-status{
+            margin-top:14px;padding:12px 16px;border-radius:10px;
+            font-size:13px;display:none;
+        }
+        .fv-status.success{display:block;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.3);color:var(--accent-cyan)}
+        .fv-status.error{display:block;background:rgba(255,59,48,.08);border:1px solid rgba(255,59,48,.3);color:#ff6b6b}
+
+        /* Voice List */
+        .fv-list-header{
+            display:flex;align-items:center;justify-content:space-between;
+            margin-bottom:24px;padding-bottom:14px;
+            border-bottom:1px solid var(--glass-border);
+        }
+        .fv-list-title{
+            font-family:'Orbitron',sans-serif;font-size:16px;letter-spacing:3px;
+            color:var(--gold);
+        }
+        .fv-list-count{
+            font-family:'Orbitron',sans-serif;font-size:12px;color:var(--accent-cyan);
+            letter-spacing:2px;
+        }
+
+        .fv-list{display:flex;flex-direction:column;gap:20px}
+        .fv-item{
+            padding:24px 28px;border-radius:16px;position:relative;
+            border:1px solid var(--glass-border);
+            background:linear-gradient(135deg,rgba(10,14,39,.7),rgba(0,212,255,.03));
+            backdrop-filter:blur(10px);
+            transition:.3s;
+        }
+        .fv-item::before{
+            content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+            background:linear-gradient(to bottom,var(--gold),var(--accent-cyan));
+            border-radius:3px;
+        }
+        .fv-item:hover{border-color:rgba(200,168,78,.35);transform:translateX(3px)}
+        .fv-item-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+        .fv-item-avatar{
+            width:40px;height:40px;border-radius:50%;flex-shrink:0;
+            display:flex;align-items:center;justify-content:center;
+            background:linear-gradient(135deg,rgba(200,168,78,.2),rgba(0,212,255,.1));
+            border:1px solid rgba(200,168,78,.3);font-size:18px;
+        }
+        .fv-item-info{flex:1;min-width:0}
+        .fv-item-name{
+            font-size:15px;font-weight:900;color:var(--white);margin-bottom:2px;
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+        }
+        .fv-item-date{
+            font-family:'Orbitron',sans-serif;font-size:10px;
+            letter-spacing:1.5px;color:rgba(240,240,245,.4);
+        }
+        .fv-item-body{
+            font-size:14px;line-height:2;color:rgba(240,240,245,.75);
+            white-space:pre-wrap;word-break:break-word;
+        }
+
+        .fv-empty{
+            text-align:center;padding:50px 20px;
+            color:rgba(240,240,245,.4);font-size:13px;
+            border:1px dashed var(--glass-border);border-radius:16px;
+        }
+
+        @media(max-width:768px){
+            .fv-main{padding:40px 15px}
+            .fv-form-wrap{padding:24px 18px}
+            .fv-item{padding:18px 20px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><img src="宇宙服ルド.png" alt="Loading..."><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="about.html">Profile</a></li>
+        <li><a href="contents.html">Contents</a></li>
+        <li><a href="challenge.html">Challenge</a></li>
+        <li><a href="fan.html">Fan</a></li>
+        <li><a href="goods.html">Goods</a></li>
+        <li><a href="guidelines.html">Guidelines</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <!-- Hero -->
+    <div class="fv-hero">
+        <div class="fv-hero-bg"></div>
+        <div class="fv-hero-overlay"></div>
+        <div class="fv-hero-text">
+            <p class="section-label">Fan Voice</p>
+            <h1 class="section-title">FAN VOICE</h1>
+            <div class="divider" style="margin:15px auto 0"></div>
+        </div>
+    </div>
+
+    <div class="fv-main">
+        <!-- Post Form -->
+        <div class="fv-form-wrap reveal">
+            <div class="fv-form-title">MESSAGE TO AO</div>
+            <p class="fv-form-sub">宙丸アオへのメッセージを送ってください。みんなの声を一緒に届けよう。</p>
+            <form id="fvForm">
+                <div class="fv-field">
+                    <label for="fvName">お名前 / NAME</label>
+                    <input type="text" id="fvName" name="name" maxlength="30" placeholder="ニックネームでOK" required>
+                </div>
+                <div class="fv-field">
+                    <label for="fvMessage">メッセージ / MESSAGE</label>
+                    <textarea id="fvMessage" name="message" maxlength="300" placeholder="宙丸アオに伝えたい想いを書いてね" required></textarea>
+                    <div class="fv-counter"><span id="fvCount">0</span> / 300</div>
+                </div>
+                <button type="submit" class="fv-submit" id="fvSubmit">送信する</button>
+                <div class="fv-notice">
+                    ※ 送信されたメッセージは本サイトに公開されます。個人情報や誹謗中傷・不適切な内容は控えてください。投稿内容はガイドラインに従って管理者が削除する場合があります。
+                </div>
+                <div class="fv-status" id="fvStatus"></div>
+            </form>
+        </div>
+
+        <!-- Voice List -->
+        <div class="fv-list-header">
+            <div class="fv-list-title">VOICES</div>
+            <div class="fv-list-count"><span id="fvListCount">0</span> MESSAGES</div>
+        </div>
+        <div class="fv-list" id="fvList"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script src="common.js"></script>
+<script>
+(function(){
+    // サンプルデータ（初回表示用）
+    var sampleVoices = [
+        {name:'みぞれ',message:'いつも元気をもらってます！\nZEPPワンマンライブ、絶対見に行きます🌟',date:'2026.04.09'},
+        {name:'そらまる大好きっ子',message:'配信楽しみにしてるよ〜！\n歌枠が一番好き🎤',date:'2026.04.08'},
+        {name:'りゅうせい',message:'アオちゃんの笑顔に毎日救われてます。\nこれからもずっと応援してるね！',date:'2026.04.07'}
+    ];
+
+    var STORAGE_KEY='soramaru_fan_voices_v1';
+    var form=document.getElementById('fvForm');
+    var nameInput=document.getElementById('fvName');
+    var messageInput=document.getElementById('fvMessage');
+    var submitBtn=document.getElementById('fvSubmit');
+    var statusEl=document.getElementById('fvStatus');
+    var listEl=document.getElementById('fvList');
+    var countEl=document.getElementById('fvCount');
+    var listCountEl=document.getElementById('fvListCount');
+
+    // 文字数カウンタ
+    messageInput.addEventListener('input',function(){
+        countEl.textContent=messageInput.value.length;
+    });
+
+    // データ取得
+    function getVoices(){
+        try{
+            var stored=localStorage.getItem(STORAGE_KEY);
+            var userVoices=stored?JSON.parse(stored):[];
+            return userVoices.concat(sampleVoices);
+        }catch(e){return sampleVoices}
+    }
+
+    function saveVoice(voice){
+        try{
+            var stored=localStorage.getItem(STORAGE_KEY);
+            var userVoices=stored?JSON.parse(stored):[];
+            userVoices.unshift(voice);
+            if(userVoices.length>50)userVoices=userVoices.slice(0,50);
+            localStorage.setItem(STORAGE_KEY,JSON.stringify(userVoices));
+            return true;
+        }catch(e){return false}
+    }
+
+    // エスケープ
+    function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g,function(c){
+            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        });
+    }
+
+    // 描画
+    function render(){
+        var voices=getVoices();
+        listCountEl.textContent=voices.length;
+        if(voices.length===0){
+            listEl.innerHTML='<div class="fv-empty">まだメッセージがありません。最初の声を届けてください！</div>';
+            return;
+        }
+        listEl.innerHTML=voices.map(function(v){
+            return '<div class="fv-item">'+
+                '<div class="fv-item-header">'+
+                    '<div class="fv-item-avatar">🌟</div>'+
+                    '<div class="fv-item-info">'+
+                        '<div class="fv-item-name">'+escapeHtml(v.name)+'</div>'+
+                        '<div class="fv-item-date">'+escapeHtml(v.date)+'</div>'+
+                    '</div>'+
+                '</div>'+
+                '<div class="fv-item-body">'+escapeHtml(v.message)+'</div>'+
+            '</div>';
+        }).join('');
+    }
+
+    // フォーム送信
+    form.addEventListener('submit',function(e){
+        e.preventDefault();
+        var name=nameInput.value.trim();
+        var message=messageInput.value.trim();
+        if(!name||!message){
+            showStatus('error','お名前とメッセージを入力してください。');
+            return;
+        }
+        var now=new Date();
+        var date=now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0');
+        var voice={name:name,message:message,date:date};
+
+        submitBtn.disabled=true;
+        if(saveVoice(voice)){
+            showStatus('success','メッセージを送信しました！ありがとう！');
+            form.reset();
+            countEl.textContent='0';
+            render();
+        }else{
+            showStatus('error','送信に失敗しました。少し時間をおいて再度お試しください。');
+        }
+        setTimeout(function(){submitBtn.disabled=false},1500);
+    });
+
+    function showStatus(type,msg){
+        statusEl.className='fv-status '+type;
+        statusEl.textContent=msg;
+        setTimeout(function(){statusEl.className='fv-status'},5000);
+    }
+
+    render();
+})();
+</script>
+</body>
+</html>

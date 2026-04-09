@@ -51,6 +51,53 @@
         }
         .fan-intro p{font-size:15px;color:rgba(240,240,245,.55);line-height:2}
 
+        /* Fan Voice Card */
+        .voice-link-card{
+            display:block;text-decoration:none;margin-bottom:60px;
+            padding:40px 36px;border-radius:20px;position:relative;overflow:hidden;
+            border:1px solid rgba(200,168,78,.3);
+            background:linear-gradient(135deg,rgba(10,14,39,.85),rgba(200,168,78,.08));
+            backdrop-filter:blur(20px);transition:.4s;
+        }
+        .voice-link-card::before{
+            content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+            background:radial-gradient(ellipse at 20% 50%,rgba(200,168,78,.1),transparent 60%),
+                        radial-gradient(ellipse at 80% 50%,rgba(0,212,255,.08),transparent 60%);
+            pointer-events:none;
+        }
+        .voice-link-card:hover{
+            border-color:rgba(200,168,78,.5);transform:translateY(-4px);
+            box-shadow:0 10px 40px rgba(200,168,78,.15);
+        }
+        .voice-link-inner{position:relative;display:flex;align-items:center;gap:24px}
+        .voice-link-icon{
+            flex-shrink:0;width:70px;height:70px;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;font-size:32px;
+            background:linear-gradient(135deg,rgba(200,168,78,.2),rgba(0,212,255,.1));
+            border:1px solid rgba(200,168,78,.35);
+        }
+        .voice-link-text{flex:1;min-width:0}
+        .voice-link-label{
+            font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;
+            color:var(--gold);margin-bottom:6px;
+        }
+        .voice-link-title{
+            font-size:clamp(20px,3vw,26px);font-weight:900;color:var(--white);
+            margin-bottom:6px;letter-spacing:2px;
+        }
+        .voice-link-desc{font-size:13px;color:rgba(240,240,245,.55);line-height:1.8}
+        .voice-link-arrow{
+            flex-shrink:0;font-family:'Orbitron',sans-serif;font-size:20px;
+            color:var(--gold);transition:transform .3s;
+        }
+        .voice-link-card:hover .voice-link-arrow{transform:translateX(6px)}
+        @media(max-width:768px){
+            .voice-link-card{padding:28px 20px}
+            .voice-link-inner{gap:16px}
+            .voice-link-icon{width:56px;height:56px;font-size:24px}
+            .voice-link-arrow{display:none}
+        }
+
         .member-explain{text-align:center;margin-bottom:40px;padding:30px;border-radius:16px;border:1px solid rgba(0,212,255,.15);background:rgba(0,212,255,.03)}
         .member-explain p{font-size:14px;color:rgba(240,240,245,.5);line-height:2}
         .member-explain .explain-icons{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap}
@@ -140,6 +187,19 @@
             <p>宇宙を駆ける宙丸アオの周りを、同じ方向を向いて一緒に流れていく星たち。それが「流青群」です。</p>
             <p>流星のように輝きながら、ひとりひとりがアオと同じ空を駆け抜けていく。<br>バラバラの場所にいても、同じ想いで同じ方向へ進んでいく ——<br>そんな仲間たちの集まりです。</p>
         </div>
+
+        <!-- Fan Voice Link -->
+        <a href="fanvoice.html" class="voice-link-card reveal">
+            <div class="voice-link-inner">
+                <div class="voice-link-icon">💌</div>
+                <div class="voice-link-text">
+                    <div class="voice-link-label">FAN VOICE</div>
+                    <div class="voice-link-title">ファンの声</div>
+                    <div class="voice-link-desc">宙丸アオへのメッセージを送ろう。流青群みんなの声を一緒に見られるよ。</div>
+                </div>
+                <div class="voice-link-arrow">→</div>
+            </div>
+        </a>
 
         <!-- Intro -->
         <div class="fan-intro reveal">
