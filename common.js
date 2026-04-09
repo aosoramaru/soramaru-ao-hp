@@ -77,6 +77,13 @@ var observer=new IntersectionObserver(function(entries){
 },{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el)});
 
+// ===== NAV EVENT LISTENERS =====
+var hamburger=document.querySelector('.hamburger');
+if(hamburger)hamburger.addEventListener('click',toggleNav);
+document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',closeNav);
+});
+
 // ===== MASCOT =====
 var mascot=document.getElementById('sdMascot');
 if(mascot){
