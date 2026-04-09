@@ -196,7 +196,7 @@ if(mascot){
     var KEY_SKIP='soramaru_setup_skip';
 
     var DEPARTMENTS=[
-        {key:'dept1',emoji:'🛡️',label:'第1課 特務'},
+        {key:'dept1',emoji:'⚔️',label:'第1課 特務'},
         {key:'dept2',emoji:'📣',label:'第2課 広報宣伝部'},
         {key:'dept3',emoji:'🐺',label:'第3課 ルドのお世話係'},
         {key:'dept4',emoji:'📦',label:'第4課 配達部'}

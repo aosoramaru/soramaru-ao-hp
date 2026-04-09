@@ -276,6 +276,8 @@
             border-color:var(--gold);background:rgba(200,168,78,.08);
         }
 
+        /* スマホ専用の改行 */
+        .br-sp{display:none}
         @media(max-width:768px){
             .st-main{padding:50px 20px}
             .st-section{margin-bottom:50px}
@@ -283,6 +285,7 @@
             .dept-grid{grid-template-columns:1fr}
             .dept-card{padding:24px 22px}
             .my-dept-banner{padding:18px 22px}
+            .br-sp{display:initial}
         }
     </style>
 </head>
@@ -325,7 +328,7 @@
         <div class="st-section reveal">
             <div class="st-section-head">
                 <div class="st-num">PROLOGUE</div>
-                <h2><ruby>宙<rt>そら</rt></ruby>を駆ける、笑顔とワクワクの届け人</h2>
+                <h2><ruby>宙<rt>そら</rt></ruby>を駆ける、<br class="br-sp">笑顔とワクワクの届け人</h2>
                 <div class="st-sub">— THE WORLD OF SORAMARU AO —</div>
             </div>
             <div class="lore-intro">
@@ -359,8 +362,8 @@
                 <div class="identity-name">ルド</div>
                 <div class="identity-role">本名: ルドルフ</div>
                 <div style="margin-top:24px;font-size:15px;line-height:2;color:rgba(240,240,245,.78);max-width:560px;margin-left:auto;margin-right:auto">
-                    宙丸アオの相棒であり、いつも隣に寄り添う <span class="accent" style="color:var(--accent-cyan);font-weight:700">狼型の精霊</span>。<br>
-                    本名は <span class="gold-accent" style="color:var(--gold-light);font-weight:700">ルドルフ</span>。普段は「ルド」と呼ばれている。<br>
+                    宙丸アオの相棒であり、<br class="br-sp">いつも隣に寄り添う <span class="accent" style="color:var(--accent-cyan);font-weight:700">狼型の精霊</span>。<br>
+                    本名は <span class="gold-accent" style="color:var(--gold-light);font-weight:700">ルドルフ</span>。<br class="br-sp">普段は「ルド」と呼ばれている。<br>
                     宇宙を駆ける配達の旅を、いつもアオと共にしている、かけがえのない存在。
                 </div>
             </div>
@@ -407,7 +410,7 @@
 
             <div class="dept-grid">
                 <div class="dept-card" data-dept="第1課 特務" data-key="dept1">
-                    <div class="dept-icon">🛡️</div>
+                    <div class="dept-icon">⚔️</div>
                     <div class="dept-num">DIVISION 01</div>
                     <div class="dept-name">第1課 — 特務</div>
                     <div class="dept-desc">最重要任務を担当する局直属の精鋭部隊。困難な配達ミッションは彼らに託される。</div>
