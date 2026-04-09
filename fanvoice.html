@@ -184,7 +184,7 @@
         <div class="fv-form-wrap reveal">
             <div class="fv-form-title">MESSAGE TO AO</div>
             <p class="fv-form-sub">宙丸アオへのメッセージを送ってください。みんなの声を一緒に届けよう。</p>
-            <form id="fvForm">
+            <form id="fvForm" autocomplete="off">
                 <div class="fv-field">
                     <label for="fvName">お名前 / NAME</label>
                     <input type="text" id="fvName" name="name" maxlength="30" placeholder="ニックネームでOK" required>
@@ -193,6 +193,11 @@
                     <label for="fvMessage">メッセージ / MESSAGE</label>
                     <textarea id="fvMessage" name="message" maxlength="300" placeholder="宙丸アオに伝えたい想いを書いてね" required></textarea>
                     <div class="fv-counter"><span id="fvCount">0</span> / 300</div>
+                </div>
+                <!-- Honeypot: bots will fill this, humans won't see it -->
+                <div style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+                    <label for="fvWebsite">Website</label>
+                    <input type="text" id="fvWebsite" name="website" tabindex="-1" autocomplete="off">
                 </div>
                 <button type="submit" class="fv-submit" id="fvSubmit">送信する</button>
                 <div class="fv-notice">
@@ -226,9 +231,9 @@
 <script src="common.js"></script>
 <script>
 (function(){
-    // ⚠️ Google Apps ScriptのウェブアプリURLをここに貼り付けてください
-    // 例: 'https://script.google.com/macros/s/XXXXXXXX/exec'
-    var GAS_URL='';
+    var GAS_URL='https://script.google.com/macros/s/AKfycbwypcG5TqSo-e7r9MvnI6hnRNua2VdviZizjxd4mgDRbQbcB9sRBjdk99XShYoFn8--Hw/exec';
+    var COOLDOWN_MS=10000; // 連投防止: 10秒
+    var lastSubmit=0;
 
     var form=document.getElementById('fvForm');
     var nameInput=document.getElementById('fvName');
@@ -296,6 +301,23 @@
         e.preventDefault();
         var name=nameInput.value.trim();
         var message=messageInput.value.trim();
+        var honeypot=document.getElementById('fvWebsite').value;
+
+        // ハニーポット: ボットが記入したら黙って終了
+        if(honeypot){
+            showStatus('success','メッセージを送信しました！ありがとう！');
+            form.reset();
+            return;
+        }
+
+        // 連投防止
+        var now=Date.now();
+        if(now-lastSubmit<COOLDOWN_MS){
+            var wait=Math.ceil((COOLDOWN_MS-(now-lastSubmit))/1000);
+            showStatus('error','連続投稿はできません。'+wait+'秒後にもう一度お試しください。');
+            return;
+        }
+
         if(!name||!message){
             showStatus('error','お名前とメッセージを入力してください。');
             return;
@@ -315,7 +337,8 @@
         .then(function(r){return r.json()})
         .then(function(data){
             if(data.error){throw new Error(data.error)}
-            showStatus('success','メッセージを送信しました！ありがとう！');
+            lastSubmit=Date.now();
+            showStatus('success','メッセージを送信しました！表示までしばらくお待ちください。');
             form.reset();
             countEl.textContent='0';
             fetchVoices();

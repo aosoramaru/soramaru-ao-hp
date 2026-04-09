@@ -2,6 +2,8 @@
 
 このガイドに従って設定すれば、ファンの声が **Googleスプレッドシート** に保存され、全員で共有できるようになります。
 
+> ⚠️ **セキュリティ注意**: 現在のスクリプトは「承認制」になっています。投稿はスプレッドシートに追加されますが、そらまるさんが承認した投稿だけがサイトに表示されます。
+
 ---
 
 ## ステップ1: Googleスプレッドシートを作成
@@ -11,11 +13,13 @@
 3. ファイル名を **「宙丸アオ Fan Voices」** などに変更
 4. **1行目（ヘッダー）** に以下を入力：
 
-| A1 | B1 | C1 |
-|---|---|---|
-| name | message | date |
+| A1 | B1 | C1 | D1 |
+|---|---|---|---|
+| name | message | date | approved |
 
 5. シート名（左下のタブ）を **`FanVoices`** に変更
+
+> **D列の「approved」について**: 投稿を表示するには、この列に `TRUE` を入力する必要があります。空欄・FALSE・その他の値ならサイトに表示されません。不適切な投稿は行を削除するか、D列を空欄にすれば非表示になります。
 
 ---
 
@@ -29,20 +33,23 @@
 const SHEET_NAME = 'FanVoices';
 const MAX_NAME_LENGTH = 30;
 const MAX_MESSAGE_LENGTH = 300;
+const MAX_VOICES = 100; // 表示する最大件数
 
 function doGet(e) {
   try {
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
     const data = sheet.getDataRange().getValues();
 
+    // D列(approved)がTRUEの投稿のみ返す
     const voices = data.slice(1)
-      .filter(row => row[0] && row[1])
+      .filter(row => row[0] && row[1] && row[3] === true)
       .map(row => ({
         name: String(row[0]),
         message: String(row[1]),
         date: formatDate(row[2])
       }))
-      .reverse();
+      .reverse()
+      .slice(0, MAX_VOICES);
 
     return ContentService
       .createTextOutput(JSON.stringify({ voices: voices }))
@@ -66,8 +73,16 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
+    // 簡易スパムチェック: URL・同一文字の連続を弾く
+    if (/https?:\/\//i.test(message) || /(.)\1{9,}/.test(message)) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ error: 'このメッセージは送信できません' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-    sheet.appendRow([name, message, new Date()]);
+    // 4列目(D列)は未承認 (false) で追加
+    sheet.appendRow([name, message, new Date(), false]);
 
     return ContentService
       .createTextOutput(JSON.stringify({ success: true }))
