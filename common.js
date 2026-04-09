@@ -1,7 +1,58 @@
-// ===== LOADING =====
-window.addEventListener('load',function(){
-    setTimeout(function(){document.getElementById('loading').classList.add('hidden')},1200);
-});
+// ===== LOADING / WELCOME (post office) =====
+(function(){
+    var loadingEl=document.getElementById('loading');
+    if(!loadingEl)return;
+    var name=null,deptLabel=null,setupDone=false,welcomed=false;
+    try{
+        name=localStorage.getItem('soramaru_user_name');
+        deptLabel=localStorage.getItem('soramaru_dept_label');
+        setupDone=localStorage.getItem('soramaru_setup_done')==='1';
+        welcomed=localStorage.getItem('soramaru_welcome_shown')==='1';
+    }catch(e){}
+    var shouldWelcome=setupDone&&!welcomed&&!!name&&!!deptLabel;
+    var shouldPersonal=setupDone&&welcomed&&!!name&&!!deptLabel;
+
+    if(shouldWelcome){
+        loadingEl.classList.add('is-welcome');
+        loadingEl.innerHTML=
+            '<div class="welcome-inner">'+
+                '<div class="welcome-brand">SORAMARU POST OFFICE</div>'+
+                '<div class="welcome-title">宙丸郵便局</div>'+
+                '<div class="welcome-divider"></div>'+
+                '<div class="welcome-dept">YOUR DIVISION</div>'+
+                '<div class="welcome-dept-name">'+escapeHtml(deptLabel)+'</div>'+
+                '<div class="welcome-user">'+escapeHtml(name)+'</div>'+
+                '<div class="welcome-divider2"></div>'+
+                '<div class="welcome-message">ようこそ宙丸郵便局へ</div>'+
+            '</div>';
+        requestAnimationFrame(function(){loadingEl.classList.add('welcome-show')});
+    }else if(shouldPersonal){
+        // 通常ローディング(パーソナライズ版): 既存imgを残してpタグだけ差し替え
+        var lp=loadingEl.querySelector('p');
+        if(lp){
+            lp.classList.add('loading-personal');
+            lp.innerHTML=
+                '<span class="lp-dept">'+escapeHtml(deptLabel)+'</span>'+
+                '<span class="lp-name">'+escapeHtml(name)+'</span>'+
+                '<span class="lp-status">閲覧中...</span>';
+        }
+    }
+
+    window.addEventListener('load',function(){
+        var delay=shouldWelcome?3400:1200;
+        setTimeout(function(){
+            loadingEl.classList.add('hidden');
+            if(shouldWelcome){
+                try{localStorage.setItem('soramaru_welcome_shown','1')}catch(e){}
+            }
+        },delay);
+    });
+    function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g,function(c){
+            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+        });
+    }
+})();
 
 // ===== MOBILE NAV =====
 (function(){
@@ -112,3 +163,150 @@ if(mascot){
         setTimeout(function(){mascot.src=mSrcs[mIdx];mascot.style.transform=''},200);
     });
 }
+
+// ===== POST OFFICE: NAV BADGE (名前/配属表示) =====
+(function(){
+    var hamb=document.querySelector('.hamburger');
+    if(!hamb||!hamb.parentNode)return;
+    var name=null,deptLabel=null;
+    try{
+        name=localStorage.getItem('soramaru_user_name');
+        deptLabel=localStorage.getItem('soramaru_dept_label');
+    }catch(e){}
+    var displayName=name||'流青群';
+    var displayDept=deptLabel||'未所属';
+    function esc(s){return String(s).replace(/[&<>"']/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})}
+    var badge=document.createElement('a');
+    badge.className='nav-badge';
+    badge.href='setting.html';
+    badge.title='公式設定で変更';
+    badge.innerHTML=
+        '<span class="nav-badge-dept">'+esc(displayDept)+'</span>'+
+        '<span class="nav-badge-name">'+esc(displayName)+'</span>';
+    hamb.parentNode.insertBefore(badge,hamb);
+})();
+
+// ===== POST OFFICE: SETUP MODAL =====
+(function(){
+    var KEY_NAME='soramaru_user_name';
+    var KEY_DEPT='soramaru_dept';
+    var KEY_DEPT_LABEL='soramaru_dept_label';
+    var KEY_DONE='soramaru_setup_done';
+    var KEY_WELCOMED='soramaru_welcome_shown';
+    var KEY_SKIP='soramaru_setup_skip';
+
+    var DEPARTMENTS=[
+        {key:'dept1',emoji:'🛡️',label:'第1課 特務'},
+        {key:'dept2',emoji:'📣',label:'第2課 広報宣伝部'},
+        {key:'dept3',emoji:'🐺',label:'第3課 ルドのお世話係'},
+        {key:'dept4',emoji:'📦',label:'第4課 配達部'}
+    ];
+
+    function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+    function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+    function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g,function(c){
+            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+        });
+    }
+
+    function buildWelcomeOverlay(){
+        var name=get(KEY_NAME);
+        var deptLabel=get(KEY_DEPT_LABEL);
+        if(!name||!deptLabel)return;
+        set(KEY_WELCOMED,'1');
+        var w=document.createElement('div');
+        w.id='welcomeScreen';
+        w.innerHTML=
+            '<div class="welcome-inner">'+
+                '<div class="welcome-brand">SORAMARU POST OFFICE</div>'+
+                '<div class="welcome-title">宙丸郵便局</div>'+
+                '<div class="welcome-divider"></div>'+
+                '<div class="welcome-dept">YOUR DIVISION</div>'+
+                '<div class="welcome-dept-name">'+escapeHtml(deptLabel)+'</div>'+
+                '<div class="welcome-user">'+escapeHtml(name)+'</div>'+
+                '<div class="welcome-divider2"></div>'+
+                '<div class="welcome-message">ようこそ宙丸郵便局へ</div>'+
+            '</div>';
+        document.body.appendChild(w);
+        requestAnimationFrame(function(){
+            w.classList.add('show');
+            setTimeout(function(){w.classList.add('fade')},2800);
+            setTimeout(function(){w.remove()},3700);
+        });
+    }
+
+    function buildSetup(){
+        var ov=document.createElement('div');
+        ov.id='setupOverlay';
+        var deptHtml=DEPARTMENTS.map(function(d){
+            return '<button type="button" class="setup-dept-btn" data-key="'+d.key+'" data-label="'+escapeHtml(d.label)+'"><span class="dept-emoji">'+d.emoji+'</span>'+escapeHtml(d.label)+'</button>';
+        }).join('');
+        ov.innerHTML=
+            '<div class="setup-card">'+
+                '<div class="setup-label">SORAMARU POST OFFICE</div>'+
+                '<h2>ようこそ、宙丸郵便局へ</h2>'+
+                '<p class="setup-desc">あなたの名前と配属を登録すると、<br>宙丸郵便局の局員として出勤できます。</p>'+
+                '<input type="text" class="setup-input" id="setupNameInput" placeholder="あなたの名前 (例: TikTokのお名前)" maxlength="20">'+
+                '<div class="setup-dept-list">'+deptHtml+'</div>'+
+                '<div class="setup-actions">'+
+                    '<button type="button" class="setup-btn-primary" id="setupSubmit" disabled>登録する</button>'+
+                    '<button type="button" class="setup-btn-skip" id="setupSkip">あとで</button>'+
+                '</div>'+
+            '</div>';
+        document.body.appendChild(ov);
+        requestAnimationFrame(function(){ov.classList.add('show')});
+
+        var nameInput=document.getElementById('setupNameInput');
+        var submitBtn=document.getElementById('setupSubmit');
+        var skipBtn=document.getElementById('setupSkip');
+        var selectedKey=null,selectedLabel=null;
+
+        function refreshSubmit(){
+            submitBtn.disabled=!(nameInput.value.trim()&&selectedKey);
+        }
+        nameInput.addEventListener('input',refreshSubmit);
+        ov.querySelectorAll('.setup-dept-btn').forEach(function(b){
+            b.addEventListener('click',function(){
+                ov.querySelectorAll('.setup-dept-btn').forEach(function(x){x.classList.remove('selected')});
+                b.classList.add('selected');
+                selectedKey=b.dataset.key;
+                selectedLabel=b.dataset.label;
+                refreshSubmit();
+            });
+        });
+        submitBtn.addEventListener('click',function(){
+            var name=nameInput.value.trim();
+            if(!name||!selectedKey)return;
+            set(KEY_NAME,name);
+            set(KEY_DEPT,selectedKey);
+            set(KEY_DEPT_LABEL,selectedLabel);
+            set(KEY_DONE,'1');
+            ov.classList.remove('show');
+            setTimeout(function(){
+                ov.remove();
+                buildWelcomeOverlay();
+            },500);
+        });
+        skipBtn.addEventListener('click',function(){
+            set(KEY_SKIP,'1');
+            ov.classList.remove('show');
+            setTimeout(function(){ov.remove()},500);
+        });
+    }
+
+    function init(){
+        // 既にセットアップ済み or スキップ済み: 何もしない
+        if(get(KEY_DONE)==='1')return;
+        if(get(KEY_SKIP)==='1')return;
+        // 初回: ローディング消えた後にセットアップを表示
+        setTimeout(buildSetup,1600);
+    }
+
+    if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',init);
+    }else{
+        init();
+    }
+})();

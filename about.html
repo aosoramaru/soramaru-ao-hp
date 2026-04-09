@@ -58,11 +58,29 @@
         .p-section h4{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--gold-light);letter-spacing:3px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--glass-border)}
 
         /* Info Table */
-        .info-table{width:100%;max-width:600px;margin:0 auto}
+        .info-table{width:100%;max-width:640px;margin:0 auto}
         .info-table tr{border-bottom:1px solid rgba(200,168,78,.1)}
-        .info-table td{padding:12px 0;font-size:15px;vertical-align:top}
-        .info-table td:first-child{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--gold);width:140px;text-transform:uppercase;padding-right:16px}
-        .info-table td:last-child{color:rgba(240,240,245,.75);line-height:1.6}
+        .info-table td{padding:8px 0;font-size:18px;vertical-align:top}
+        .info-table td:first-child{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;color:var(--gold);width:150px;text-transform:uppercase;padding-right:16px;padding-top:13px}
+        .info-table td:last-child{color:rgba(240,240,245,.85);line-height:1.5;font-weight:500}
+
+        /* 公式設定リンク */
+        .lore-link{
+            display:inline-flex;align-items:center;gap:10px;
+            margin-top:18px;padding:14px 26px;border-radius:10px;
+            background:linear-gradient(135deg,rgba(200,168,78,.12),rgba(0,212,255,.06));
+            border:1px solid rgba(200,168,78,.4);
+            color:var(--gold-light);text-decoration:none;
+            font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;font-weight:700;
+            transition:.3s;
+        }
+        .lore-link::before{content:'📜';font-size:16px}
+        .lore-link::after{content:'→';margin-left:6px;transition:transform .3s}
+        .lore-link:hover{
+            border-color:var(--gold);background:linear-gradient(135deg,rgba(200,168,78,.2),rgba(0,212,255,.1));
+            box-shadow:0 0 24px rgba(200,168,78,.25);
+        }
+        .lore-link:hover::after{transform:translateX(4px)}
 
         /* Hashtag */
         .hashtag-card{padding:24px 30px;border-radius:16px;border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(20px);text-align:center}
@@ -102,11 +120,11 @@
     </style>
 </head>
 <body>
-<div id="loading"><img src="宇宙服ルド.png" alt="Loading..."><p>DELIVERING...</p></div>
+<div id="loading"><p>DELIVERING...</p></div>
 <canvas id="stars-canvas"></canvas>
 
 <nav>
-    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <a href="index.html" class="nav-logo">宙丸アオ / SORAMARU AO</a>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
         <li><a href="news.html">News</a></li>
@@ -156,6 +174,7 @@
                 <p class="profile-message">届けるのは荷物じゃなくて、笑顔。宙丸アオを見てくれた人が少しでも笑ってくれたり、ワクワクしてくれたら —— その笑顔を宇宙の果てまで届けていきたい。</p>
                 <p class="profile-message">いつか、画面の向こうの君に会いに行きたい。リアルイベントのステージに立って、ZEPPを流青群の光で埋め尽くす。それが今、宙丸アオが目指している場所です。</p>
                 <div class="profile-motto">「常に童心を忘れない」</div>
+                <a href="setting.html" class="lore-link">宙丸アオ 公式設定</a>
             </div>
         </div>
 
@@ -172,7 +191,9 @@
                 <tr><td>Games</td><td>APEX / マイクラ / アクションゲーム</td></tr>
                 <tr><td>Fan Name</td><td>流青群（りゅうせいぐん）</td></tr>
                 <tr><td>Fan Mark</td><td>🌟📮🐾</td></tr>
+                <tr><td>Partner</td><td>ルド（狼型の精霊／本名：ルドルフ）</td></tr>
                 <tr><td>Activity</td><td>TikTok配信（ゲーム・雑談・歌）</td></tr>
+                <tr><td>Stream Time</td><td>11:00〜14:00 / 20:00〜23:00<br><span style="font-size:12px;color:rgba(240,240,245,.5)">※詳しくは <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none">TikTokのストーリー</a> をご覧ください</span></td></tr>
             </table>
         </div>
 

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Official Setting - 宙丸アオ / Soramaru Ao</title>
+    <meta name="description" content="宙丸アオの公式設定。宙丸郵便局の局長として、流青群の仲間たちとともに宇宙を駆ける配達員の世界観をご紹介します。">
+    <link rel="canonical" href="https://soramaru-ao-hp.vercel.app/setting.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soramaru-ao-hp.vercel.app/setting.html">
+    <meta property="og:title" content="Official Setting - 宙丸アオ / Soramaru Ao">
+    <meta property="og:description" content="宙丸アオの公式設定。宙丸郵便局の局長として、流青群の仲間たちとともに宇宙を駆ける配達員の世界観をご紹介します。">
+    <meta property="og:image" content="https://soramaru-ao-hp.vercel.app/1周年イラスト.png">
+    <meta property="og:site_name" content="宙丸アオ Official">
+    <meta property="og:locale" content="ja_JP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@soramaru_ao_">
+    <meta name="twitter:title" content="Official Setting - 宙丸アオ / Soramaru Ao">
+    <meta name="twitter:description" content="宙丸アオの公式設定。宙丸郵便局の局長として、流青群の仲間たちとともに宇宙を駆ける配達員の世界観をご紹介します。">
+    <meta name="twitter:image" content="https://soramaru-ao-hp.vercel.app/1周年イラスト.png">
+    <link rel="icon" href="Logo_blue.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .st-hero{position:relative;width:100%;height:55vh;min-height:380px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .st-hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('宇宙背景.png') center center/cover no-repeat}
+        .st-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,14,39,.4),rgba(10,14,39,.92))}
+        .st-hero-text{position:relative;z-index:1;text-align:center;padding:0 20px}
+        .st-hero-text .section-label{color:var(--accent-cyan)}
+        .st-hero-text h1{
+            font-family:'Orbitron',sans-serif;font-size:clamp(34px,5vw,56px);
+            font-weight:900;letter-spacing:6px;
+            background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--accent-cyan));
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+            margin:8px 0 16px;
+        }
+        .st-hero-text .st-hero-jp{
+            font-size:clamp(14px,1.6vw,18px);color:rgba(240,240,245,.6);
+            letter-spacing:8px;margin-top:8px;
+        }
+
+        .st-main{max-width:960px;margin:0 auto;padding:80px 40px}
+
+        /* セクション共通 */
+        .st-section{margin-bottom:70px}
+        .st-section-head{text-align:center;margin-bottom:36px}
+        .st-section-head .st-num{
+            font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:4px;
+            color:var(--accent-cyan);margin-bottom:8px;
+        }
+        .st-section-head h2{
+            font-family:'Orbitron',sans-serif;font-size:clamp(20px,3vw,28px);
+            font-weight:900;letter-spacing:3px;color:var(--gold-light);
+            line-height:1.6;
+        }
+        .st-section-head h2 ruby rt{
+            font-size:.45em;color:var(--accent-cyan);letter-spacing:1px;
+            font-family:'Noto Sans JP',sans-serif;font-weight:400;
+        }
+        .st-section-head .st-sub{
+            font-size:14px;color:rgba(240,240,245,.55);
+            margin-top:8px;letter-spacing:2px;
+        }
+
+        /* 身分カード */
+        .identity-card{
+            padding:50px 40px;border-radius:20px;text-align:center;
+            background:linear-gradient(135deg,rgba(200,168,78,.08),rgba(0,212,255,.05));
+            border:1px solid rgba(200,168,78,.35);
+            position:relative;overflow:hidden;
+        }
+        .identity-card::before{
+            content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+            width:60%;height:1px;
+            background:linear-gradient(90deg,transparent,var(--gold),transparent);
+        }
+        .identity-card::after{
+            content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+            width:60%;height:1px;
+            background:linear-gradient(90deg,transparent,var(--accent-cyan),transparent);
+        }
+        .identity-rank{
+            font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:5px;
+            color:var(--accent-cyan);text-transform:uppercase;
+        }
+        .identity-name{
+            font-size:clamp(28px,4.5vw,42px);font-weight:900;
+            color:var(--gold-light);margin:18px 0 10px;letter-spacing:4px;
+        }
+        .identity-role{
+            font-size:14px;color:rgba(240,240,245,.6);letter-spacing:3px;
+        }
+
+        /* イントロ文 */
+        .lore-intro{
+            text-align:center;font-size:16px;line-height:2.2;
+            color:rgba(240,240,245,.78);max-width:760px;margin:0 auto;
+        }
+        .lore-intro p{margin-bottom:18px}
+        .lore-intro .accent{color:var(--accent-cyan);font-weight:700}
+        .lore-intro .gold-accent{color:var(--gold-light);font-weight:700}
+
+        /* 名前入力 */
+        .name-input-row{
+            max-width:540px;margin:0 auto 30px;text-align:center;
+        }
+        .name-input-label{
+            display:block;
+            font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;
+            color:var(--accent-cyan);margin-bottom:10px;
+        }
+        /* 表示モード: 名前 + 鉛筆 */
+        .name-display{
+            position:relative;display:flex;align-items:center;justify-content:center;gap:14px;
+            padding:14px 56px 14px 24px;border-radius:10px;
+            background:rgba(10,14,39,.6);
+            border:1px solid rgba(200,168,78,.3);
+            min-height:54px;
+        }
+        .name-display-text{
+            font-size:18px;font-weight:700;color:var(--white);letter-spacing:1px;
+        }
+        .name-display-text.empty{
+            color:rgba(240,240,245,.4);font-weight:400;font-size:15px;
+        }
+        .name-edit-btn{
+            position:absolute;right:12px;top:50%;transform:translateY(-50%);
+            width:36px;height:36px;border-radius:50%;
+            background:rgba(200,168,78,.12);
+            border:1px solid rgba(200,168,78,.4);
+            color:var(--gold-light);cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            transition:.3s;
+        }
+        .name-edit-btn:hover{
+            background:rgba(200,168,78,.25);
+            border-color:var(--gold);
+            box-shadow:0 0 14px rgba(200,168,78,.3);
+        }
+        .name-edit-btn svg{width:16px;height:16px;display:block}
+        /* 編集モード: input + 保存ボタン */
+        .name-edit-row{
+            display:flex;gap:10px;align-items:stretch;
+        }
+        .name-input{
+            flex:1;padding:14px 18px;border-radius:10px;
+            background:rgba(10,14,39,.6);
+            border:1px solid var(--gold);
+            color:var(--white);font-size:16px;font-family:inherit;text-align:center;
+            transition:.3s;
+            box-shadow:0 0 16px rgba(200,168,78,.2);
+        }
+        .name-input:focus{outline:none}
+        .name-save-btn{
+            padding:0 22px;border-radius:10px;cursor:pointer;
+            background:linear-gradient(135deg,var(--gold),var(--gold-light));
+            color:var(--deep-blue);border:none;
+            font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;
+            transition:.3s;
+        }
+        .name-save-btn:hover{
+            box-shadow:0 6px 20px rgba(200,168,78,.4);
+        }
+
+        /* 部署グリッド */
+        .dept-grid{
+            display:grid;grid-template-columns:repeat(2,1fr);gap:20px;
+        }
+        .dept-card{
+            position:relative;padding:30px 28px;border-radius:16px;cursor:pointer;
+            background:linear-gradient(135deg,rgba(10,14,39,.7),rgba(0,212,255,.04));
+            border:1px solid var(--glass-border);backdrop-filter:blur(20px);
+            transition:.4s;overflow:hidden;
+        }
+        .dept-card::before{
+            content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+            background:linear-gradient(to bottom,var(--gold),var(--accent-cyan));
+            opacity:.5;transition:.4s;
+        }
+        .dept-card:hover{
+            border-color:rgba(200,168,78,.5);transform:translateY(-4px);
+            box-shadow:0 12px 40px rgba(0,0,0,.4),0 0 30px rgba(200,168,78,.1);
+        }
+        .dept-card:hover::before{opacity:1;width:6px}
+        .dept-card.selected{
+            border-color:var(--gold);
+            background:linear-gradient(135deg,rgba(200,168,78,.12),rgba(0,212,255,.08));
+            box-shadow:0 0 40px rgba(200,168,78,.25);
+        }
+        .dept-card.selected::before{opacity:1;width:6px;background:var(--gold)}
+        .dept-card.tbd{opacity:.55;cursor:not-allowed}
+        .dept-card.tbd:hover{transform:none;border-color:var(--glass-border);box-shadow:none}
+        .dept-card.tbd::before{opacity:.2}
+
+        .dept-num{
+            font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;
+            color:var(--accent-cyan);margin-bottom:8px;
+        }
+        .dept-name{
+            font-size:22px;font-weight:900;color:var(--white);
+            margin-bottom:10px;letter-spacing:2px;
+        }
+        .dept-desc{
+            font-size:13px;color:rgba(240,240,245,.6);line-height:1.8;
+        }
+        .dept-icon{
+            position:absolute;top:24px;right:24px;font-size:22px;opacity:.4;
+        }
+        .dept-card.selected .dept-icon{opacity:.85}
+        .dept-selected-mark{
+            position:absolute;bottom:14px;right:18px;
+            font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;
+            color:var(--gold);opacity:0;transition:.3s;
+        }
+        .dept-card.selected .dept-selected-mark{opacity:1}
+
+        /* 配属表示バナー */
+        .my-dept-banner{
+            margin:30px auto 0;max-width:720px;padding:24px 30px;border-radius:14px;
+            background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(200,168,78,.06));
+            border:1px solid rgba(0,212,255,.3);
+            text-align:center;
+        }
+        .my-dept-banner.empty{
+            background:rgba(240,240,245,.03);border-color:var(--glass-border);
+        }
+        .my-dept-banner-label{
+            font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;
+            color:var(--accent-cyan);margin-bottom:8px;
+        }
+        .my-dept-banner-name{
+            font-size:20px;font-weight:900;color:var(--gold-light);
+            letter-spacing:2px;
+        }
+        .my-dept-banner-name.empty-text{
+            color:rgba(240,240,245,.5);font-size:14px;font-weight:400;letter-spacing:1px;
+        }
+        .my-dept-banner-user{
+            margin-top:8px;font-size:16px;color:var(--white);font-weight:700;
+            letter-spacing:1px;
+        }
+        .my-dept-reset{
+            display:inline-block;margin-top:10px;
+            font-size:11px;color:rgba(240,240,245,.5);
+            background:none;border:none;cursor:pointer;
+            text-decoration:underline;
+        }
+        .my-dept-reset:hover{color:var(--accent-cyan)}
+
+        /* 続報ボックス */
+        .lore-coming{
+            margin-top:40px;padding:30px;border-radius:14px;
+            border:1px dashed rgba(200,168,78,.3);
+            text-align:center;
+            background:rgba(200,168,78,.03);
+        }
+        .lore-coming-title{
+            font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;
+            color:var(--gold);margin-bottom:10px;
+        }
+        .lore-coming-text{
+            font-size:13px;color:rgba(240,240,245,.55);line-height:1.9;
+        }
+
+        /* 戻るリンク */
+        .back-to-profile{
+            display:inline-flex;align-items:center;gap:8px;
+            margin-top:20px;padding:12px 24px;border-radius:8px;
+            color:var(--gold);text-decoration:none;
+            font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;
+            border:1px solid rgba(200,168,78,.3);transition:.3s;
+        }
+        .back-to-profile:hover{
+            border-color:var(--gold);background:rgba(200,168,78,.08);
+        }
+
+        @media(max-width:768px){
+            .st-main{padding:50px 20px}
+            .st-section{margin-bottom:50px}
+            .identity-card{padding:36px 24px}
+            .dept-grid{grid-template-columns:1fr}
+            .dept-card{padding:24px 22px}
+            .my-dept-banner{padding:18px 22px}
+        }
+    </style>
+</head>
+<body>
+<div id="loading"><p>DELIVERING...</p></div>
+<canvas id="stars-canvas"></canvas>
+
+<nav>
+    <a href="index.html" class="nav-logo">宙丸アオ / SORAMARU AO</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="about.html">Profile</a></li>
+        <li><a href="contents.html">Contents</a></li>
+        <li><a href="challenge.html">Challenge</a></li>
+        <li><a href="fan.html">Fan</a></li>
+        <li><a href="goods.html">Goods</a></li>
+        <li><a href="guidelines.html">Guidelines</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-wrapper">
+    <!-- Hero Banner -->
+    <div class="st-hero">
+        <div class="st-hero-bg"></div>
+        <div class="st-hero-overlay"></div>
+        <div class="st-hero-text">
+            <p class="section-label">World Setting</p>
+            <h1>OFFICIAL SETTING</h1>
+            <p class="st-hero-jp">公式設定</p>
+        </div>
+    </div>
+
+    <div class="st-main">
+
+        <!-- プロローグ -->
+        <div class="st-section reveal">
+            <div class="st-section-head">
+                <div class="st-num">PROLOGUE</div>
+                <h2><ruby>宙<rt>そら</rt></ruby>を駆ける、笑顔とワクワクの届け人</h2>
+                <div class="st-sub">— THE WORLD OF SORAMARU AO —</div>
+            </div>
+            <div class="lore-intro">
+                <p>はるか彼方、星々の海を駆ける一台の配達船。<br>その操縦席に座るのは、<span class="gold-accent">宙丸アオ</span> ——</p>
+                <p>届けるのは荷物じゃない。<br><span class="accent">笑顔とワクワク</span>を、宇宙の果てまで。</p>
+            </div>
+        </div>
+
+        <!-- 相棒ルド -->
+        <div class="st-section reveal">
+            <div class="st-section-head">
+                <div class="st-num">CHAPTER 01</div>
+                <h2>相棒 — ルド</h2>
+                <div class="st-sub">— PARTNER : RUDO —</div>
+            </div>
+            <div class="identity-card">
+                <div class="identity-rank">SPIRIT WOLF / PARTNER</div>
+                <div class="identity-name">ルド</div>
+                <div class="identity-role">本名: ルドルフ</div>
+                <div style="margin-top:24px;font-size:15px;line-height:2;color:rgba(240,240,245,.78);max-width:560px;margin-left:auto;margin-right:auto">
+                    宙丸アオの相棒であり、いつも隣に寄り添う <span class="accent" style="color:var(--accent-cyan);font-weight:700">狼型の精霊</span>。<br>
+                    本名は <span class="gold-accent" style="color:var(--gold-light);font-weight:700">ルドルフ</span>。普段は「ルド」と呼ばれている。<br>
+                    宇宙を駆ける配達の旅を、いつもアオと共にしている、かけがえのない存在。
+                </div>
+            </div>
+        </div>
+
+        <!-- 流青群について -->
+        <div class="st-section reveal">
+            <div class="st-section-head">
+                <div class="st-num">CHAPTER 02</div>
+                <h2>流青群と宙丸郵便局</h2>
+                <div class="st-sub">— RYUSEIGUNG &amp; THE POST OFFICE —</div>
+            </div>
+            <div class="lore-intro">
+                <p>宙丸アオの周りを、同じ方向へ流れていく星たち —— それが <span class="accent">流青群</span>。</p>
+                <p>流青群の仲間たちは、宙丸郵便局に所属する <span class="gold-accent">局員</span> でもあります。<br>それぞれが課に分かれ、宙丸局長と一緒に宇宙の隅々まで笑顔を届けています。</p>
+                <p style="font-size:14px;color:rgba(240,240,245,.55);margin-top:24px">あなたの所属はどこ？ お気に入りの課を選んでみよう。</p>
+            </div>
+        </div>
+
+        <!-- 部署一覧 -->
+        <div class="st-section reveal">
+            <div class="st-section-head">
+                <div class="st-num">CHAPTER 03</div>
+                <h2>部署一覧 — DEPARTMENTS</h2>
+                <div class="st-sub">SORAMARU POST OFFICE / DIVISION LIST</div>
+            </div>
+
+            <!-- 名前入力（表示モード / 編集モード） -->
+            <div class="name-input-row">
+                <div class="name-input-label">YOUR NAME / 局員名</div>
+                <!-- 表示モード -->
+                <div class="name-display" id="nameDisplay">
+                    <span class="name-display-text empty" id="nameDisplayText">名前を入力してください</span>
+                    <button type="button" class="name-edit-btn" id="nameEditBtn" aria-label="名前を編集">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    </button>
+                </div>
+                <!-- 編集モード -->
+                <div class="name-edit-row" id="nameEditRow" style="display:none">
+                    <input type="text" id="myNameInput" class="name-input" placeholder="名前を入力してください" maxlength="20">
+                    <button type="button" class="name-save-btn" id="nameSaveBtn">保存</button>
+                </div>
+            </div>
+
+            <div class="dept-grid">
+                <div class="dept-card" data-dept="第1課 特務" data-key="dept1">
+                    <div class="dept-icon">🛡️</div>
+                    <div class="dept-num">DIVISION 01</div>
+                    <div class="dept-name">第1課 — 特務</div>
+                    <div class="dept-desc">最重要任務を担当する局直属の精鋭部隊。困難な配達ミッションは彼らに託される。</div>
+                    <div class="dept-selected-mark">★ SELECTED</div>
+                </div>
+                <div class="dept-card" data-dept="第2課 広報宣伝部" data-key="dept2">
+                    <div class="dept-icon">📣</div>
+                    <div class="dept-num">DIVISION 02</div>
+                    <div class="dept-name">第2課 — 広報宣伝部</div>
+                    <div class="dept-desc">宙丸アオの切り抜き動画の拡散、ヲタ活、各種報告を担当する宣伝部隊。流青群の声を宇宙中に届ける役割を担う。</div>
+                    <div class="dept-selected-mark">★ SELECTED</div>
+                </div>
+                <div class="dept-card" data-dept="第3課 ルドのお世話係" data-key="dept3">
+                    <div class="dept-icon">🐺</div>
+                    <div class="dept-num">DIVISION 03</div>
+                    <div class="dept-name">第3課 — ルドのお世話係</div>
+                    <div class="dept-desc">局長の相棒であり狼型の精霊「ルド」（本名：ルドルフ）の毎日のお世話を担当する部隊。ルドを愛でる権利付き。</div>
+                    <div class="dept-selected-mark">★ SELECTED</div>
+                </div>
+                <div class="dept-card" data-dept="第4課 配達部" data-key="dept4">
+                    <div class="dept-icon">📦</div>
+                    <div class="dept-num">DIVISION 04</div>
+                    <div class="dept-name">第4課 — 配達部</div>
+                    <div class="dept-desc">郵便局を支える縁の下の力持ち。グッズの梱包・発送など、ファンの元へ確実に「モノ」を届ける裏方の主力部隊。</div>
+                    <div class="dept-selected-mark">★ SELECTED</div>
+                </div>
+            </div>
+
+            <!-- 配属バナー -->
+            <div class="my-dept-banner empty" id="myDeptBanner">
+                <div class="my-dept-banner-label">YOUR DIVISION</div>
+                <div class="my-dept-banner-name empty-text" id="myDeptName">クリックして配属を選択してください</div>
+                <div class="my-dept-banner-user" id="myDeptUser" style="display:none"></div>
+                <button type="button" class="my-dept-reset" id="myDeptReset" style="display:none">名前と配属をリセットする</button>
+            </div>
+        </div>
+
+        <!-- 続報 -->
+        <div class="st-section reveal">
+            <div class="lore-coming">
+                <div class="lore-coming-title">＞＞ TO BE CONTINUED</div>
+                <div class="lore-coming-text">
+                    宙丸郵便局の歴史・本部の場所・他の局員たち …… <br>
+                    まだ語られていない設定がたくさんあります。<br>
+                    続報を楽しみにお待ちください。
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:30px">
+            <a href="about.html" class="back-to-profile">← BACK TO PROFILE</a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">SORAMARU AO</div>
+        <div class="footer-social">
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+        </div>
+        <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script src="common.js"></script>
+<script>
+(function(){
+    var KEY_NAME='soramaru_user_name';
+    var KEY_DEPT='soramaru_dept';
+    var KEY_DEPT_LABEL='soramaru_dept_label';
+    var KEY_DONE='soramaru_setup_done';
+    var KEY_SKIP='soramaru_setup_skip';
+    var KEY_WELCOMED='soramaru_welcome_shown';
+
+    function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+    function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+    function del(k){try{localStorage.removeItem(k)}catch(e){}}
+
+    function init(){
+        var cards=document.querySelectorAll('.dept-card[data-key]');
+        var banner=document.getElementById('myDeptBanner');
+        var deptNameEl=document.getElementById('myDeptName');
+        var deptUserEl=document.getElementById('myDeptUser');
+        var resetBtn=document.getElementById('myDeptReset');
+
+        var nameDisplay=document.getElementById('nameDisplay');
+        var nameDisplayText=document.getElementById('nameDisplayText');
+        var nameEditBtn=document.getElementById('nameEditBtn');
+        var nameEditRow=document.getElementById('nameEditRow');
+        var nameInput=document.getElementById('myNameInput');
+        var nameSaveBtn=document.getElementById('nameSaveBtn');
+
+        // 旧データ移行: dept_labelが無くてdeptキーがある場合はカードから補完
+        var initKey=get(KEY_DEPT);
+        if(initKey && !get(KEY_DEPT_LABEL)){
+            var match=document.querySelector('.dept-card[data-key="'+initKey+'"]');
+            if(match)set(KEY_DEPT_LABEL,match.dataset.dept);
+        }
+
+        function refreshAll(){
+            var name=get(KEY_NAME);
+            var deptLabel=get(KEY_DEPT_LABEL);
+            var deptKey=get(KEY_DEPT);
+
+            // 名前表示（未登録/スキップ時のデフォルトは「流青群」）
+            if(name){
+                nameDisplayText.textContent=name;
+                nameDisplayText.classList.remove('empty');
+            }else{
+                nameDisplayText.textContent='流青群';
+                nameDisplayText.classList.remove('empty');
+            }
+
+            // 部署カードのハイライト
+            cards.forEach(function(c){
+                c.classList.toggle('selected',c.dataset.key===deptKey);
+            });
+
+            // 配属バナー
+            if(deptLabel){
+                deptNameEl.textContent=deptLabel;
+                deptNameEl.classList.remove('empty-text');
+                banner.classList.remove('empty');
+            }else{
+                deptNameEl.textContent='クリックして配属を選択してください';
+                deptNameEl.classList.add('empty-text');
+                banner.classList.add('empty');
+            }
+            if(name){
+                deptUserEl.textContent=name+' 局員';
+                deptUserEl.style.display='block';
+            }else{
+                deptUserEl.textContent='流青群 局員';
+                deptUserEl.style.display='block';
+            }
+            resetBtn.style.display=(name||deptLabel)?'inline-block':'none';
+        }
+
+        function enterEditMode(){
+            nameInput.value=get(KEY_NAME)||'';
+            nameDisplay.style.display='none';
+            nameEditRow.style.display='flex';
+            setTimeout(function(){nameInput.focus();nameInput.select()},20);
+        }
+
+        function exitEditMode(){
+            nameEditRow.style.display='none';
+            nameDisplay.style.display='flex';
+        }
+
+        function saveName(){
+            var v=nameInput.value.trim();
+            if(v){
+                set(KEY_NAME,v);
+                if(get(KEY_DEPT_LABEL)){set(KEY_DONE,'1');del(KEY_SKIP);}
+            }else{
+                del(KEY_NAME);
+            }
+            exitEditMode();
+            refreshAll();
+        }
+
+        // 名前: 鉛筆ボタンで編集モード
+        nameEditBtn.addEventListener('click',enterEditMode);
+        nameSaveBtn.addEventListener('click',saveName);
+        nameInput.addEventListener('keydown',function(e){
+            if(e.key==='Enter'){e.preventDefault();saveName();}
+            if(e.key==='Escape'){exitEditMode();}
+        });
+
+        // 部署: クリックで保存
+        cards.forEach(function(c){
+            c.addEventListener('click',function(){
+                set(KEY_DEPT,c.dataset.key);
+                set(KEY_DEPT_LABEL,c.dataset.dept);
+                if(get(KEY_NAME)){set(KEY_DONE,'1');del(KEY_SKIP);}
+                refreshAll();
+                banner.scrollIntoView({behavior:'smooth',block:'center'});
+            });
+        });
+
+        // リセット
+        resetBtn.addEventListener('click',function(){
+            del(KEY_NAME);del(KEY_DEPT);del(KEY_DEPT_LABEL);
+            del(KEY_DONE);del(KEY_WELCOMED);
+            refreshAll();
+        });
+
+        // 初期描画
+        refreshAll();
+    }
+
+    if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',init);
+    }else{
+        init();
+    }
+})();
+</script>
+</body>
+</html>

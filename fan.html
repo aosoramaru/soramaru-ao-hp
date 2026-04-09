@@ -155,9 +155,6 @@
             background:linear-gradient(to bottom,var(--gold),var(--accent-cyan));
             border-radius:3px;
         }
-        .fan-card::after{
-            content:'🌟';position:absolute;top:12px;right:16px;font-size:18px;opacity:.4;
-        }
         .fan-icon{
             flex-shrink:0;width:56px;height:56px;
             display:flex;align-items:center;justify-content:center;
@@ -174,6 +171,17 @@
             font-family:'Orbitron',sans-serif;font-size:11px;
             letter-spacing:2px;color:var(--gold);
         }
+        .fan-message{
+            margin-top:10px;padding-top:10px;
+            border-top:1px dashed rgba(200,168,78,.2);
+            font-size:13px;line-height:1.6;color:rgba(240,240,245,.75);
+        }
+        .fan-message::before{
+            content:'“';color:var(--accent-cyan);margin-right:4px;font-size:16px;
+        }
+        .fan-message::after{
+            content:'”';color:var(--accent-cyan);margin-left:4px;font-size:16px;
+        }
 
         @media(max-width:768px){
             .fan-main{padding:40px 20px}
@@ -183,11 +191,11 @@
     </style>
 </head>
 <body>
-<div id="loading"><img src="宇宙服ルド.png" alt="Loading..."><p>DELIVERING...</p></div>
+<div id="loading"><p>DELIVERING...</p></div>
 <canvas id="stars-canvas"></canvas>
 
 <nav>
-    <a href="index.html" class="nav-logo">SORAMARU AO</a>
+    <a href="index.html" class="nav-logo">宙丸アオ / SORAMARU AO</a>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
         <li><a href="news.html">News</a></li>
@@ -260,17 +268,19 @@
         <!-- Fan Cards -->
         <div class="fans-grid">
             <div class="glass-card fan-card reveal">
-                <div class="fan-icon">⭐</div>
+                <div class="fan-icon">🌟</div>
                 <div class="fan-details">
                     <div class="fan-username">気まぐれすんすん</div>
                     <div class="fan-achieved">ACHIEVED: 2025.09.09</div>
+                    <div class="fan-message">リスナーさん想いのすんちゃろ</div>
                 </div>
             </div>
             <div class="glass-card fan-card reveal">
-                <div class="fan-icon">⭐</div>
+                <div class="fan-icon">🌟</div>
                 <div class="fan-details">
                     <div class="fan-username">るン</div>
                     <div class="fan-achieved">ACHIEVED: 2026.03.13</div>
+                    <div class="fan-message">最高のエンタメ枠</div>
                 </div>
             </div>
         </div>

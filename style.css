@@ -37,9 +37,32 @@ body{
 /* ===== LOADING ===== */
 #loading{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--deep-blue);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10000;transition:opacity .8s,visibility .8s}
 #loading.hidden{opacity:0;visibility:hidden;pointer-events:none}
-#loading img{width:400px;margin-left:-180px;animation:bounce 1s ease-in-out infinite;object-fit:contain}
-#loading p{margin-top:20px;font-family:'Orbitron',sans-serif;color:var(--gold);letter-spacing:4px;font-size:14px;animation:pulse 1.5s ease-in-out infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+#loading p{font-family:'Orbitron',sans-serif;color:var(--gold);letter-spacing:4px;font-size:14px;animation:pulse 1.5s ease-in-out infinite}
+/* パーソナライズ版ローディング (横一列) */
+#loading p.loading-personal{
+    display:flex;flex-direction:row;align-items:baseline;
+    gap:20px;flex-wrap:wrap;justify-content:center;
+    animation:none;padding:0 24px;max-width:100%;
+}
+#loading p.loading-personal .lp-dept{
+    font-family:'Noto Sans JP',sans-serif;font-size:24px;font-weight:700;
+    letter-spacing:2px;color:var(--accent-cyan);
+}
+#loading p.loading-personal .lp-name{
+    font-family:'Noto Sans JP',sans-serif;font-size:30px;font-weight:900;
+    letter-spacing:2px;color:var(--gold-light);
+}
+#loading p.loading-personal .lp-status{
+    font-family:'Noto Sans JP',sans-serif;font-size:22px;font-weight:700;
+    letter-spacing:3px;color:var(--gold);
+    animation:pulse 1.5s ease-in-out infinite;
+}
+@media(max-width:768px){
+    #loading p.loading-personal{gap:12px}
+    #loading p.loading-personal .lp-dept{font-size:18px;letter-spacing:1px}
+    #loading p.loading-personal .lp-name{font-size:22px;letter-spacing:1px}
+    #loading p.loading-personal .lp-status{font-size:16px;letter-spacing:2px}
+}
 @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 
 /* ===== NAV (全デバイス共通: ハンバーガーのみ) ===== */
@@ -52,8 +75,13 @@ nav{
     border-bottom:1px solid var(--glass-border);
 }
 .nav-logo{
-    font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;
-    color:var(--gold);text-decoration:none;letter-spacing:3px;
+    font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;
+    color:var(--gold);text-decoration:none;letter-spacing:2px;
+    transition:text-shadow .3s ease;
+}
+.nav-logo:hover{text-shadow:0 0 12px rgba(200,168,78,.6)}
+@media(max-width:768px){
+    .nav-logo{font-size:13px;letter-spacing:1px}
 }
 
 /* ナビオーバーレイ（ぼかしなし、薄い暗転のみ） */
@@ -69,7 +97,7 @@ nav{
 /* ナビリンク: 狭めの右側パネル・グラデーション背景 */
 .nav-links{
     position:fixed;top:0;right:0;
-    width:clamp(280px,28vw,380px);
+    width:clamp(320px,32vw,440px);
     height:100vh;
     background:#0a0e27;
     background-image:
@@ -250,4 +278,192 @@ footer{
     .page-wrapper{padding-top:60px}
     .sd-mascot{width:55px;bottom:10px;right:10px}
     footer{margin-top:40px;padding:30px 15px}
+}
+
+/* ===== POST OFFICE: NAV BADGE ===== */
+.nav-badge{
+    display:flex;align-items:baseline;gap:10px;
+    margin-right:14px;padding:0;line-height:1.2;
+    font-family:'Noto Sans JP',sans-serif;font-size:14px;
+    text-decoration:none;letter-spacing:1px;
+    white-space:nowrap;
+    transition:.3s;
+}
+.nav-badge:hover .nav-badge-name,
+.nav-badge:hover .nav-badge-dept{
+    text-shadow:0 0 10px rgba(200,168,78,.4);
+}
+.nav-badge-dept{color:var(--accent-cyan);font-weight:500;font-size:13px}
+.nav-badge-name{color:var(--gold-light);font-weight:700;font-size:15px}
+@media(max-width:768px){
+    /* スマホ: ハンバーガーの真下、ヒーローイラストに重ねて表示。枠なし、影で読みやすく */
+    .nav-badge{
+        position:absolute;top:100%;right:20px;
+        margin-right:0;margin-top:6px;
+        font-size:12px;gap:6px;
+    }
+    .nav-badge-dept,.nav-badge-name{
+        text-shadow:0 1px 6px rgba(10,14,39,.95),0 0 12px rgba(10,14,39,.8);
+    }
+    .nav-badge-dept{font-size:11px}
+    .nav-badge-name{font-size:13px}
+}
+
+/* ===== POST OFFICE: SETUP MODAL ===== */
+#setupOverlay{
+    position:fixed;inset:0;z-index:9500;
+    background:radial-gradient(ellipse at center,rgba(10,14,39,.92),rgba(10,14,39,.98));
+    backdrop-filter:blur(8px);
+    display:none;align-items:center;justify-content:center;
+    padding:24px;opacity:0;transition:opacity .5s ease;
+}
+#setupOverlay.show{display:flex;opacity:1}
+#setupOverlay .setup-card{
+    max-width:520px;width:100%;
+    padding:44px 38px;border-radius:20px;
+    background:linear-gradient(135deg,rgba(18,24,63,.95),rgba(10,14,39,.95));
+    border:1px solid rgba(200,168,78,.4);
+    box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(200,168,78,.1);
+    text-align:center;position:relative;
+    transform:translateY(20px);transition:transform .5s ease;
+}
+#setupOverlay.show .setup-card{transform:translateY(0)}
+.setup-label{
+    font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:4px;
+    color:var(--accent-cyan);text-transform:uppercase;
+}
+.setup-card h2{
+    font-size:clamp(20px,3vw,26px);font-weight:900;
+    color:var(--gold-light);margin:10px 0 6px;letter-spacing:2px;
+}
+.setup-desc{
+    font-size:13px;color:rgba(240,240,245,.6);
+    line-height:1.8;margin-bottom:24px;
+}
+.setup-input{
+    width:100%;padding:14px 18px;border-radius:10px;
+    background:rgba(10,14,39,.6);
+    border:1px solid rgba(200,168,78,.3);
+    color:var(--white);font-size:15px;font-family:inherit;
+    margin-bottom:20px;transition:.3s;
+}
+.setup-input:focus{
+    outline:none;border-color:var(--gold);
+    box-shadow:0 0 16px rgba(200,168,78,.2);
+}
+.setup-dept-list{
+    display:grid;grid-template-columns:1fr;gap:8px;
+    margin-bottom:24px;text-align:left;
+}
+.setup-dept-btn{
+    padding:12px 16px;border-radius:10px;cursor:pointer;
+    background:rgba(10,14,39,.5);
+    border:1px solid var(--glass-border);
+    color:rgba(240,240,245,.85);font-size:14px;font-family:inherit;
+    transition:.3s;text-align:left;display:flex;align-items:center;gap:10px;
+}
+.setup-dept-btn:hover{
+    border-color:rgba(200,168,78,.5);
+    background:rgba(200,168,78,.05);
+}
+.setup-dept-btn.selected{
+    border-color:var(--gold);
+    background:linear-gradient(135deg,rgba(200,168,78,.12),rgba(0,212,255,.06));
+    box-shadow:0 0 18px rgba(200,168,78,.2);
+}
+.setup-dept-btn .dept-emoji{font-size:18px}
+.setup-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.setup-btn-primary{
+    padding:14px 36px;border-radius:30px;cursor:pointer;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    color:var(--deep-blue);border:none;
+    font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;
+    transition:.3s;
+}
+.setup-btn-primary:hover{
+    box-shadow:0 8px 24px rgba(200,168,78,.4);transform:translateY(-2px);
+}
+.setup-btn-primary:disabled{
+    opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;
+}
+.setup-btn-skip{
+    padding:14px 24px;border-radius:30px;cursor:pointer;
+    background:none;border:1px solid rgba(240,240,245,.2);
+    color:rgba(240,240,245,.6);
+    font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;
+    transition:.3s;
+}
+.setup-btn-skip:hover{
+    border-color:rgba(240,240,245,.4);color:var(--white);
+}
+
+/* ===== POST OFFICE: WELCOME SCREEN ===== */
+#welcomeScreen{
+    position:fixed;inset:0;z-index:9800;
+    background:radial-gradient(ellipse at center,rgba(10,14,39,.96),rgba(10,14,39,1));
+    display:none;align-items:center;justify-content:center;
+    padding:24px;opacity:0;transition:opacity .8s ease;
+}
+#welcomeScreen.show{display:flex;opacity:1}
+#welcomeScreen.fade{opacity:0}
+#welcomeScreen .welcome-inner,
+#loading.is-welcome .welcome-inner{
+    text-align:center;max-width:560px;
+    transform:scale(.96);transition:transform .8s ease;
+}
+#welcomeScreen.show .welcome-inner,
+#loading.welcome-show .welcome-inner{transform:scale(1)}
+.welcome-brand{
+    font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:5px;
+    color:var(--accent-cyan);margin-bottom:10px;
+    animation:wFadeIn .8s ease both;
+}
+.welcome-title{
+    font-size:clamp(20px,3vw,28px);font-weight:900;
+    color:var(--gold-light);letter-spacing:4px;margin-bottom:30px;
+    animation:wFadeIn .8s .15s ease both;
+}
+.welcome-divider{
+    width:80%;max-width:380px;height:1px;margin:0 auto 28px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    animation:wExpand .9s .3s ease both;transform-origin:center;
+}
+.welcome-dept{
+    font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:4px;
+    color:var(--accent-cyan);margin-bottom:12px;
+    animation:wFadeIn .8s .45s ease both;
+}
+.welcome-dept-name{
+    font-size:clamp(22px,3.6vw,32px);font-weight:900;
+    color:var(--white);margin-bottom:18px;letter-spacing:3px;
+    animation:wFadeIn .8s .55s ease both;
+}
+.welcome-user{
+    font-size:clamp(18px,2.6vw,24px);font-weight:700;
+    color:var(--gold-light);margin-bottom:36px;letter-spacing:2px;
+    animation:wFadeIn .8s .7s ease both;
+}
+.welcome-divider2{
+    width:80%;max-width:380px;height:1px;margin:0 auto 28px;
+    background:linear-gradient(90deg,transparent,var(--accent-cyan),transparent);
+    animation:wExpand .9s .85s ease both;transform-origin:center;
+}
+.welcome-message{
+    font-size:clamp(15px,2vw,18px);
+    color:var(--white);letter-spacing:3px;font-weight:500;
+    animation:wFadeIn .8s 1s ease both;
+}
+@keyframes wFadeIn{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:translateY(0)}
+}
+@keyframes wExpand{
+    from{opacity:0;transform:scaleX(0)}
+    to{opacity:1;transform:scaleX(1)}
+}
+
+@media(max-width:768px){
+    #setupOverlay .setup-card{padding:32px 24px}
+    .setup-actions{flex-direction:column}
+    .setup-btn-primary,.setup-btn-skip{width:100%}
 }
