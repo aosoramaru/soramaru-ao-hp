@@ -98,6 +98,84 @@
             .voice-link-arrow{display:none}
         }
 
+        /* スーパーファン特典 */
+        .perks-section{
+            margin-bottom:60px;padding:50px 40px;border-radius:20px;
+            background:linear-gradient(135deg,rgba(200,168,78,.07),rgba(0,212,255,.04));
+            border:1px solid rgba(200,168,78,.3);
+            position:relative;overflow:hidden;
+        }
+        .perks-section::before{
+            content:'';position:absolute;top:0;left:0;right:0;height:1px;
+            background:linear-gradient(90deg,transparent,var(--gold),transparent);
+        }
+        .perks-header{text-align:center;margin-bottom:30px}
+        .perks-badge{
+            display:inline-block;font-family:'Orbitron',sans-serif;font-size:11px;
+            letter-spacing:3px;padding:8px 22px;border-radius:30px;
+            background:linear-gradient(135deg,rgba(200,168,78,.15),rgba(0,212,255,.08));
+            border:1px solid rgba(200,168,78,.4);color:var(--gold-light);
+            margin-bottom:16px;
+        }
+        .perks-title{
+            font-size:clamp(22px,3.5vw,30px);font-weight:900;
+            color:var(--gold-light);letter-spacing:3px;margin-bottom:10px;
+        }
+        .perks-subtitle{
+            font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:4px;
+            color:var(--accent-cyan);
+        }
+        .perks-intro{
+            text-align:center;font-size:14px;color:rgba(240,240,245,.65);
+            line-height:1.95;margin-bottom:32px;
+            max-width:680px;margin-left:auto;margin-right:auto;
+        }
+        .perks-grid{
+            display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+        }
+        .perk-item{
+            display:flex;align-items:flex-start;gap:14px;
+            padding:22px 22px;border-radius:14px;
+            background:rgba(10,14,39,.55);
+            border:1px solid var(--glass-border);
+            transition:.3s;
+        }
+        .perk-item:hover{
+            border-color:rgba(200,168,78,.5);
+            transform:translateY(-3px);
+            box-shadow:0 8px 24px rgba(0,0,0,.3);
+        }
+        .perk-icon{
+            flex-shrink:0;width:44px;height:44px;border-radius:11px;
+            display:flex;align-items:center;justify-content:center;font-size:22px;
+            background:linear-gradient(135deg,rgba(200,168,78,.18),rgba(0,212,255,.08));
+            border:1px solid rgba(200,168,78,.3);
+        }
+        .perk-content{flex:1;min-width:0}
+        .perk-name{
+            font-size:14px;font-weight:700;color:var(--white);
+            margin-bottom:5px;letter-spacing:1px;
+        }
+        .perk-desc{
+            font-size:12px;color:rgba(240,240,245,.6);line-height:1.75;
+        }
+        .perks-cta{text-align:center;margin-top:32px}
+        .perks-cta a{
+            display:inline-flex;align-items:center;gap:10px;
+            padding:14px 34px;border-radius:30px;
+            background:linear-gradient(135deg,#ff0050,#ff4081);
+            color:#fff;text-decoration:none;
+            font-family:'Orbitron',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;
+            transition:.3s;box-shadow:0 6px 20px rgba(255,0,80,.25);
+        }
+        .perks-cta a:hover{
+            transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,0,80,.4);
+        }
+        @media(max-width:768px){
+            .perks-section{padding:36px 22px}
+            .perks-grid{grid-template-columns:1fr}
+        }
+
         .member-explain{text-align:center;margin-bottom:40px;padding:30px;border-radius:16px;border:1px solid rgba(0,212,255,.15);background:rgba(0,212,255,.03)}
         .member-explain p{font-size:14px;color:rgba(240,240,245,.5);line-height:2}
         .member-explain .explain-icons{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap}
@@ -231,18 +309,65 @@
             <p>流星のように輝きながら、ひとりひとりがアオと同じ空を駆け抜けていく。<br>バラバラの場所にいても、同じ想いで同じ方向へ進んでいく ——<br>そんな仲間たちの集まりです。</p>
         </div>
 
-        <!-- Fan Voice Link -->
-        <a href="fanvoice.html" class="voice-link-card reveal">
-            <div class="voice-link-inner">
-                <div class="voice-link-icon">💌</div>
-                <div class="voice-link-text">
-                    <div class="voice-link-label">FAN VOICE</div>
-                    <div class="voice-link-title">ファンの声</div>
-                    <div class="voice-link-desc">宙丸アオへのメッセージを送ろう。流青群みんなの声を一緒に見られるよ。</div>
-                </div>
-                <div class="voice-link-arrow">→</div>
+        <!-- スーパーファン特典 -->
+        <div class="perks-section reveal">
+            <div class="perks-header">
+                <div class="perks-badge">TIKTOK MEMBERSHIP</div>
+                <div class="perks-title">スーパーファンの特典</div>
+                <div class="perks-subtitle">— SUPER FAN BENEFITS —</div>
             </div>
-        </a>
+            <p class="perks-intro">
+                TikTokの限定メンバーシップに加入してくれた「スーパーファン」のみんなには、宙丸郵便局からたくさんの特典を用意しているよ。<br>
+                流青群の中でも、より深くアオと宇宙の旅を楽しめる特別な仲間になれる。
+            </p>
+            <div class="perks-grid">
+                <div class="perk-item">
+                    <div class="perk-icon">💬</div>
+                    <div class="perk-content">
+                        <div class="perk-name">限定 Discord サーバー</div>
+                        <div class="perk-desc">スーパーファン専用の Discord サーバーに参加。アオやみんなと一緒に交流できる秘密基地。</div>
+                    </div>
+                </div>
+                <div class="perk-item">
+                    <div class="perk-icon">🛒</div>
+                    <div class="perk-content">
+                        <div class="perk-name">グッズ優先購入権</div>
+                        <div class="perk-desc">新グッズや限定アイテムを、一般販売より早く購入できる優先権をプレゼント。</div>
+                    </div>
+                </div>
+                <div class="perk-item">
+                    <div class="perk-icon">🎮</div>
+                    <div class="perk-content">
+                        <div class="perk-name">参加型配信に参加</div>
+                        <div class="perk-desc">ゲーム参加型配信に直接エントリー。アオと一緒にプレイできるチャンスをゲット。</div>
+                    </div>
+                </div>
+                <div class="perk-item">
+                    <div class="perk-icon">📢</div>
+                    <div class="perk-content">
+                        <div class="perk-name">最新情報を先取り</div>
+                        <div class="perk-desc">配信予定・告知・新企画の情報を、誰よりも早くキャッチできる。</div>
+                    </div>
+                </div>
+                <div class="perk-item">
+                    <div class="perk-icon">🎁</div>
+                    <div class="perk-content">
+                        <div class="perk-name">月末抽選会</div>
+                        <div class="perk-desc">毎月月末、限定 Discord 内で開催されるプレゼント抽選会の対象。</div>
+                    </div>
+                </div>
+                <div class="perk-item">
+                    <div class="perk-icon">🎨</div>
+                    <div class="perk-content">
+                        <div class="perk-name">イラストプレゼント</div>
+                        <div class="perk-desc">スーパーファン限定のイラストプレゼント企画の対象に。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="perks-cta">
+                <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener">▶ TikTokでメンバーシップに加入</a>
+            </div>
+        </div>
 
         <!-- Divider: TikTok Section -->
         <div class="fan-divider reveal">
@@ -284,6 +409,19 @@
                 </div>
             </div>
         </div>
+
+        <!-- Fan Voice Link (MAX レベル達成者の下に移動) -->
+        <a href="fanvoice.html" class="voice-link-card reveal" style="margin-top:60px;margin-bottom:0">
+            <div class="voice-link-inner">
+                <div class="voice-link-icon">💌</div>
+                <div class="voice-link-text">
+                    <div class="voice-link-label">FAN VOICE</div>
+                    <div class="voice-link-title">ファンの声</div>
+                    <div class="voice-link-desc">宙丸アオへのメッセージを送ろう。流青群みんなの声を一緒に見られるよ。</div>
+                </div>
+                <div class="voice-link-arrow">→</div>
+            </div>
+        </a>
     </div>
 
     <!-- Footer -->
