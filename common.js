@@ -10,7 +10,9 @@
         welcomed=localStorage.getItem('soramaru_welcome_shown')==='1';
     }catch(e){}
     var shouldWelcome=setupDone&&!welcomed&&!!name&&!!deptLabel;
-    var shouldPersonal=setupDone&&welcomed&&!!name&&!!deptLabel;
+    // パーソナライズ表示: 未設定でも「未所属 / 流青群」のデフォルト値を出す
+    var displayDept=deptLabel||'未所属';
+    var displayName=name||'流青群';
 
     if(shouldWelcome){
         loadingEl.classList.add('is-welcome');
@@ -26,14 +28,14 @@
                 '<div class="welcome-message">ようこそ宙丸郵便局へ</div>'+
             '</div>';
         requestAnimationFrame(function(){loadingEl.classList.add('welcome-show')});
-    }else if(shouldPersonal){
-        // 通常ローディング(パーソナライズ版): 既存imgを残してpタグだけ差し替え
+    }else{
+        // 通常ローディング(パーソナライズ版): 設定済みは保存値、未設定は「未所属/流青群」
         var lp=loadingEl.querySelector('p');
         if(lp){
             lp.classList.add('loading-personal');
             lp.innerHTML=
-                '<span class="lp-dept">'+escapeHtml(deptLabel)+'</span>'+
-                '<span class="lp-name">'+escapeHtml(name)+'</span>'+
+                '<span class="lp-dept">'+escapeHtml(displayDept)+'</span>'+
+                '<span class="lp-name">'+escapeHtml(displayName)+'</span>'+
                 '<span class="lp-status">閲覧中...</span>';
         }
     }
