@@ -18,10 +18,12 @@
 
         .goods-main{max-width:900px;margin:0 auto;padding:60px 40px;text-align:center}
 
-        .goods-banner{position:relative;overflow:hidden;padding:70px 50px;margin-bottom:50px}
-        .goods-deco{position:absolute;height:250px;opacity:.12}
-        .goods-deco.left{left:10px;top:50%;transform:translateY(-50%)}
-        .goods-deco.right{right:10px;top:50%;transform:translateY(-50%) scaleX(-1)}
+        .goods-banner{position:relative;overflow:hidden;padding:60px 50px 70px;margin-bottom:50px}
+        .goods-illust{
+            display:block;width:auto;max-width:280px;height:auto;
+            margin:0 auto 24px;
+            filter:drop-shadow(0 10px 30px rgba(0,0,0,.4)) drop-shadow(0 0 20px rgba(200,168,78,.15));
+        }
         .booth-logo{display:none;width:120px;margin:0 auto 20px;opacity:.8}
         .goods-banner h3{font-family:'Orbitron',sans-serif;font-size:22px;letter-spacing:4px;margin-bottom:15px;color:var(--gold-light)}
         .goods-banner p{font-size:15px;color:rgba(240,240,245,.6);margin-bottom:35px;line-height:2}
@@ -45,9 +47,9 @@
 
         @media(max-width:768px){
             .goods-main{padding:40px 20px}
-            .goods-banner{padding:40px 20px}
-            .goods-deco{display:none}
-            .booth-logo{display:block}
+            .goods-banner{padding:32px 20px 40px}
+            .goods-illust{max-width:200px;margin-bottom:18px}
+            .booth-logo{display:none}
             .goods-info{display:none}
             .goods-features{grid-template-columns:1fr;gap:12px}
         }
@@ -86,12 +88,11 @@
 
     <div class="goods-main">
         <div class="glass-card goods-banner reveal">
-            <img src="SD1.png" alt="" class="goods-deco left">
-            <img src="SD3.png" alt="" class="goods-deco right">
-            <svg class="booth-logo" viewBox="0 0 24 24" fill="var(--gold)"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg>
+            <img src="みるひか先生.png" alt="宙丸アオ ちびイラスト by みるひか先生" class="goods-illust">
             <h3>BOOTH SHOP</h3>
-            <p>宙丸アオの公式グッズはBOOTHにて販売中！ アクリルスタンドやグッズなど、ぜひチェックしてみてください。</p>
+            <p>宙丸アオの公式グッズはBOOTHにて販売中！<br>アクリルスタンドやグッズなど、ぜひチェックしてみてください。</p>
             <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener" class="booth-btn">SHOP NOW</a>
+            <p style="margin-top:24px;margin-bottom:0;font-size:11px;color:rgba(240,240,245,.4);letter-spacing:1px">Illust : みるひか先生</p>
         </div>
 
         <div class="goods-info reveal">
