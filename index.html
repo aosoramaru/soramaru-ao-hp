@@ -91,9 +91,7 @@
         @keyframes newsSlideRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
         @keyframes newsSlideLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
 
-        .hero-social{position:fixed;left:40px;bottom:40px;display:flex;flex-direction:column;gap:20px;z-index:998;opacity:0;animation:slideUp 1s ease 1.2s forwards}
-        .hero-social a{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);border-radius:50%;color:var(--white);text-decoration:none;transition:.3s;background:var(--glass-bg);backdrop-filter:blur(10px)}
-        .hero-social a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);box-shadow:0 5px 20px rgba(200,168,78,.3)}
+        .hero-social{animation:slideUp 1s ease 1.2s forwards;opacity:0}
         .scroll-hint{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:slideUp 1s ease 1.4s forwards}
         .scroll-hint span{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:rgba(240,240,245,.4)}
         .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
@@ -195,8 +193,7 @@
             .news-slide-date{font-size:9px;margin-bottom:3px}
             .news-carousel-label{font-size:9px;padding:3px 10px}
             .news-dot{width:6px;height:6px}
-            .hero-social{left:15px;bottom:20px;flex-direction:row;gap:10px}
-            .hero-social a{width:38px;height:38px}
+            .hero-social{flex-direction:row;gap:10px}
             .home-schedule{padding:60px 20px 40px}
             .schedule-banner{padding:30px 20px}
             .schedule-event{flex-direction:column;gap:16px;padding:20px}

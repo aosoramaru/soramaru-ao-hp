@@ -66,13 +66,18 @@ nav{
 }
 .nav-overlay.open{display:block;opacity:1}
 
-/* ナビリンク: 狭めの右側パネル・くっきり表示 */
+/* ナビリンク: 狭めの右側パネル・グラデーション背景 */
 .nav-links{
     position:fixed;top:0;right:0;
     width:clamp(280px,28vw,380px);
     height:100vh;
     background:#0a0e27;
-    border-left:1px solid rgba(200,168,78,.3);
+    background-image:
+        radial-gradient(ellipse at 100% 0%,rgba(200,168,78,.22),transparent 55%),
+        radial-gradient(ellipse at 0% 100%,rgba(0,212,255,.18),transparent 60%),
+        radial-gradient(circle at 100% 50%,rgba(200,168,78,.08),transparent 40%),
+        linear-gradient(135deg,rgba(10,14,39,1),rgba(18,24,63,1));
+    border-left:1px solid rgba(200,168,78,.35);
     box-shadow:-15px 0 50px rgba(0,0,0,.6);
     flex-direction:column;
     align-items:flex-end;
@@ -91,9 +96,8 @@ nav{
 }
 .nav-links.open{display:flex;transform:translateX(0)}
 .nav-links::before{
-    content:'SORAMARU AO';position:absolute;top:30px;right:clamp(30px,4vw,50px);
-    font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;
-    color:var(--gold);letter-spacing:3px;opacity:.7;
+    content:'';position:absolute;top:0;right:0;width:2px;height:40%;
+    background:linear-gradient(to bottom,var(--gold),transparent);
 }
 .nav-links::after{
     content:'';position:absolute;bottom:0;right:0;width:100%;height:3px;
@@ -110,6 +114,8 @@ nav{
     letter-spacing:3px;text-transform:uppercase;
     text-decoration:none;
     transition:color .2s;
+    pointer-events:auto;
+    position:relative;z-index:2;
 }
 .nav-links a.active{color:var(--gold)}
 .nav-links a:hover{color:var(--gold)}
@@ -159,6 +165,24 @@ nav{
     transform:translateY(-5px);
 }
 
+/* ===== FIXED SNS LINKS (全ページ共通) ===== */
+.hero-social{
+    position:fixed;left:30px;bottom:30px;
+    display:flex;flex-direction:column;gap:14px;
+    z-index:998;
+}
+.hero-social a{
+    width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--glass-border);border-radius:50%;
+    color:var(--white);text-decoration:none;transition:.3s;
+    background:rgba(10,14,39,.7);backdrop-filter:blur(8px);
+}
+.hero-social a:hover{
+    border-color:var(--gold);color:var(--gold);
+    transform:translateY(-3px);
+    box-shadow:0 5px 20px rgba(200,168,78,.3);
+}
+
 /* ===== FOOTER ===== */
 footer{
     position:relative;z-index:1;
@@ -167,7 +191,7 @@ footer{
     margin-top:80px;
 }
 .footer-logo{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--gold);letter-spacing:4px;margin-bottom:12px}
-.footer-social{display:flex;justify-content:center;gap:15px;margin-bottom:15px}
+.footer-social{display:none}
 .footer-social a{
     width:38px;height:38px;display:flex;align-items:center;justify-content:center;
     border:1px solid var(--glass-border);border-radius:50%;
