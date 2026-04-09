@@ -1,11 +1,96 @@
+// ===== SECURITY HELPERS (sanitization / validation) =====
+window.SoramaruSec=(function(){
+    function escapeHtml(s){
+        return String(s).replace(/[&<>"']/g,function(c){
+            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+        });
+    }
+    function stripControlChars(s,allowNewline){
+        if(allowNewline) return s.replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g,'');
+        return s.replace(/[\x00-\x1F\x7F]/g,'');
+    }
+    function stripHtml(s){
+        // タグ風の文字列を全て除去
+        return s.replace(/<[^>]*>/g,'').replace(/<|>/g,'');
+    }
+    var urlRegex=/(?:https?|ftp|javascript|data|file|vbscript):/i;
+    var domainRegex=/(?:^|\s|\/|@)([a-z0-9-]+\.)+[a-z]{2,}/i;
+    function hasUrl(s){
+        return urlRegex.test(s)||domainRegex.test(s);
+    }
+    function sanitizeName(s,max){
+        max=max||30;
+        if(typeof s!=='string') return '';
+        s=s.trim();
+        s=stripHtml(s);
+        s=stripControlChars(s,false);
+        s=s.replace(/\s+/g,' ');
+        // Unicode対応の長さ制限
+        var arr=Array.from(s);
+        if(arr.length>max) s=arr.slice(0,max).join('');
+        return s;
+    }
+    function sanitizeMessage(s,max){
+        max=max||300;
+        if(typeof s!=='string') return '';
+        s=s.trim();
+        s=stripHtml(s);
+        s=stripControlChars(s,true);
+        var arr=Array.from(s);
+        if(arr.length>max) s=arr.slice(0,max).join('');
+        return s;
+    }
+    function isValidName(s){
+        if(!s||typeof s!=='string') return false;
+        if(s.length===0||Array.from(s).length>30) return false;
+        if(hasUrl(s)) return false;
+        if(/(.)\1{9,}/.test(s)) return false;
+        return true;
+    }
+    function isValidMessage(s){
+        if(!s||typeof s!=='string') return false;
+        if(s.length===0||Array.from(s).length>300) return false;
+        if(hasUrl(s)) return false;
+        if(/(.)\1{9,}/.test(s)) return false;
+        return true;
+    }
+    function safeGet(key,max){
+        try{
+            var v=localStorage.getItem(key);
+            if(typeof v!=='string') return null;
+            v=sanitizeName(v,max||50);
+            return v.length>0?v:null;
+        }catch(e){return null}
+    }
+    function safeSet(key,value,max){
+        try{
+            var v=sanitizeName(value,max||50);
+            if(v.length===0) return false;
+            localStorage.setItem(key,v);
+            return true;
+        }catch(e){return false}
+    }
+    return {
+        escapeHtml:escapeHtml,
+        sanitizeName:sanitizeName,
+        sanitizeMessage:sanitizeMessage,
+        isValidName:isValidName,
+        isValidMessage:isValidMessage,
+        hasUrl:hasUrl,
+        safeGet:safeGet,
+        safeSet:safeSet
+    };
+})();
+
 // ===== LOADING / WELCOME (post office) =====
 (function(){
     var loadingEl=document.getElementById('loading');
     if(!loadingEl)return;
-    var name=null,deptLabel=null,setupDone=false,welcomed=false;
+    var Sec=window.SoramaruSec;
+    var name=Sec.safeGet('soramaru_user_name',30);
+    var deptLabel=Sec.safeGet('soramaru_dept_label',50);
+    var setupDone=false,welcomed=false;
     try{
-        name=localStorage.getItem('soramaru_user_name');
-        deptLabel=localStorage.getItem('soramaru_dept_label');
         setupDone=localStorage.getItem('soramaru_setup_done')==='1';
         welcomed=localStorage.getItem('soramaru_welcome_shown')==='1';
     }catch(e){}
@@ -22,20 +107,19 @@
                 '<div class="welcome-title">宙丸郵便局</div>'+
                 '<div class="welcome-divider"></div>'+
                 '<div class="welcome-dept">YOUR DIVISION</div>'+
-                '<div class="welcome-dept-name">'+escapeHtml(deptLabel)+'</div>'+
-                '<div class="welcome-user">'+escapeHtml(name)+'</div>'+
+                '<div class="welcome-dept-name">'+Sec.escapeHtml(deptLabel)+'</div>'+
+                '<div class="welcome-user">'+Sec.escapeHtml(name)+'</div>'+
                 '<div class="welcome-divider2"></div>'+
                 '<div class="welcome-message">ようこそ宙丸郵便局へ</div>'+
             '</div>';
         requestAnimationFrame(function(){loadingEl.classList.add('welcome-show')});
     }else{
-        // 通常ローディング(パーソナライズ版): 設定済みは保存値、未設定は「未所属/流青群」
         var lp=loadingEl.querySelector('p');
         if(lp){
             lp.classList.add('loading-personal');
             lp.innerHTML=
-                '<span class="lp-dept">'+escapeHtml(displayDept)+'</span>'+
-                '<span class="lp-name">'+escapeHtml(displayName)+'</span>'+
+                '<span class="lp-dept">'+Sec.escapeHtml(displayDept)+'</span>'+
+                '<span class="lp-name">'+Sec.escapeHtml(displayName)+'</span>'+
                 '<span class="lp-status">閲覧中...</span>';
         }
     }
@@ -49,11 +133,6 @@
             }
         },delay);
     });
-    function escapeHtml(s){
-        return String(s).replace(/[&<>"']/g,function(c){
-            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
-        });
-    }
 })();
 
 // ===== MOBILE NAV =====
@@ -75,10 +154,10 @@
     if(!document.querySelector('.hero-social')){
         var s=document.createElement('div');
         s.className='hero-social';
-        s.innerHTML='<a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>'+
-            '<a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>'+
-            '<a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>'+
-            '<a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener" aria-label="BOOTH"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>';
+        s.innerHTML='<a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>'+
+            '<a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener noreferrer" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>'+
+            '<a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>'+
+            '<a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener noreferrer" aria-label="BOOTH"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>';
         document.body.appendChild(s);
     }
 })();
@@ -170,26 +249,24 @@ if(mascot){
 (function(){
     var hamb=document.querySelector('.hamburger');
     if(!hamb||!hamb.parentNode)return;
-    var name=null,deptLabel=null;
-    try{
-        name=localStorage.getItem('soramaru_user_name');
-        deptLabel=localStorage.getItem('soramaru_dept_label');
-    }catch(e){}
+    var Sec=window.SoramaruSec;
+    var name=Sec.safeGet('soramaru_user_name',30);
+    var deptLabel=Sec.safeGet('soramaru_dept_label',50);
     var displayName=name||'流青群';
     var displayDept=deptLabel||'未所属';
-    function esc(s){return String(s).replace(/[&<>"']/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})}
     var badge=document.createElement('a');
     badge.className='nav-badge';
     badge.href='setting.html';
     badge.title='公式設定で変更';
     badge.innerHTML=
-        '<span class="nav-badge-dept">'+esc(displayDept)+'</span>'+
-        '<span class="nav-badge-name">'+esc(displayName)+'</span>';
+        '<span class="nav-badge-dept">'+Sec.escapeHtml(displayDept)+'</span>'+
+        '<span class="nav-badge-name">'+Sec.escapeHtml(displayName)+'</span>';
     hamb.parentNode.insertBefore(badge,hamb);
 })();
 
 // ===== POST OFFICE: SETUP MODAL =====
 (function(){
+    var Sec=window.SoramaruSec;
     var KEY_NAME='soramaru_user_name';
     var KEY_DEPT='soramaru_dept';
     var KEY_DEPT_LABEL='soramaru_dept_label';
@@ -197,25 +274,21 @@ if(mascot){
     var KEY_WELCOMED='soramaru_welcome_shown';
     var KEY_SKIP='soramaru_setup_skip';
 
+    // 部署キー → ラベルの正規マスタ(信頼できる定義はここだけ)
     var DEPARTMENTS=[
         {key:'dept1',emoji:'⚔️',label:'第1課 特務'},
         {key:'dept2',emoji:'📣',label:'第2課 広報宣伝部'},
         {key:'dept3',emoji:'🐺',label:'第3課 ルドのお世話係'},
         {key:'dept4',emoji:'📮',label:'第4課 配達部'}
     ];
+    var ALLOWED_DEPT_KEYS={dept1:1,dept2:1,dept3:1,dept4:1};
 
     function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
     function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 
-    function escapeHtml(s){
-        return String(s).replace(/[&<>"']/g,function(c){
-            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
-        });
-    }
-
     function buildWelcomeOverlay(){
-        var name=get(KEY_NAME);
-        var deptLabel=get(KEY_DEPT_LABEL);
+        var name=Sec.safeGet(KEY_NAME,30);
+        var deptLabel=Sec.safeGet(KEY_DEPT_LABEL,50);
         if(!name||!deptLabel)return;
         set(KEY_WELCOMED,'1');
         var w=document.createElement('div');
@@ -226,8 +299,8 @@ if(mascot){
                 '<div class="welcome-title">宙丸郵便局</div>'+
                 '<div class="welcome-divider"></div>'+
                 '<div class="welcome-dept">YOUR DIVISION</div>'+
-                '<div class="welcome-dept-name">'+escapeHtml(deptLabel)+'</div>'+
-                '<div class="welcome-user">'+escapeHtml(name)+'</div>'+
+                '<div class="welcome-dept-name">'+Sec.escapeHtml(deptLabel)+'</div>'+
+                '<div class="welcome-user">'+Sec.escapeHtml(name)+'</div>'+
                 '<div class="welcome-divider2"></div>'+
                 '<div class="welcome-message">ようこそ宙丸郵便局へ</div>'+
             '</div>';
@@ -243,15 +316,16 @@ if(mascot){
         var ov=document.createElement('div');
         ov.id='setupOverlay';
         var deptHtml=DEPARTMENTS.map(function(d){
-            return '<button type="button" class="setup-dept-btn" data-key="'+d.key+'" data-label="'+escapeHtml(d.label)+'"><span class="dept-emoji">'+d.emoji+'</span>'+escapeHtml(d.label)+'</button>';
+            return '<button type="button" class="setup-dept-btn" data-key="'+d.key+'"><span class="dept-emoji">'+d.emoji+'</span>'+Sec.escapeHtml(d.label)+'</button>';
         }).join('');
         ov.innerHTML=
             '<div class="setup-card">'+
                 '<div class="setup-label">SORAMARU POST OFFICE</div>'+
                 '<h2>ようこそ、宙丸郵便局へ</h2>'+
                 '<p class="setup-desc">あなたの名前と配属を登録すると、<br>宙丸郵便局の局員として出勤できます。</p>'+
-                '<input type="text" class="setup-input" id="setupNameInput" placeholder="あなたの名前 (例: TikTokのお名前)" maxlength="20">'+
+                '<input type="text" class="setup-input" id="setupNameInput" placeholder="あなたの名前 (例: TikTokのお名前)" maxlength="20" autocomplete="off" spellcheck="false">'+
                 '<div class="setup-dept-list">'+deptHtml+'</div>'+
+                '<div class="setup-error" id="setupError" style="display:none;color:#ff6b6b;font-size:12px;margin-bottom:14px;text-align:left"></div>'+
                 '<div class="setup-actions">'+
                     '<button type="button" class="setup-btn-primary" id="setupSubmit" disabled>登録する</button>'+
                     '<button type="button" class="setup-btn-skip" id="setupSkip">あとで</button>'+
@@ -263,27 +337,43 @@ if(mascot){
         var nameInput=document.getElementById('setupNameInput');
         var submitBtn=document.getElementById('setupSubmit');
         var skipBtn=document.getElementById('setupSkip');
-        var selectedKey=null,selectedLabel=null;
+        var errorEl=document.getElementById('setupError');
+        var selectedKey=null;
+
+        function clearError(){errorEl.style.display='none';errorEl.textContent=''}
+        function showError(msg){errorEl.textContent=msg;errorEl.style.display='block'}
 
         function refreshSubmit(){
             submitBtn.disabled=!(nameInput.value.trim()&&selectedKey);
+            clearError();
         }
         nameInput.addEventListener('input',refreshSubmit);
         ov.querySelectorAll('.setup-dept-btn').forEach(function(b){
             b.addEventListener('click',function(){
+                if(!ALLOWED_DEPT_KEYS[b.dataset.key])return;
                 ov.querySelectorAll('.setup-dept-btn').forEach(function(x){x.classList.remove('selected')});
                 b.classList.add('selected');
                 selectedKey=b.dataset.key;
-                selectedLabel=b.dataset.label;
                 refreshSubmit();
             });
         });
         submitBtn.addEventListener('click',function(){
-            var name=nameInput.value.trim();
-            if(!name||!selectedKey)return;
+            var raw=nameInput.value;
+            var name=Sec.sanitizeName(raw,20);
+            if(!Sec.isValidName(name)){
+                if(!name) showError('名前を入力してください。');
+                else if(Sec.hasUrl(name)) showError('URLを含む名前は使用できません。');
+                else showError('使用できない文字が含まれています。');
+                return;
+            }
+            // 配属はマスタから引く(クライアント改ざん対策)
+            if(!ALLOWED_DEPT_KEYS[selectedKey]){showError('配属を選択してください。');return}
+            var dept=DEPARTMENTS.find(function(d){return d.key===selectedKey});
+            if(!dept){showError('配属が無効です。');return}
+
             set(KEY_NAME,name);
-            set(KEY_DEPT,selectedKey);
-            set(KEY_DEPT_LABEL,selectedLabel);
+            set(KEY_DEPT,dept.key);
+            set(KEY_DEPT_LABEL,dept.label);
             set(KEY_DONE,'1');
             ov.classList.remove('show');
             setTimeout(function(){
@@ -299,10 +389,8 @@ if(mascot){
     }
 
     function init(){
-        // 既にセットアップ済み or スキップ済み: 何もしない
         if(get(KEY_DONE)==='1')return;
         if(get(KEY_SKIP)==='1')return;
-        // 初回: ローディング消えた後にセットアップを表示
         setTimeout(buildSetup,1600);
     }
 

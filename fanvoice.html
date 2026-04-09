@@ -224,10 +224,10 @@
     <footer>
         <div class="footer-logo">SORAMARU AO</div>
         <div class="footer-social">
-            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
-            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
+            <a href="https://www.tiktok.com/@soramaru_ao_v" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg></a>
+            <a href="https://x.com/soramaru_ao_" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.instagram.com/soramaru_ao_v" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://soramaruaov.booth.pm" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3 3h8v2H8V8zm0 4h8v2H8v-2z"/></svg></a>
         </div>
         <p class="copyright">&copy; 2025 Soramaru Ao. All Rights Reserved.</p>
     </footer>
@@ -236,8 +236,11 @@
 <script src="common.js"></script>
 <script>
 (function(){
+    var Sec=window.SoramaruSec;
     var GAS_URL='https://script.google.com/macros/s/AKfycby7C7S-BB2_j_A_tTiEgBLg9O81Py0QG4t0De3uk0gnwFb91iykpc402p_6o5No99xh/exec';
-    var COOLDOWN_MS=10000; // 連投防止: 10秒
+    var COOLDOWN_MS=10000;
+    var FETCH_TIMEOUT_MS=15000;
+    var MAX_VOICES_RENDER=200;
     var lastSubmit=0;
 
     var form=document.getElementById('fvForm');
@@ -249,16 +252,16 @@
     var countEl=document.getElementById('fvCount');
     var listCountEl=document.getElementById('fvListCount');
 
-    // 文字数カウンタ
+    // 文字数カウンタ(Unicode対応)
     messageInput.addEventListener('input',function(){
-        countEl.textContent=messageInput.value.length;
+        countEl.textContent=Array.from(messageInput.value).length;
     });
 
-    // エスケープ
-    function escapeHtml(s){
-        return String(s).replace(/[&<>"']/g,function(c){
-            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-        });
+    function fetchWithTimeout(url,options,timeout){
+        var controller=('AbortController' in window)?new AbortController():null;
+        if(controller&&!options.signal) options.signal=controller.signal;
+        var t=setTimeout(function(){if(controller)controller.abort()},timeout);
+        return fetch(url,options).finally(function(){clearTimeout(t)});
     }
 
     // 一覧取得
@@ -269,34 +272,44 @@
             return;
         }
         listEl.innerHTML='<div class="fv-empty">読み込み中...</div>';
-        fetch(GAS_URL+'?t='+Date.now(),{method:'GET'})
-            .then(function(r){return r.json()})
-            .then(function(data){
-                if(data.error){throw new Error(data.error)}
-                render(data.voices||[]);
+        fetchWithTimeout(GAS_URL+'?t='+Date.now(),{method:'GET'},FETCH_TIMEOUT_MS)
+            .then(function(r){
+                if(!r.ok) throw new Error('HTTP '+r.status);
+                return r.json();
             })
-            .catch(function(err){
+            .then(function(data){
+                if(!data||typeof data!=='object') throw new Error('invalid');
+                if(data.error) throw new Error('server');
+                render(Array.isArray(data.voices)?data.voices:[]);
+            })
+            .catch(function(){
                 listEl.innerHTML='<div class="fv-empty">メッセージの読み込みに失敗しました。時間をおいて再度お試しください。</div>';
                 listCountEl.textContent='0';
             });
     }
 
     function render(voices){
+        // 表示数制限(レスポンスが異常に大きくてもUIが破壊されないように)
+        if(voices.length>MAX_VOICES_RENDER) voices=voices.slice(0,MAX_VOICES_RENDER);
         listCountEl.textContent=voices.length;
         if(voices.length===0){
             listEl.innerHTML='<div class="fv-empty">まだメッセージがありません。最初の声を届けてください！</div>';
             return;
         }
         listEl.innerHTML=voices.map(function(v){
+            // 受信値もサニタイズ＋エスケープ(GAS側を100%信頼しない多層防御)
+            var nm=Sec.escapeHtml(Sec.sanitizeName(String(v&&v.name||''),30));
+            var dt=Sec.escapeHtml(Sec.sanitizeName(String(v&&v.date||''),20));
+            var ms=Sec.escapeHtml(Sec.sanitizeMessage(String(v&&v.message||''),300));
             return '<div class="fv-item">'+
                 '<div class="fv-item-header">'+
                     '<div class="fv-item-avatar">🌟</div>'+
                     '<div class="fv-item-info">'+
-                        '<div class="fv-item-name">'+escapeHtml(v.name)+'</div>'+
-                        '<div class="fv-item-date">'+escapeHtml(v.date)+'</div>'+
+                        '<div class="fv-item-name">'+nm+'</div>'+
+                        '<div class="fv-item-date">'+dt+'</div>'+
                     '</div>'+
                 '</div>'+
-                '<div class="fv-item-body">'+escapeHtml(v.message)+'</div>'+
+                '<div class="fv-item-body">'+ms+'</div>'+
             '</div>';
         }).join('');
     }
@@ -304,8 +317,6 @@
     // フォーム送信
     form.addEventListener('submit',function(e){
         e.preventDefault();
-        var name=nameInput.value.trim();
-        var message=messageInput.value.trim();
         var honeypot=document.getElementById('fvWebsite').value;
 
         // ハニーポット: ボットが記入したら黙って終了
@@ -323,8 +334,22 @@
             return;
         }
 
+        // サニタイズ + バリデーション
+        var name=Sec.sanitizeName(nameInput.value,30);
+        var message=Sec.sanitizeMessage(messageInput.value,300);
+
         if(!name||!message){
             showStatus('error','お名前とメッセージを入力してください。');
+            return;
+        }
+        if(!Sec.isValidName(name)){
+            if(Sec.hasUrl(name)) showStatus('error','名前にURLを含めることはできません。');
+            else showStatus('error','名前に使用できない文字が含まれています。');
+            return;
+        }
+        if(!Sec.isValidMessage(message)){
+            if(Sec.hasUrl(message)) showStatus('error','メッセージにURLを含めることはできません。');
+            else showStatus('error','メッセージに使用できない内容が含まれています。');
             return;
         }
         if(!GAS_URL){
@@ -334,21 +359,25 @@
         submitBtn.disabled=true;
         showStatus('success','送信中...');
 
-        // GASへPOST（Content-Typeを指定しないことでpreflightを回避）
-        fetch(GAS_URL,{
+        // GASへPOST(Content-Type未指定でpreflight回避)
+        fetchWithTimeout(GAS_URL,{
             method:'POST',
             body:JSON.stringify({name:name,message:message})
+        },FETCH_TIMEOUT_MS)
+        .then(function(r){
+            if(!r.ok) throw new Error('HTTP '+r.status);
+            return r.json();
         })
-        .then(function(r){return r.json()})
         .then(function(data){
-            if(data.error){throw new Error(data.error)}
+            if(!data||typeof data!=='object') throw new Error('invalid');
+            if(data.error) throw new Error('server');
             lastSubmit=Date.now();
             showStatus('success','メッセージを送信しました！表示までしばらくお待ちください。');
             form.reset();
             countEl.textContent='0';
             fetchVoices();
         })
-        .catch(function(err){
+        .catch(function(){
             showStatus('error','送信に失敗しました。時間をおいて再度お試しください。');
         })
         .finally(function(){
