@@ -137,7 +137,7 @@ footer{
 @media(max-width:768px){
     nav{padding:12px 20px}
     .nav-links{
-        position:fixed;top:0;left:0;
+        position:fixed;top:0;right:0;
         width:260px;height:100%;
         background:rgba(10,14,39,.98);
         backdrop-filter:blur(30px);
@@ -145,18 +145,19 @@ footer{
         align-items:flex-start;
         justify-content:flex-start;
         gap:0;
-        padding:80px 0 40px;
-        transform:translateX(-100%);
+        padding:70px 0 40px;
+        transform:translateX(100%);
         transition:transform .3s ease;
-        border-right:1px solid var(--glass-border);
+        border-left:1px solid var(--glass-border);
         overflow-y:auto;
         display:flex;
+        z-index:1001;
     }
     .nav-links.open{transform:translateX(0)}
-    .nav-links li{width:100%}
+    .nav-links li{width:100%;display:block}
     .nav-links a{
-        display:block;width:100%;padding:14px 30px;
-        font-size:15px;color:rgba(240,240,245,.85);
+        display:block;width:100%;padding:12px 28px;
+        font-size:14px;color:rgba(240,240,245,.85);
         border-bottom:1px solid rgba(200,168,78,.08);
         letter-spacing:2px;
     }
