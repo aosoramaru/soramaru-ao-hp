@@ -137,31 +137,32 @@ footer{
 @media(max-width:768px){
     nav{padding:12px 20px}
     .nav-links{
-        position:fixed;top:0;right:0;
+        position:fixed;top:0;left:0;
         width:100%;height:100%;
-        background:rgba(10,14,39,.98);
+        background:rgba(10,14,39,.95);
         backdrop-filter:blur(30px);
         flex-direction:column;
-        align-items:center;
+        align-items:flex-end;
         justify-content:center;
         gap:0;
-        padding:0;
-        transform:translateX(100%);
-        transition:transform .3s ease;
+        padding:0 40px 0 0;
+        opacity:0;visibility:hidden;
+        transition:opacity .3s ease,visibility .3s ease;
         overflow:hidden;
         display:flex;
         z-index:1001;
     }
-    .nav-links.open{transform:translateX(0)}
-    .nav-links li{width:100%;display:block;text-align:center}
+    .nav-links.open{opacity:1;visibility:visible}
+    .nav-links li{display:block;text-align:right}
     .nav-links a{
-        display:block;width:100%;padding:10px 0;
-        font-size:15px;color:rgba(240,240,245,.85);
-        letter-spacing:3px;
+        display:block;padding:9px 0;
+        font-family:'Orbitron',sans-serif;
+        font-size:17px;font-weight:700;color:rgba(240,240,245,.7);
+        letter-spacing:3px;text-transform:uppercase;
     }
     .nav-links a::after{display:none}
-    .nav-links a.active{color:var(--gold);background:rgba(200,168,78,.08)}
-    .nav-links a:hover{color:var(--gold);background:rgba(200,168,78,.05)}
+    .nav-links a.active{color:var(--gold)}
+    .nav-links a:hover{color:var(--white)}
     .nav-overlay{
         display:none;position:fixed;top:0;left:0;width:100%;height:100%;
         background:rgba(0,0,0,.5);z-index:999;
