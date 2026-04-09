@@ -141,26 +141,50 @@ footer{
         width:100%;height:100vh;
         background:var(--deep-blue);
         background-image:
-            radial-gradient(ellipse at 80% 20%,rgba(200,168,78,.06),transparent 50%),
-            radial-gradient(ellipse at 20% 80%,rgba(0,212,255,.04),transparent 50%);
+            radial-gradient(ellipse at 90% 15%,rgba(200,168,78,.18),transparent 45%),
+            radial-gradient(ellipse at 10% 85%,rgba(0,212,255,.12),transparent 45%),
+            radial-gradient(ellipse at 50% 50%,rgba(200,168,78,.04),transparent 70%),
+            radial-gradient(circle at 75% 60%,rgba(0,212,255,.06),transparent 30%),
+            radial-gradient(circle at 20% 30%,rgba(200,168,78,.05),transparent 25%);
         flex-direction:column;
         align-items:flex-end;
         justify-content:center;
         gap:0;
-        padding:0 30px 60px 0;
+        padding:0 30px 0 0;
         display:none;
+        overflow:hidden;
         z-index:1001;
     }
     .nav-links::before{
         content:'SORAMARU AO';position:absolute;top:18px;left:20px;
         font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;
-        color:var(--gold);letter-spacing:3px;opacity:.5;
+        color:var(--gold);letter-spacing:3px;opacity:.4;
     }
     .nav-links::after{
-        content:'';position:absolute;bottom:0;left:0;width:100%;height:4px;
-        background:linear-gradient(90deg,var(--gold),var(--accent-cyan),var(--gold));
+        content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;
+        background:linear-gradient(90deg,transparent,var(--gold),var(--accent-cyan),var(--gold),transparent);
     }
     .nav-links.open{display:flex}
+    .nav-deco-top{
+        position:absolute;top:-40px;right:-40px;width:200px;height:200px;
+        border:1px solid rgba(200,168,78,.1);border-radius:50%;
+        pointer-events:none;
+    }
+    .nav-deco-bottom{
+        position:absolute;bottom:-60px;left:-60px;width:250px;height:250px;
+        border:1px solid rgba(0,212,255,.08);border-radius:50%;
+        pointer-events:none;
+    }
+    .nav-deco-line{
+        position:absolute;top:0;left:50px;width:1px;height:100%;
+        background:linear-gradient(to bottom,transparent,rgba(200,168,78,.12),transparent);
+        pointer-events:none;
+    }
+    .nav-deco-line2{
+        position:absolute;top:0;left:100px;width:1px;height:100%;
+        background:linear-gradient(to bottom,transparent,rgba(0,212,255,.06),transparent);
+        pointer-events:none;
+    }
     .nav-links li{display:block;text-align:right}
     .nav-links a{
         display:block;padding:9px 0;
@@ -172,14 +196,6 @@ footer{
     .nav-links a::after{display:none}
     .nav-links a.active{color:var(--gold);text-shadow:0 0 20px rgba(200,168,78,.4)}
     .nav-links a:hover{color:var(--white);text-shadow:0 0 15px rgba(240,240,245,.3)}
-    .nav-social{
-        position:absolute;bottom:24px;left:20px;
-        display:flex;gap:16px;
-    }
-    .nav-social a{
-        color:rgba(240,240,245,.4);text-decoration:none;transition:color .2s;
-    }
-    .nav-social a:hover{color:var(--gold)}
     .nav-overlay{
         display:none;position:fixed;top:0;left:0;width:100%;height:100%;
         background:rgba(0,0,0,.5);z-index:999;

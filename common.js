@@ -11,6 +11,13 @@ window.addEventListener('load',function(){
     ov.id='navOverlay';
     document.body.appendChild(ov);
     ov.addEventListener('click',function(){closeNav()});
+    // Add decorative elements to nav
+    var nl=document.getElementById('navLinks');
+    if(nl){
+        ['nav-deco-top','nav-deco-bottom','nav-deco-line','nav-deco-line2'].forEach(function(c){
+            var d=document.createElement('div');d.className=c;nl.appendChild(d);
+        });
+    }
 })();
 function toggleNav(){
     document.getElementById('navLinks').classList.toggle('open');
