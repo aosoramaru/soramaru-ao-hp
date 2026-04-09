@@ -226,14 +226,10 @@
 <script src="common.js"></script>
 <script>
 (function(){
-    // サンプルデータ（初回表示用）
-    var sampleVoices = [
-        {name:'みぞれ',message:'いつも元気をもらってます！\nZEPPワンマンライブ、絶対見に行きます🌟',date:'2026.04.09'},
-        {name:'そらまる大好きっ子',message:'配信楽しみにしてるよ〜！\n歌枠が一番好き🎤',date:'2026.04.08'},
-        {name:'りゅうせい',message:'アオちゃんの笑顔に毎日救われてます。\nこれからもずっと応援してるね！',date:'2026.04.07'}
-    ];
+    // ⚠️ Google Apps ScriptのウェブアプリURLをここに貼り付けてください
+    // 例: 'https://script.google.com/macros/s/XXXXXXXX/exec'
+    var GAS_URL='';
 
-    var STORAGE_KEY='soramaru_fan_voices_v1';
     var form=document.getElementById('fvForm');
     var nameInput=document.getElementById('fvName');
     var messageInput=document.getElementById('fvMessage');
@@ -248,26 +244,6 @@
         countEl.textContent=messageInput.value.length;
     });
 
-    // データ取得
-    function getVoices(){
-        try{
-            var stored=localStorage.getItem(STORAGE_KEY);
-            var userVoices=stored?JSON.parse(stored):[];
-            return userVoices.concat(sampleVoices);
-        }catch(e){return sampleVoices}
-    }
-
-    function saveVoice(voice){
-        try{
-            var stored=localStorage.getItem(STORAGE_KEY);
-            var userVoices=stored?JSON.parse(stored):[];
-            userVoices.unshift(voice);
-            if(userVoices.length>50)userVoices=userVoices.slice(0,50);
-            localStorage.setItem(STORAGE_KEY,JSON.stringify(userVoices));
-            return true;
-        }catch(e){return false}
-    }
-
     // エスケープ
     function escapeHtml(s){
         return String(s).replace(/[&<>"']/g,function(c){
@@ -275,9 +251,27 @@
         });
     }
 
-    // 描画
-    function render(){
-        var voices=getVoices();
+    // 一覧取得
+    function fetchVoices(){
+        if(!GAS_URL){
+            listEl.innerHTML='<div class="fv-empty">準備中です。もうしばらくお待ちください。</div>';
+            listCountEl.textContent='0';
+            return;
+        }
+        listEl.innerHTML='<div class="fv-empty">読み込み中...</div>';
+        fetch(GAS_URL+'?t='+Date.now(),{method:'GET'})
+            .then(function(r){return r.json()})
+            .then(function(data){
+                if(data.error){throw new Error(data.error)}
+                render(data.voices||[]);
+            })
+            .catch(function(err){
+                listEl.innerHTML='<div class="fv-empty">メッセージの読み込みに失敗しました。時間をおいて再度お試しください。</div>';
+                listCountEl.textContent='0';
+            });
+    }
+
+    function render(voices){
         listCountEl.textContent=voices.length;
         if(voices.length===0){
             listEl.innerHTML='<div class="fv-empty">まだメッセージがありません。最初の声を届けてください！</div>';
@@ -306,29 +300,43 @@
             showStatus('error','お名前とメッセージを入力してください。');
             return;
         }
-        var now=new Date();
-        var date=now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0');
-        var voice={name:name,message:message,date:date};
-
+        if(!GAS_URL){
+            showStatus('error','準備中です。もうしばらくお待ちください。');
+            return;
+        }
         submitBtn.disabled=true;
-        if(saveVoice(voice)){
+        showStatus('success','送信中...');
+
+        // GASへPOST（Content-Typeを指定しないことでpreflightを回避）
+        fetch(GAS_URL,{
+            method:'POST',
+            body:JSON.stringify({name:name,message:message})
+        })
+        .then(function(r){return r.json()})
+        .then(function(data){
+            if(data.error){throw new Error(data.error)}
             showStatus('success','メッセージを送信しました！ありがとう！');
             form.reset();
             countEl.textContent='0';
-            render();
-        }else{
-            showStatus('error','送信に失敗しました。少し時間をおいて再度お試しください。');
-        }
-        setTimeout(function(){submitBtn.disabled=false},1500);
+            fetchVoices();
+        })
+        .catch(function(err){
+            showStatus('error','送信に失敗しました。時間をおいて再度お試しください。');
+        })
+        .finally(function(){
+            setTimeout(function(){submitBtn.disabled=false},2000);
+        });
     });
 
     function showStatus(type,msg){
         statusEl.className='fv-status '+type;
         statusEl.textContent=msg;
-        setTimeout(function(){statusEl.className='fv-status'},5000);
+        if(type==='error'){
+            setTimeout(function(){statusEl.className='fv-status'},5000);
+        }
     }
 
-    render();
+    fetchVoices();
 })();
 </script>
 </body>
