@@ -19,13 +19,26 @@ window.addEventListener('load',function(){
         });
     }
 })();
+var scrollPos=0;
 function toggleNav(){
-    document.getElementById('navLinks').classList.toggle('open');
+    var open=document.getElementById('navLinks').classList.toggle('open');
     document.getElementById('navOverlay').classList.toggle('open');
+    if(open){
+        scrollPos=window.pageYOffset;
+        document.body.classList.add('nav-open');
+        document.body.style.top=-scrollPos+'px';
+    }else{
+        document.body.classList.remove('nav-open');
+        document.body.style.top='';
+        window.scrollTo(0,scrollPos);
+    }
 }
 function closeNav(){
     document.getElementById('navLinks').classList.remove('open');
     document.getElementById('navOverlay').classList.remove('open');
+    document.body.classList.remove('nav-open');
+    document.body.style.top='';
+    window.scrollTo(0,scrollPos);
 }
 
 // ===== STARS =====

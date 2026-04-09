@@ -10,6 +10,7 @@
     --glass-border:rgba(200,168,78,0.2);
 }
 html{scroll-behavior:smooth}
+body.nav-open{overflow:hidden;position:fixed;width:100%;touch-action:none}
 body{
     font-family:'Noto Sans JP',sans-serif;
     background:var(--deep-blue);
