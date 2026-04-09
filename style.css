@@ -44,7 +44,7 @@ body{
 
 /* ===== NAV (全デバイス共通: ハンバーガーのみ) ===== */
 nav{
-    position:fixed;top:0;left:0;width:100%;z-index:1000;
+    position:fixed;top:0;left:0;width:100%;z-index:1100;
     padding:18px 30px;
     display:flex;justify-content:space-between;align-items:center;
     background:rgba(10,14,39,.85);
@@ -107,18 +107,26 @@ nav{
 .nav-deco-top,.nav-deco-bottom,.nav-deco-line,.nav-deco-line2{display:none}
 .nav-links li{display:block;text-align:right}
 .nav-links a{
-    display:block;padding:10px 0;
+    display:block;padding:10px 14px;
     font-family:'Orbitron',sans-serif;
     font-size:clamp(15px,1.4vw,18px);font-weight:900;
     color:rgba(240,240,245,.95);
     letter-spacing:3px;text-transform:uppercase;
     text-decoration:none;
-    transition:color .2s;
+    transition:color .3s,text-shadow .3s,transform .3s;
     pointer-events:auto;
     position:relative;z-index:2;
+    cursor:pointer;
 }
-.nav-links a.active{color:var(--gold)}
-.nav-links a:hover{color:var(--gold)}
+.nav-links a.active{
+    color:var(--gold);
+    text-shadow:0 0 15px rgba(200,168,78,.5),0 0 30px rgba(200,168,78,.3);
+}
+.nav-links a:hover{
+    color:var(--gold);
+    text-shadow:0 0 20px rgba(200,168,78,.7),0 0 40px rgba(200,168,78,.4),0 0 60px rgba(200,168,78,.2);
+    transform:translateX(-4px);
+}
 
 /* ハンバーガーは常に表示 */
 .hamburger{

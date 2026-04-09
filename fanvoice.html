@@ -54,10 +54,15 @@
             font-family:'Noto Sans JP',sans-serif;font-size:14px;
             transition:border-color .3s,box-shadow .3s;resize:vertical;
         }
+        .fv-field input:hover,
+        .fv-field textarea:hover{
+            border-color:rgba(200,168,78,.5);
+            box-shadow:0 0 12px rgba(200,168,78,.15);
+        }
         .fv-field input:focus,
         .fv-field textarea:focus{
             outline:none;border-color:var(--gold);
-            box-shadow:0 0 15px rgba(200,168,78,.2);
+            box-shadow:0 0 20px rgba(200,168,78,.35),0 0 40px rgba(200,168,78,.15);
         }
         .fv-field textarea{min-height:120px;font-family:'Noto Sans JP',sans-serif}
         .fv-field .fv-counter{font-size:11px;color:rgba(240,240,245,.4);text-align:right;margin-top:4px;font-family:'Orbitron',sans-serif}

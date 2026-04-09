@@ -90,18 +90,14 @@ document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el)})
 // ===== NAV EVENT LISTENERS =====
 var hamburger=document.querySelector('.hamburger');
 if(hamburger)hamburger.addEventListener('click',toggleNav);
-// ナビリンクのクリック時: 明示的にページ遷移
+// ナビリンク: 明示的にbody状態をクリアしてから遷移
 document.querySelectorAll('.nav-links a').forEach(function(a){
     a.addEventListener('click',function(e){
         var href=this.getAttribute('href');
         if(!href||href.charAt(0)==='#')return;
         e.preventDefault();
-        // body状態をクリーンアップ
         document.body.classList.remove('nav-open');
         document.body.style.top='';
-        document.getElementById('navLinks').classList.remove('open');
-        document.getElementById('navOverlay').classList.remove('open');
-        // 明示的に遷移
         window.location.href=href;
     });
 });
