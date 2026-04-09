@@ -29,11 +29,12 @@
         .news-carousel{position:relative;z-index:2;margin-top:120px;margin-left:clamp(30px,5vw,80px);width:clamp(320px,40vw,480px);opacity:0;animation:slideUp 1s ease .5s forwards}
         .news-carousel-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
         .news-carousel-label{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--deep-blue);background:var(--gold);padding:5px 16px;border-radius:3px;font-weight:700}
+        .news-carousel-footer{display:flex;justify-content:center;gap:8px;margin-top:12px}
         .news-carousel-dots{display:flex;gap:6px;margin-left:auto}
         .news-dot{width:8px;height:8px;border-radius:50%;background:rgba(240,240,245,.25);cursor:pointer;transition:.3s}
         .news-dot.active{background:var(--gold);box-shadow:0 0 8px rgba(200,168,78,.5)}
         .news-carousel-viewport{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--glass-border);background:rgba(10,14,39,.6);backdrop-filter:blur(12px)}
-        .news-slide{display:none;animation:newsFadeIn .5s ease forwards;text-decoration:none;color:inherit;cursor:pointer}
+        .news-slide{display:none;animation:newsSlideIn .4s ease forwards;text-decoration:none;color:inherit;cursor:pointer}
         .news-slide.active{display:block}
         .news-slide:hover .news-slide-title{color:var(--gold)}
         .news-slide-img{width:100%;height:200px;object-fit:cover;display:block}
@@ -43,7 +44,7 @@
         .news-slide-desc{font-size:13px;color:rgba(240,240,245,.55);margin-top:6px;line-height:1.7}
         .news-slide.schedule-slide .news-slide-body{padding:30px 24px}
         .news-carousel-label.sch{background:linear-gradient(135deg,var(--accent-cyan),#4a9eff);color:var(--deep-blue)}
-        @keyframes newsFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes newsSlideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
 
         .hero-social{position:fixed;left:40px;bottom:40px;display:flex;flex-direction:column;gap:20px;z-index:100;opacity:0;animation:slideUp 1s ease 1.2s forwards}
         .hero-social a{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);border-radius:50%;color:var(--white);text-decoration:none;transition:.3s;background:var(--glass-bg);backdrop-filter:blur(10px)}
@@ -187,12 +188,6 @@
     <div class="news-carousel" id="newsCarousel">
         <div class="news-carousel-header">
             <span class="news-carousel-label">NEWS</span>
-            <div class="news-carousel-dots" id="newsDots">
-                <span class="news-dot active" data-index="0"></span>
-                <span class="news-dot" data-index="1"></span>
-                <span class="news-dot" data-index="2"></span>
-                <span class="news-dot" data-index="3"></span>
-            </div>
         </div>
         <div class="news-carousel-viewport">
             <a class="news-slide active" href="news.html#news-1">
@@ -225,6 +220,12 @@
                     <div class="news-slide-desc">4日間のイベントに参加！ 応援よろしくお願いします！</div>
                 </div>
             </a>
+        </div>
+        <div class="news-carousel-footer" id="newsDots">
+            <span class="news-dot active" data-index="0"></span>
+            <span class="news-dot" data-index="1"></span>
+            <span class="news-dot" data-index="2"></span>
+            <span class="news-dot" data-index="3"></span>
         </div>
     </div>
     <div class="hero-subtitle">
