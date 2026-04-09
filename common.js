@@ -4,8 +4,22 @@ window.addEventListener('load',function(){
 });
 
 // ===== MOBILE NAV =====
-function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
-function closeNav(){document.getElementById('navLinks').classList.remove('open')}
+(function(){
+    // Create overlay
+    var ov=document.createElement('div');
+    ov.className='nav-overlay';
+    ov.id='navOverlay';
+    document.body.appendChild(ov);
+    ov.addEventListener('click',function(){closeNav()});
+})();
+function toggleNav(){
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('navOverlay').classList.toggle('open');
+}
+function closeNav(){
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('navOverlay').classList.remove('open');
+}
 
 // ===== STARS =====
 var cv=document.getElementById('stars-canvas'),cx=cv.getContext('2d'),stars=[];
