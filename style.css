@@ -11,6 +11,17 @@
 }
 html{scroll-behavior:smooth}
 body.nav-open{overflow:hidden;position:fixed;width:100%;touch-action:none}
+/* ページ本体だけをぼかす（ナビは対象外） */
+body.nav-open #stars-canvas,
+body.nav-open .hero-wrap,
+body.nav-open .page-wrapper,
+body.nav-open > footer,
+body.nav-open .hero-social{
+    filter:blur(10px);
+    -webkit-filter:blur(10px);
+    transition:filter .4s ease;
+    pointer-events:none;
+}
 body{
     font-family:'Noto Sans JP',sans-serif;
     background:var(--deep-blue);
@@ -45,56 +56,57 @@ nav{
     color:var(--gold);text-decoration:none;letter-spacing:3px;
 }
 
-/* ナビオーバーレイ（背景のみぼかし） */
+/* ナビオーバーレイ（ぼかしなし、薄い暗転のみ） */
 .nav-overlay{
     display:none;
     position:fixed;top:0;left:0;width:100%;height:100vh;
-    background:rgba(10,14,39,.35);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
+    background:rgba(10,14,39,.3);
     z-index:1000;
     opacity:0;transition:opacity .4s ease;
 }
 .nav-overlay.open{display:block;opacity:1}
 
-/* ナビリンク: 右寄せ・狭め・はっきり表示 */
+/* ナビリンク: 狭めの右側パネル・くっきり表示 */
 .nav-links{
     position:fixed;top:0;right:0;
-    width:100%;height:100vh;
+    width:clamp(280px,28vw,380px);
+    height:100vh;
     background:#0a0e27;
+    border-left:1px solid rgba(200,168,78,.3);
+    box-shadow:-15px 0 50px rgba(0,0,0,.6);
     flex-direction:column;
     align-items:flex-end;
     justify-content:center;
     gap:0;
-    padding:0 clamp(30px,4vw,60px) 0 0;
+    padding:0 clamp(30px,4vw,50px) 0 0;
     display:none;
     overflow:hidden;
     z-index:1001;
     list-style:none;
-    /* 斜め形状（上20%/下40% 程度の幅） */
-    clip-path:polygon(80% 0, 100% 0, 100% 100%, 60% 100%);
-    -webkit-clip-path:polygon(80% 0, 100% 0, 100% 100%, 60% 100%);
+    /* 左上コーナーに小さめの斜めカット */
+    clip-path:polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+    -webkit-clip-path:polygon(20% 0, 100% 0, 100% 100%, 0 100%);
     transform:translateX(100%);
     transition:transform .5s cubic-bezier(.4,0,.2,1);
 }
 .nav-links.open{display:flex;transform:translateX(0)}
 .nav-links::before{
-    content:'SORAMARU AO';position:absolute;top:30px;right:clamp(30px,4vw,60px);
+    content:'SORAMARU AO';position:absolute;top:30px;right:clamp(30px,4vw,50px);
     font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;
-    color:var(--gold);letter-spacing:3px;opacity:.6;
+    color:var(--gold);letter-spacing:3px;opacity:.7;
 }
 .nav-links::after{
-    content:'';position:absolute;bottom:0;right:0;width:40%;height:3px;
+    content:'';position:absolute;bottom:0;right:0;width:100%;height:3px;
     background:linear-gradient(90deg,transparent,var(--gold),var(--accent-cyan));
 }
-/* 装飾要素は非表示（狭いナビ幅では不要） */
+/* 装飾要素は非表示 */
 .nav-deco-top,.nav-deco-bottom,.nav-deco-line,.nav-deco-line2{display:none}
 .nav-links li{display:block;text-align:right}
 .nav-links a{
     display:block;padding:10px 0;
     font-family:'Orbitron',sans-serif;
-    font-size:clamp(16px,1.6vw,20px);font-weight:900;
-    color:rgba(240,240,245,.9);
+    font-size:clamp(15px,1.4vw,18px);font-weight:900;
+    color:rgba(240,240,245,.95);
     letter-spacing:3px;text-transform:uppercase;
     text-decoration:none;
     transition:color .2s;
@@ -192,8 +204,11 @@ footer{
     nav{padding:12px 20px}
     /* モバイルは全画面表示（斜め解除） */
     .nav-links{
+        width:100%;
         clip-path:none;-webkit-clip-path:none;
         padding:0 30px 0 0;
+        box-shadow:none;
+        border-left:none;
     }
     .nav-links::before{top:18px;right:20px;font-size:12px}
     .nav-links::after{width:100%}
