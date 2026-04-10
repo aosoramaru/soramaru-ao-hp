@@ -24,15 +24,19 @@
     <meta name="twitter:description" content="VTuber宙丸アオの公式ホームページ。宇宙を駆ける配達員、笑顔とワクワクをお届けします。">
     <meta name="twitter:image" content="https://soramaru-ao-hp.vercel.app/1周年イラスト.png">
     <!-- Google Search Console 認証タグ -->
-    <!-- TODO: Search Consoleで発行された認証コードを下記に貼り付けてください -->
-    <!-- <meta name="google-site-verification" content="ここに認証コードを入力"> -->
-    <!-- 構造化データ -->
+    <!-- 手順: https://search.google.com/search-console で「URL プレフィックス」に
+         https://soramaru-ao-hp.vercel.app/ を登録 → HTMLタグの認証コードを取得 →
+         下の content="..." の中身を発行されたコードに差し替えてください -->
+    <meta name="google-site-verification" content="REPLACE_WITH_GSC_VERIFICATION_CODE">
+    <!-- Bing Webmaster (任意) -->
+    <!-- <meta name="msvalidate.01" content="REPLACE_WITH_BING_VERIFICATION_CODE"> -->
+    <!-- 構造化データ: Person -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "宙丸アオ",
-      "alternateName": "Soramaru Ao",
+      "alternateName": ["Soramaru Ao", "そらまるあお"],
       "description": "宇宙を駆ける配達員をテーマにしたVTuber。TikTokを中心に歌・ゲーム・雑談の配信活動中。",
       "url": "https://soramaru-ao-hp.vercel.app/",
       "image": "https://soramaru-ao-hp.vercel.app/1周年イラスト.png",
@@ -44,6 +48,23 @@
       ],
       "birthDate": "--07-03",
       "jobTitle": "VTuber"
+    }
+    </script>
+    <!-- 構造化データ: WebSite (Search Console サイトリンク用) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "宙丸アオ Official",
+      "alternateName": "Soramaru Ao Official",
+      "url": "https://soramaru-ao-hp.vercel.app/",
+      "inLanguage": "ja-JP",
+      "description": "VTuber宙丸アオの公式ホームページ。最新ニュース・プロフィール・グッズ・ファンコミュニティ情報をお届け。",
+      "publisher": {
+        "@type": "Person",
+        "name": "宙丸アオ",
+        "url": "https://soramaru-ao-hp.vercel.app/"
+      }
     }
     </script>
     <link rel="icon" href="Logo_blue.png" type="image/png">
