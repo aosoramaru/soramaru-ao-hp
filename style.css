@@ -45,7 +45,7 @@ body{
     animation:none;padding:0 24px;max-width:100%;
 }
 #loading p.loading-personal .lp-gif{
-    height:96px;width:auto;flex-shrink:0;display:block;
+    height:160px;width:auto;flex-shrink:0;display:block;
     filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));
 }
 #loading p.loading-personal .lp-text{
@@ -67,7 +67,7 @@ body{
 }
 @media(max-width:768px){
     #loading p.loading-personal{flex-direction:column;gap:14px}
-    #loading p.loading-personal .lp-gif{height:120px}
+    #loading p.loading-personal .lp-gif{height:180px}
     #loading p.loading-personal .lp-text{gap:10px}
     #loading p.loading-personal .lp-dept{font-size:18px;letter-spacing:1px}
     #loading p.loading-personal .lp-name{font-size:22px;letter-spacing:1px}
