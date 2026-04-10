@@ -35,4 +35,4 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: https://soramaru-ao-hp.vercel.app/sitemap.xml
+Sitemap: https://aosoramaru.github.io/soramaru-ao-hp/sitemap.xml
