@@ -118,9 +118,12 @@ window.SoramaruSec=(function(){
         if(lp){
             lp.classList.add('loading-personal');
             lp.innerHTML=
-                '<span class="lp-dept">'+Sec.escapeHtml(displayDept)+'</span>'+
-                '<span class="lp-name">'+Sec.escapeHtml(displayName)+'</span>'+
-                '<span class="lp-status">閲覧中...</span>';
+                '<img class="lp-gif" src="gif.gif" alt="" loading="eager">'+
+                '<span class="lp-text">'+
+                    '<span class="lp-dept">'+Sec.escapeHtml(displayDept)+'</span>'+
+                    '<span class="lp-name">'+Sec.escapeHtml(displayName)+'</span>'+
+                    '<span class="lp-status">閲覧中...</span>'+
+                '</span>';
         }
     }
 
