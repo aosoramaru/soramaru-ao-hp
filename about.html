@@ -110,6 +110,17 @@
         .ref-image{width:100%;border-radius:16px;border:1px solid var(--glass-border);cursor:pointer;transition:.3s}
         .ref-image:hover{border-color:var(--gold);box-shadow:0 0 30px rgba(200,168,78,.15)}
 
+        /* Marshmallow */
+        .marshmallow-section{text-align:center;padding:50px 30px;margin-bottom:20px;border-radius:20px;border:1px solid rgba(255,182,193,.25);background:linear-gradient(135deg,rgba(10,14,39,.85),rgba(255,182,193,.06));backdrop-filter:blur(20px);position:relative;overflow:hidden}
+        .marshmallow-section::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(255,182,193,.08),transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(200,168,78,.06),transparent 60%);pointer-events:none}
+        .marshmallow-section>*{position:relative}
+        .marshmallow-logo{width:72px;height:72px;border-radius:16px;margin-bottom:16px}
+        .marshmallow-section h4{font-family:'Orbitron',sans-serif;font-size:16px;letter-spacing:3px;color:#ffb6c1;margin-bottom:8px}
+        .marshmallow-section .mm-title{font-size:20px;font-weight:900;color:var(--white);letter-spacing:2px;margin-bottom:14px}
+        .marshmallow-section p{font-size:14px;color:rgba(240,240,245,.6);line-height:2;margin-bottom:24px}
+        .marshmallow-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;border-radius:50px;background:linear-gradient(135deg,#ffb6c1,#ffd1dc);color:#8b3a54;text-decoration:none;font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;transition:.3s;box-shadow:0 5px 20px rgba(255,182,193,.25)}
+        .marshmallow-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,182,193,.4)}
+
         @media(max-width:768px){
             .profile-top{flex-direction:column;align-items:center;text-align:center;gap:30px}
             .profile-img-area{justify-content:center}
@@ -240,6 +251,17 @@
             <h4>CHARACTER SHEET</h4>
             <img class="ref-image" src="三面図１.jpg" alt="三面図1" onclick="window.open(this.src,'_blank','noopener')" style="margin-bottom:16px">
             <img class="ref-image" src="三面図２.jpg" alt="三面図2" onclick="window.open(this.src,'_blank','noopener')">
+        </div>
+
+        <!-- Marshmallow -->
+        <div class="marshmallow-section reveal">
+            <img class="marshmallow-logo" src="marshmallow_icon.png" alt="マシュマロ">
+            <h4>MARSHMALLOW</h4>
+            <div class="mm-title">匿名の質問箱</div>
+            <p>宙丸アオへ匿名で質問を送ることができるマシュマロ箱です。<br>いただいた質問は、配信中に取り上げさせていただくことがあります。<br>お気軽にどうぞ！</p>
+            <a href="https://marshmallow-qa.com/itb93zt9iygp3n7" target="_blank" rel="noopener noreferrer" class="marshmallow-btn">
+                質問を送る
+            </a>
         </div>
     </div>
 
