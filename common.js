@@ -98,6 +98,15 @@ window.SoramaruSec=(function(){
     // パーソナライズ表示: 未設定でも「未所属 / 流青群」のデフォルト値を出す
     var displayDept=deptLabel||'未所属';
     var displayName=name||'流青群';
+    // 同じサイトからの遷移なら「閲覧中」、外部/URL直打ちなら「ようこそ」
+    var isInternalNav=false;
+    try{
+        if(document.referrer){
+            var ref=new URL(document.referrer);
+            isInternalNav=(ref.hostname===location.hostname);
+        }
+    }catch(e){}
+    var statusText=isInternalNav?'閲覧中...':'ようこそ';
 
     if(shouldWelcome){
         loadingEl.classList.add('is-welcome');
@@ -122,7 +131,7 @@ window.SoramaruSec=(function(){
                 '<span class="lp-text">'+
                     '<span class="lp-dept">'+Sec.escapeHtml(displayDept)+'</span>'+
                     '<span class="lp-name">'+Sec.escapeHtml(displayName)+'</span>'+
-                    '<span class="lp-status">閲覧中...</span>'+
+                    '<span class="lp-status">'+statusText+'</span>'+
                 '</span>';
         }
     }
